@@ -11,4 +11,5 @@ voucher_eligibility/
 │  ├─ processed/
 ├─ src/ # Source code (mainly .R files)
 ├─ app/ # Shiny app 
+├─ output/ # Output files (reports and images)
 ```
