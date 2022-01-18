@@ -1,14 +1,15 @@
-# voucher_eligibility
-This repo contains all scrip and documentation related to out exploratory work on voucher (section 8) assistance eligibility across Delaware. 
+# Examining Housing Choice Voucher (Section 8) in Delaware
+This repo contains all scripts and documentation related to out exploratory work on Housing Choice Voucher (Section 8) assistance eligibility across Delaware. 
 
 
 ## Project Structure
 
 ```
-voucher_eligibility/
+voucher-eligibility/
 ├─ data/
 │  ├─ raw/
 │  ├─ processed/
 ├─ src/ # Source code (mainly .R files)
 ├─ app/ # Shiny app 
+├─ output/ # Output files (reports and images)
 ```
