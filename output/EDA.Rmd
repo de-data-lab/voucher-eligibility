@@ -1,0 +1,129 @@
+---
+title: "Voucher_EDA"
+author: "Mehak Gupta"
+date: "1/18/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+    here,
+    tidyverse,
+    lubridate,
+    tidycensus,
+    tigris,
+    acs,
+    leaflet,
+    mapview,
+    viridis)
+
+library(xml2)
+library(tibble)
+library(rvest)
+library(stringr)
+library(tidyr)
+library(janitor)
+library(dplyr)
+library(pdftools)
+library(readr)
+library(leaflet)
+library(tigris)
+library(tidyverse)
+library("ggpubr")
+library(peRspective)
+library(reshape)
+library(plotly)
+library(lubridate)
+library(RColorBrewer)
+
+# Load data
+hud_de_section8 <- read_rds(here("data/processed/hud_de_section8.rds"))
+pop <- read_csv(here('data/raw/pop2019.csv'))
+rent <- read_csv(here('data/raw/rent019.csv'))
+rent30 <- read_csv(here('data/raw/rent302019.csv'))
+de_summary_table <- hud_de_section8 %>% 
+    mutate(tot = number_reported)
+```
+
+```{r, echo=FALSE}
+eligible <- rent %>%
+    inner_join(rent30, by="GEOID") %>%
+    filter(med_rent_percE > 30)
+```
+
+```{r, echo=FALSE}
+de_h30 <- hud_de_section8 %>% group_by(GEOID) %>% 
+    summarize(rent=mean(rent_per_month),
+              inc=mean(hh_income),
+              pinc=mean(person_income),
+              spending=mean(spending_per_month)) %>%
+    mutate(h30=100*(rent/inc)) #%>% filter(h30 >=30) 
+```
+
+```{r, echo=FALSE}
+shape <- tracts(state='10')
+
+la <- geo_join(shape,
+               eligible %>% mutate(GEOID=as.character(GEOID)),
+               by="GEOID") %>%
+    replace(is.na(.), 0) %>%
+    filter(GEOID>0)
+
+la$NAMELSAD <- gsub("Census Tract", "", la$NAMELSAD)
+popUp <- with(la,paste0("<br><b>GEOID:</b> ", la$GEOID,
+                        "<br><b>Census Tract:</b>",la$NAMELSAD,
+                        "<br><b>Household Count (above 30%):</b>",la$above30,
+                        "<br><b>*Percentage of hh_income on rent:</b> ", specify_decimal(la$med_rent_percE,2)
+                        
+))
+
+cols <- colorNumeric(
+    palette = "inferno",
+    domain =la$med_rent_percE, reverse = TRUE
+)
+lat <- 39.1824#39.5393
+lng <- -75.2
+map <- la %>%
+    leaflet() %>%
+    addTiles(providers$CartoDB.Positron) %>%   #not including one, sets the general maps version
+    setView(lng, lat, zoom = 8.0) %>%
+    addPolygons(fillColor = ~cols(la$med_rent_percE),
+                color = "#B2AEAE",
+                fillOpacity = 1,
+                weight = 1,
+                smoothFactor = 0.4,
+                popup = popUp
+    ) %>%
+    addLegend(pal = cols,
+              values = la$med_rent_percE,
+              position = "bottomright",
+              title = paste("Percentage of hh_income on rent (above 30)",sep=" "))
+map
+```
+```{r, echo=FALSE}
+mycolors <- c(brewer.pal(name="Blues", n = 8), brewer.pal(name="Greens", n = 6), brewer.pal(name="Greys", n = 6), brewer.pal(name="Purples", n = 6), brewer.pal(name="Reds", n = 6))
+
+data <- inner_join(de_summary_table,
+                   eligible %>%
+                       mutate(GEOID=as.character(GEOID)),
+                   by="GEOID")
+
+ggplot_cases_time_cont <- data %>%
+    ## na.rm = TRUE ensures all values are NA are taken as 0
+    ggplot(aes(x = tot, y = above30)) +
+    geom_point()+
+    theme_minimal()+
+    ylab("Total Eligible")+
+    xlab('Number Reported')+
+    ggtitle("Number of Eligible household vs Number reported")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+
