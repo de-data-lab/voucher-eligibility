@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-```{r cars}
+```{r setup}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   here,
@@ -45,12 +45,12 @@ library(RColorBrewer)
 ```
 
 
-```{r pressure, echo=FALSE}
-data<-read_csv('ak_mn.csv')
-pop<-read_csv('pop2019.csv')
-rent<-read_csv('rent019.csv')
-rent30<-read_csv('rent302019.csv')
-data<- data %>% select("gsl","entities","sumlevel",
+```{r, echo=FALSE}
+data <- read_csv(here('data/raw/ak_mn.csv'))
+pop <- read_csv(here('data/raw/pop2019.csv'))
+rent <- read_csv(here('data/raw/rent019.csv'))
+rent30 <- read_csv(here('data/raw/rent302019.csv'))
+data <- data %>% select("gsl","entities","sumlevel",
                        "program_label", "program","sub_program", "name", "code",
                        "rent_per_month","hh_income","person_income","spending_per_month","number_reported")
 
@@ -59,18 +59,18 @@ de<- de %>% dplyr::rename(GEOID=code)
 de<-de %>% group_by(GEOID) %>% 
   summarize(tot=sum(number_reported))
 ```
-```{r pressure, echo=FALSE}
+```{r, echo=FALSE}
 eligible<-inner_join(rent,rent30,by="GEOID") %>% filter(med_rent_percE>30)
 ```
 
-```{r pressure, echo=FALSE}
+```{r, echo=FALSE}
 
 de_h30<-de %>% group_by(code) %>% 
   summarize(rent=mean(rent_per_month),inc=mean(hh_income),pinc=mean(person_income),spending=mean(spending_per_month)) %>%
   mutate(h30=100*(rent/inc)) #%>% filter(h30 >=30) 
 ```
 
-```{r pressure, echo=FALSE}
+```{r, echo=FALSE}
 shape <- tracts(state='10')
 
 la <- geo_join(shape,eligible %>%mutate(GEOID=as.character(GEOID)), by="GEOID") %>% replace(is.na(.), 0) %>% filter(GEOID>0)
@@ -106,7 +106,7 @@ map<-la %>%
 #saveRDS(map, file=paste0("Plots/disease/",di,yr,".rds"))
 map
 ```
-```{r pressure, echo=FALSE}
+```{r, echo=FALSE}
 mycolors = c(brewer.pal(name="Blues", n = 8), brewer.pal(name="Greens", n = 6), brewer.pal(name="Greys", n = 6), brewer.pal(name="Purples", n = 6), brewer.pal(name="Reds", n = 6))
 
 
