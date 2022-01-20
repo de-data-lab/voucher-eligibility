@@ -67,6 +67,7 @@ de_h30 <- hud_de_section8 %>% group_by(GEOID) %>%
 ```
 
 ```{r, echo=FALSE}
+eligible<-inner_join(rent,rent30,by="GEOID") %>% filter(med_rent_percE>30)
 shape <- tracts(state='10')
 
 la <- geo_join(shape,
@@ -104,6 +105,50 @@ map <- la %>%
               values = la$med_rent_percE,
               position = "bottomright",
               title = paste("Percentage of hh_income on rent (above 30)",sep=" "))
+map
+```
+
+```{r, echo=FALSE}
+
+eligible<-inner_join(rent,rent30,by="GEOID")# %>% filter(med_rent_percE>30)
+
+shape <- tracts(state='10')
+
+la <- geo_join(shape,
+               eligible %>% mutate(GEOID=as.character(GEOID)),
+               by="GEOID") %>%
+    replace(is.na(.), 0) %>%
+    filter(GEOID>0)
+
+la$NAMELSAD <- gsub("Census Tract", "", la$NAMELSAD)
+popUp <- with(la,paste0("<br><b>GEOID:</b> ", la$GEOID,
+                        "<br><b>Census Tract:</b>",la$NAMELSAD,
+                        "<br><b>Household Count (above 30%):</b>",la$above30,
+                        "<br><b>*Percentage of hh_income on rent:</b> ", specify_decimal(la$med_rent_percE,2)
+                        
+))
+
+cols <- colorNumeric(
+    palette = "inferno",
+    domain =la$med_rent_percE, reverse = TRUE
+)
+lat <- 39.1824#39.5393
+lng <- -75.2
+map <- la %>%
+    leaflet() %>%
+    addTiles(providers$CartoDB.Positron) %>%   #not including one, sets the general maps version
+    setView(lng, lat, zoom = 8.0) %>%
+    addPolygons(fillColor = ~cols(la$med_rent_percE),
+                color = "#B2AEAE",
+                fillOpacity = 1,
+                weight = 1,
+                smoothFactor = 0.4,
+                popup = popUp
+    ) %>%
+    addLegend(pal = cols,
+              values = la$med_rent_percE,
+              position = "bottomright",
+              title = paste("Percentage of hh_income on rent (All)",sep=" "))
 map
 ```
 ```{r, echo=FALSE}
