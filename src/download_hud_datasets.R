@@ -21,4 +21,4 @@ joined_data <- AK_data %>%
 
 # Save file
 write_csv(joined_data, here("data/processed/hud_2020_tract_joined.csv"))
-write_rds(joined_data, here("data/processed/hud_2020_tract_joined.rds"))
+write_rds(joined_data, here("data/processed/hud_2020_tract_joined.rds"), compress = "gz")
