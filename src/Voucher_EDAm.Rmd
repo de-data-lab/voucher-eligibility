@@ -41,32 +41,24 @@ library(reshape)
 library(plotly)
 library(lubridate)
 library(RColorBrewer)
-```
 
-
-```{r, echo=FALSE}
-hud_data <- read_csv(here('data/processed/hud_2020_tract_joined.csv'))
+# Load data
+hud_de_section8 <- read_rds(here("data/processed/hud_de_section8.rds"))
 pop <- read_csv(here('data/raw/pop2019.csv'))
 rent <- read_csv(here('data/raw/rent019.csv'))
 rent30 <- read_csv(here('data/raw/rent302019.csv'))
-hud_data <- hud_data %>% 
-    select("gsl","entities","sumlevel",
-           "program_label", "program","sub_program", "name", "code",
-           "rent_per_month","hh_income","person_income","spending_per_month","number_reported")
-
-hud_de <- hud_data %>% filter(str_detect(entities,"DE"))
-hud_de <- hud_de %>% dplyr::rename(GEOID=code)
-de_summary_table <- hud_de %>% 
-    group_by(GEOID) %>% 
-    summarize(tot = sum(number_reported))
+de_summary_table <- hud_de_section8 %>% 
+    mutate(tot = number_reported)
 ```
 
 ```{r, echo=FALSE}
-eligible <- rent %>% inner_join(rent30, by="GEOID") %>% filter(med_rent_percE > 30)
+eligible <- rent %>%
+    inner_join(rent30, by="GEOID") %>%
+    filter(med_rent_percE > 30)
 ```
 
 ```{r, echo=FALSE}
-de_h30 <- hud_de %>% group_by(GEOID) %>% 
+de_h30 <- hud_de_section8 %>% group_by(GEOID) %>% 
     summarize(rent=mean(rent_per_month),
               inc=mean(hh_income),
               pinc=mean(person_income),
