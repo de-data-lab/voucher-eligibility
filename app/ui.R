@@ -8,26 +8,24 @@
 #
 
 library(shiny)
+library(leaflet)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-
+    
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
+    titlePanel("Housing Choice Voucher Community Efficiency Index"),
+    
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+            selectInput("selectedCounty", "Select County",
+                        choices = c("New Castle", "Kent", "Sussex"))
         ),
-
+        
         # Show a plot of the generated distribution
         mainPanel(
-            plotOutput("distPlot")
+            leafletOutput("map")
         )
     )
 ))
