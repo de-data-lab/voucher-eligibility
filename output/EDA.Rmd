@@ -59,15 +59,16 @@ eligible <- rent %>%
 
 ```{r, echo=FALSE}
 de_h30 <- hud_de_section8 %>% group_by(GEOID) %>% 
-    summarize(rent=mean(rent_per_month),
-              inc=mean(hh_income),
-              pinc=mean(person_income),
-              spending=mean(spending_per_month)) %>%
-    mutate(h30=100*(rent/inc)) #%>% filter(h30 >=30) 
+    summarize(rent = mean(rent_per_month),
+              inc = mean(hh_income),
+              pinc = mean(person_income),
+              spending = mean(spending_per_month)) %>%
+    mutate(h30 = 100*(rent/inc))
 ```
 
 ```{r, echo=FALSE}
-eligible<-inner_join(rent,rent30,by="GEOID") %>% filter(med_rent_percE>30)
+eligible <- inner_join(rent,rent30,by="GEOID") %>% 
+    filter(med_rent_percE>30)
 shape <- tracts(state='10')
 
 la <- geo_join(shape,
@@ -110,7 +111,7 @@ map
 
 ```{r, echo=FALSE}
 
-eligible<-inner_join(rent,rent30,by="GEOID")# %>% filter(med_rent_percE>30)
+eligible <- inner_join(rent,rent30,by="GEOID")# %>% filter(med_rent_percE>30)
 
 shape <- tracts(state='10')
 

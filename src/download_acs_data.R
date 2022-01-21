@@ -11,10 +11,10 @@ rent_30plus_vars <- c("B25070_007",
                       "B25070_010")
 de_rent_30plus <- get_acs(
     geography = "tract", 
-    variables = income_vars,
+    variables = rent_30plus_vars,
     state = "DE")
 
-de_rent30plus_wide <- de_income %>% 
+de_rent30plus_wide <- de_rent_30plus %>% 
     select(-moe) %>% 
     pivot_wider(id_cols = c("GEOID", "NAME"),
                 values_from = estimate,
@@ -29,6 +29,6 @@ de_rent30plus_wide <- de_rent30plus_wide %>%
     ungroup()
 
 # Write out the datasets
-write_csv(de_rent30plus_wide, here("data/processed/", "de_rent30plus_wide.csv"))
-write_rds(de_rent30plus_wide, here("data/processed/", "de_rent30plus_wide.rds"))
+write_csv(de_rent30plus_wide, here("data/processed/", "acs_rent30plus_de_wide.csv"))
+write_rds(de_rent30plus_wide, here("data/processed/", "acs_rent30plus_de_wide.rds"))
 
