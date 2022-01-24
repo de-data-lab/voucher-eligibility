@@ -5,7 +5,8 @@ date: "1/18/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo=FALSE}
+
 knitr::opts_chunk$set(
 	echo = TRUE,
 	message = FALSE,
@@ -47,8 +48,15 @@ hud_de_section8 <- read_rds(here("data/processed/hud_de_section8.rds"))
 pop <- read_csv(here('data/raw/pop2019.csv'))
 rent <- read_csv(here('data/raw/rent019.csv'))
 rent30 <- read_csv(here('data/raw/rent302019.csv'))
-de_summary_table <- hud_de_section8 %>% 
+
+hud_de_section8<- hud_de_section8 %>% select("gsl","entities","sumlevel",
+                       "program_label", "program","sub_program", "name", "GEOID",
+                       "rent_per_month","hh_income","person_income","spending_per_month","number_reported")
+
+de_summary_table <- hud_de_section8 %>% group_by(GEOID) %>% 
     mutate(tot = number_reported)
+
+
 ```
 
 ```{r, echo=FALSE}
@@ -153,23 +161,163 @@ map <- la %>%
 map
 ```
 ```{r, echo=FALSE}
-mycolors <- c(brewer.pal(name="Blues", n = 8), brewer.pal(name="Greens", n = 6), brewer.pal(name="Greys", n = 6), brewer.pal(name="Purples", n = 6), brewer.pal(name="Reds", n = 6))
+
 
 data <- inner_join(de_summary_table,
                    eligible %>%
                        mutate(GEOID=as.character(GEOID)),
-                   by="GEOID")
+                   by="GEOID") 
+data$tot[data$tot==-4]<-10
+dat30<-data %>% select('GEOID','rent_30E','tot') %>% mutate('perc_hh_income_rent'='rent_30_35') %>% dplyr::rename(elCount=rent_30E)
+dat35<-data %>% select('GEOID','rent_35E','tot') %>% mutate('perc_hh_income_rent'='rent_35_40') %>% dplyr::rename(elCount=rent_35E)
+dat40<-data %>% select('GEOID','rent_40E','tot') %>% mutate('perc_hh_income_rent'='rent_40_50') %>% dplyr::rename(elCount=rent_40E)
+dat50<-data %>% select('GEOID','rent_50E','tot') %>% mutate('perc_hh_income_rent'='rent_50') %>% dplyr::rename(elCount=rent_50E)
 
-ggplot_cases_time_cont <- data %>%
-    ## na.rm = TRUE ensures all values are NA are taken as 0
-    ggplot(aes(x = tot, y = above30)) +
-    geom_point()+
-    theme_minimal()+
-    ylab("Total Eligible")+
-    xlab('Number Reported')+
-    ggtitle("Number of Eligible household vs Number reported")
+data<-rbind(dat30,dat35)
+data<-rbind(data,dat40)
+data<-rbind(data,dat50)
+
+data$county<-substr(data$GEOID, 3, 5)
+data<-data %>% filter(tot>0)
+```
+
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% filter(county=='001') %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=tot,y=elCount,
+             color = perc_hh_income_rent))+
+  geom_point()+
+  theme_minimal()+
+  ylab("Total Eligible")+
+  xlab('Number Reported')+
+  labs(color = "Percentage of hh_income spent on rent")+
+  ggtitle("Number of Eligible household vs Number reported")
 
 ggplotly(ggplot_cases_time_cont) %>%
     plotly_build()
 ```
 
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% filter(county=='003') %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=tot,y=elCount,
+             color = perc_hh_income_rent))+
+  geom_point()+
+  theme_minimal()+
+  ylab("Total Eligible")+
+  xlab('Number Reported')+
+  labs(color = "Percentage of hh_income spent on rent")+
+  ggtitle("Number of Eligible household vs Number reported")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% filter(county=='005') %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=tot,y=elCount,
+             color = perc_hh_income_rent))+
+  geom_point()+
+  theme_minimal()+
+  ylab("Total Eligible")+
+  xlab('Number Reported')+
+  labs(color = "Percentage of hh_income spent on rent")+
+  ggtitle("Number of Eligible household vs Number reported")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% group_by(county,perc_hh_income_rent) %>% 
+    summarize(count=sum(elCount)) %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=county,y=count))+
+  geom_bar(aes(fill=perc_hh_income_rent),   # fill depends on cond2
+             stat="identity",
+             colour="black",    # Black outline for all
+             position=position_dodge())+
+  ylab("Total Eligible")+
+  xlab("County")+
+  labs(color = "Percentage of hh_income spent on rent")+
+  ggtitle("Number of Eligible household by percentage category")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% group_by(county) %>% 
+    summarize(eligible=sum(elCount),reported=sum(tot)) %>%
+    mutate(perc=(eligible-reported)/eligible) %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=county,y=perc))+
+  geom_bar(aes(fill=county),   # fill depends on cond2
+             stat="identity",
+             colour="black",    # Black outline for all
+             position=position_dodge())+
+  ylab("Total Eligible")+
+  xlab("County")+
+  labs(color = "Percentage of household not receiving rental assistance by housing vouchers")+
+  ggtitle("Percentage of household not receiving rental assistance by housing vouchers")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+```{r, echo=FALSE}
+
+data <- inner_join(de_summary_table,
+                   eligible %>%
+                       mutate(GEOID=as.character(GEOID)),
+                   by="GEOID") %>%
+    mutate(perc=(above30-tot)/above30)
+data$tot[data$tot==-4]<-10
+data$county<-substr(data$GEOID, 3, 5)
+data<-data %>% filter(tot>0)
+
+ggplot_cases_time_cont = data %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=perc,y=med_rentE,
+             color = county))+
+  geom_point()+
+  theme_minimal()+
+  xlab("Percentage of household not receiving housing vouchers")+
+  ylab('Median Rent')+
+  labs(color = "County")+
+  ggtitle("Relation between Number of Eligible household vs Median rent")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+
+```{r, echo=FALSE}
+
+data <- inner_join(de_summary_table,
+                   eligible %>%
+                       mutate(GEOID=as.character(GEOID)),
+                   by="GEOID") %>%
+    mutate(perc=(above30-tot)/above30)
+
+data <- inner_join(data,
+                   pop %>%
+                       mutate(GEOID=as.character(GEOID)),
+                   by="GEOID")
+
+data$tot[data$tot==-4]<-10
+data$county<-substr(data$GEOID, 3, 5)
+data<-data %>% filter(tot>0)
+
+ggplot_cases_time_cont = data %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=perc,y=hh_incE,
+             color = county))+
+  geom_point()+
+  theme_minimal()+
+  xlab("Percentage of household not receiving housing vouchers")+
+  ylab('Household Income')+
+  labs(color = "County")+
+  ggtitle("Relation between Number of Eligible household vs Household Income")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
