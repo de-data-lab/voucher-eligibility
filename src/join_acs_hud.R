@@ -13,7 +13,7 @@ hud_de_section8 <- hud_de_section8 %>%
 
 # Join ACS
 joined_data <- acs_rent30plus_wide %>%
-    inner_join(hud_de_section8, by = c("GEOID" = "code"))
+    left_join(hud_de_section8, by = c("GEOID" = "GEOID"))
 
 # Calculate the proportion of the serviced renters vs eligible renters
 joined_data <- joined_data %>%

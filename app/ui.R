@@ -9,6 +9,7 @@
 
 library(shiny)
 library(leaflet)
+library(plotly)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -20,12 +21,14 @@ shinyUI(fluidPage(
     sidebarLayout(
         sidebarPanel(
             selectInput("selectedCounty", "Select County",
-                        choices = c("New Castle", "Kent", "Sussex"))
+                        choices = c("(All Delaware)", "New Castle", "Kent", "Sussex"))
         ),
         
         # Show a plot of the generated distribution
         mainPanel(
-            leafletOutput("map")
+            plotlyOutput("mainplot"),
+            leafletOutput("map"),
+            "We defined renters potentially eligible for housing vouchers by calculating renter households paying 30% or more income on rent."
         )
     )
 ))
