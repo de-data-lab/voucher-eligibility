@@ -11,8 +11,9 @@ library(shiny)
 library(here)
 library(tidyverse)
 library(plotly)
+library(sf)
 
-geo_data <- read_rds(here("data/processed/acs_hud_de_geojoined.rds"))
+geo_data <- read_rds("acs_hud_de_geojoined.rds")
 
 # Labels
 popUp <- with(geo_data,
@@ -62,15 +63,18 @@ shinyServer(function(input, output) {
                                       name == "number_reported" ~ "Receiving Section 8"))
 
         # geo_long %>%
-        #     ggplot(aes(x = "", y = value, fill = name, color = name)) +
+        #     ggplot(aes(x = "", y = value, fill = labels, color = labels)) +
         #     geom_bar(stat = "identity") +
         #     coord_polar("y", start = -2)
-        geo_long %>% 
-            plot_ly(labels = ~labels, values = ~value, type = 'pie') %>%
-            layout(title = "Renters Receiving Section 8",
-                   mode = "hide",
-                   xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-                   yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+        
+        statewide <- geo_long %>%
+            st_drop_geometry() %>% 
+            group_by(labels) %>%
+            summarise(counts = sum(value, na.rm = T))
+        
+        statewide %>%
+            plot_ly(labels = ~labels, values = ~counts, type = 'pie') %>%
+            layout(title = "Potentially-Eligible Renters Receiving Section 8")
         
         
     })
