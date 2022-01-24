@@ -13,3 +13,4 @@ acs_hud_de_geojoined <- de_shape %>%
     mutate(tract = NAME.shape)
 
 write_rds(acs_hud_de_geojoined, here("data/processed/acs_hud_de_geojoined.rds"))
+write_rds(acs_hud_de_geojoined, here("app/acs_hud_de_geojoined.rds"))
