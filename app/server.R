@@ -58,16 +58,22 @@ shinyServer(function(input, output) {
             mutate(number_not_using = eligible_renters - number_reported) %>%
             select(GEOID, COUNTYFP, number_not_using, number_reported) %>%
             pivot_longer(cols = c("number_not_using", "number_reported")) %>%
-            mutate(labels = case_when(name == "number_not_using" ~ "Not receiving Section 8",
-                                      name == "number_reported" ~ "Receiving Section 8"))
+            mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
+                                      name == "number_reported" ~ "Receiving Voucher"))
 
         statewide <- geo_long %>%
             group_by(labels) %>%
             summarise(counts = sum(value, na.rm = T))
         
         statewide %>%
-            plot_ly(labels = ~labels, values = ~counts, type = 'pie') %>%
-            layout(title = "Potentially-Eligible Renters Receiving Section 8")
+            plot_ly(labels = ~labels, values = ~counts,
+                    type = 'pie',
+                    textinfo = 'label+percent',
+                    insidetextorientation = 'horizontal',
+                    showlegend = FALSE) %>%
+            layout(title = list(text = "Renters Eligible for Housing Choice Voucher"),
+                   margin = list(t = 50))
+                   
         
         
     })
