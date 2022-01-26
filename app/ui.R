@@ -20,8 +20,12 @@ shinyUI(fluidPage(
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
-            selectInput("selectedCounty", "Select County",
-                        choices = c("(All Delaware)", "New Castle", "Kent", "Sussex"))
+            selectInput("selectedCounty", 
+                        label = "Select County",
+                        choices = c("(All Delaware)" = "all",
+                                    "New Castle" = "003",
+                                    "Kent" = "001",
+                                    "Sussex" = "005"))
         ),
         
         # Show a plot of the generated distribution

@@ -31,7 +31,7 @@ default_lng <- -75.2
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-
+    
     output$map <- renderLeaflet({
         geo_data %>% 
             leaflet() %>%
@@ -49,7 +49,7 @@ shinyServer(function(input, output) {
                       position = "bottomright",
                       title = paste("Proportion of <br> Serviced Renters",sep=" "))
         
-
+        
     })
     
     output$mainplot <- renderPlotly({
@@ -60,22 +60,39 @@ shinyServer(function(input, output) {
             pivot_longer(cols = c("number_not_using", "number_reported")) %>%
             mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
                                       name == "number_reported" ~ "Receiving Voucher"))
-
-        statewide <- geo_long %>%
+        
+        # If the county is not selected, show the Delaware overall
+        if(input$selectedCounty == "all"){
+            mainplot_data <- geo_long 
+        } else {
+            mainplot_data <- geo_long %>%
+                filter(COUNTYFP == input$selectedCounty)
+        }
+        
+        # Determine the title of the plot
+        county_list <- c(
+            "all" = "All Delaware",
+            "001" = "Kent County",
+            "003" = "New Castle County",
+            "005" = "Sussex County"
+        )
+        mainplot_title <- paste("Renters Potentially Eligible for Housing Choice Voucher",
+                                county_list[[input$selectedCounty]],
+                                sep = "<br>")
+        
+        mainplot_data <- mainplot_data %>%
             group_by(labels) %>%
             summarise(counts = sum(value, na.rm = T))
         
-        statewide %>%
+        mainplot_data %>%
             plot_ly(labels = ~labels, values = ~counts,
                     type = 'pie',
                     textinfo = 'label+percent',
                     insidetextorientation = 'horizontal',
                     showlegend = FALSE) %>%
-            layout(title = list(text = "Renters Eligible for Housing Choice Voucher"),
-                   margin = list(t = 50))
-                   
-        
+            layout(title = list(text = mainplot_title),
+                   margin = list(t = 100))
         
     })
-
+    
 })
