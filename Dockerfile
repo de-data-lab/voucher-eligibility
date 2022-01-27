@@ -1,4 +1,4 @@
-FROM rocker/shiny:4.0.4
+FROM rocker/shiny-verse
 RUN install2.r rsconnect shiny here leaflet plotly tidyverse sf
 WORKDIR /home/shinyusr
 COPY app/ /home/shinyusr/app/
