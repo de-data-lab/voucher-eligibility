@@ -1,5 +1,5 @@
 FROM rocker/shiny-verse
-RUN install2.r rsconnect shiny here leaflet plotly tidyverse sf
+RUN install2.r rsconnect here leaflet plotly sf
 WORKDIR /home/shinyusr
 COPY app/ /home/shinyusr/app/
 COPY deploy.R deploy.R
