@@ -182,53 +182,6 @@ data<-data %>% filter(tot>0)
 ```
 
 ```{r, echo=FALSE}
-ggplot_cases_time_cont = data %>% filter(county=='001') %>%
-  ## na.rm = TRUE ensures all values are NA are taken as 0
-  ggplot(aes(x=tot,y=elCount,
-             color = perc_hh_income_rent))+
-  geom_point()+
-  theme_minimal()+
-  ylab("Total Eligible")+
-  xlab('Number Reported')+
-  labs(color = "Percentage of hh_income spent on rent")+
-  ggtitle("Number of Eligible household vs Number reported")
-
-ggplotly(ggplot_cases_time_cont) %>%
-    plotly_build()
-```
-
-```{r, echo=FALSE}
-ggplot_cases_time_cont = data %>% filter(county=='003') %>%
-  ## na.rm = TRUE ensures all values are NA are taken as 0
-  ggplot(aes(x=tot,y=elCount,
-             color = perc_hh_income_rent))+
-  geom_point()+
-  theme_minimal()+
-  ylab("Total Eligible")+
-  xlab('Number Reported')+
-  labs(color = "Percentage of hh_income spent on rent")+
-  ggtitle("Number of Eligible household vs Number reported")
-
-ggplotly(ggplot_cases_time_cont) %>%
-    plotly_build()
-```
-
-```{r, echo=FALSE}
-ggplot_cases_time_cont = data %>% filter(county=='005') %>%
-  ## na.rm = TRUE ensures all values are NA are taken as 0
-  ggplot(aes(x=tot,y=elCount,
-             color = perc_hh_income_rent))+
-  geom_point()+
-  theme_minimal()+
-  ylab("Total Eligible")+
-  xlab('Number Reported')+
-  labs(color = "Percentage of hh_income spent on rent")+
-  ggtitle("Number of Eligible household vs Number reported")
-
-ggplotly(ggplot_cases_time_cont) %>%
-    plotly_build()
-```
-```{r, echo=FALSE}
 ggplot_cases_time_cont = data %>% group_by(county,perc_hh_income_rent) %>% 
     summarize(count=sum(elCount)) %>%
   ## na.rm = TRUE ensures all values are NA are taken as 0
@@ -246,6 +199,58 @@ ggplotly(ggplot_cases_time_cont) %>%
     plotly_build()
 ```
 
+
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% filter(county=='001') %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=tot,y=elCount,
+             color = perc_hh_income_rent))+
+  geom_point()+
+  theme_minimal()+
+  ylab("Total Eligible")+
+  xlab('Number Reported')+
+  labs(color = "Percentage of hh_income spent on rent")+
+  ggtitle("Number of Eligible household vs Number reported for Kent")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% filter(county=='003') %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=tot,y=elCount,
+             color = perc_hh_income_rent))+
+  geom_point()+
+  theme_minimal()+
+  ylab("Total Eligible")+
+  xlab('Number Reported')+
+  labs(color = "Percentage of hh_income spent on rent")+
+  ggtitle("Number of Eligible household vs Number reported for NC")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% filter(county=='005') %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=tot,y=elCount,
+             color = perc_hh_income_rent))+
+  geom_point()+
+  theme_minimal()+
+  ylab("Total Eligible")+
+  xlab('Number Reported')+
+  labs(color = "Percentage of hh_income spent on rent")+
+  ggtitle("Number of Eligible household vs Number reported for Sussex")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+
+
+
+
 ```{r, echo=FALSE}
 ggplot_cases_time_cont = data %>% group_by(county) %>% 
     summarize(eligible=sum(elCount),reported=sum(tot)) %>%
@@ -258,12 +263,13 @@ ggplot_cases_time_cont = data %>% group_by(county) %>%
              position=position_dodge())+
   ylab("Total Eligible")+
   xlab("County")+
-  labs(color = "Percentage of household not receiving rental assistance by housing vouchers")+
-  ggtitle("Percentage of household not receiving rental assistance by housing vouchers")
+  labs(color = "Proportion of household not receiving rental assistance by housing vouchers")+
+  ggtitle("Proportion of household not receiving rental assistance by housing vouchers")
 
 ggplotly(ggplot_cases_time_cont) %>%
     plotly_build()
 ```
+
 ```{r, echo=FALSE}
 
 data <- inner_join(de_summary_table,
@@ -281,7 +287,7 @@ ggplot_cases_time_cont = data %>%
              color = county))+
   geom_point()+
   theme_minimal()+
-  xlab("Percentage of household not receiving housing vouchers")+
+  xlab("Proportion of household not receiving housing vouchers")+
   ylab('Median Rent')+
   labs(color = "County")+
   ggtitle("Relation between Number of Eligible household vs Median rent")
@@ -313,7 +319,7 @@ ggplot_cases_time_cont = data %>%
              color = county))+
   geom_point()+
   theme_minimal()+
-  xlab("Percentage of household not receiving housing vouchers")+
+  xlab("Proportion of household not receiving housing vouchers")+
   ylab('Household Income')+
   labs(color = "County")+
   ggtitle("Relation between Number of Eligible household vs Household Income")
