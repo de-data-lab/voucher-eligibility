@@ -49,7 +49,7 @@ default_lng <- -75.2
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-    
+
     output$map <- renderLeaflet({
         geo_data %>% 
             leaflet() %>%
@@ -103,5 +103,14 @@ shinyServer(function(input, output) {
                    margin = list(t = 100))
         
     })
+    
+    output$de_service_rate <- renderText(
+        round(de_summary_percent_str[["Receiving Voucher"]])
+        )
+    
+    output$main_text <- renderText(
+        paste0("In Delaware, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
+               "% of the families needing Housing Choice Voucher are receiving it")
+    )
     
 })
