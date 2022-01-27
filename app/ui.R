@@ -52,6 +52,6 @@ shinyUI(navbarPage(
              "We defined renters potentially eligible for housing vouchers by calculating renter households paying 30% or more income on rent."
     ),
     footer = tags$div(class = "footer",
-                      includeHTML("footer.html")),
+                      includeHTML("footer.html"))
 ))
 
