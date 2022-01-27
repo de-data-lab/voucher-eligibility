@@ -15,7 +15,7 @@ voucher-eligibility/
 ├─ data/
 │  ├─ raw/
 │  ├─ processed/
+├─ docs/ # EDA is hosted here as a GitHub page
 ├─ src/ # Source code (mainly .R files)
 ├─ app/ # Shiny app 
-├─ output/ # Output files (reports and images)
 ```
