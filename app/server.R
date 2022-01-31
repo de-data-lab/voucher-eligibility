@@ -113,4 +113,9 @@ shinyServer(function(input, output) {
                "% of the families needing Housing Choice Voucher are receiving it")
     )
     
+    output$GEOID_selector <- renderUI({
+        multiInput("GEOID_selector", "Choose GEOIDs",
+                   choices = geo_data$GEOID)
+    })
+    
 })
