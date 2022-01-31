@@ -19,3 +19,14 @@ voucher-eligibility/
 ├─ src/ # Source code (mainly .R files)
 ├─ app/ # Shiny app 
 ```
+
+## Environmental Variables
+
+- `CENSUS_API_KEY`: API key to the Census API
+
+For deployment to Shinyapps.io:
+- `SHINY_ACC_NAME`: Account name on shiny
+- `TOKEN`: Token from Shiny
+- `SECRET`: Secret from shiny
+- `MASTERNAME`: Name of shiny app on main
+- `TESTNAME`: Name of shiny app on pull request
