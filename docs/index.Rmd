@@ -49,6 +49,9 @@ pop <- read_csv(here('data/raw/pop2019.csv'))
 rent <- read_csv(here('data/raw/rent019.csv'))
 rent30 <- read_csv(here('data/raw/rent302019.csv'))
 
+rent_income <- read_csv(here('data/raw/rent_income.csv'))
+
+
 hud_de_section8<- hud_de_section8 %>% select("gsl","entities","sumlevel",
                        "program_label", "program","sub_program", "name", "GEOID",
                        "rent_per_month","hh_income","person_income","spending_per_month","number_reported")
@@ -161,7 +164,94 @@ map <- la %>%
 
 ```
 
+# hh_income brackets with 30% or more spent on rent
 
+```{r, echo=FALSE}
+
+data <- inner_join(de_summary_table,
+                   rent_income %>%
+                       mutate(GEOID=as.character(GEOID)),
+                   by="GEOID") %>% mutate(county=substr(GEOID, 3, 5)) %>%
+  mutate(rent_10k=sum(rent_30_10kE,rent_35_10kE,rent_40_10kE,rent_50_10kE),
+         rent_20k=sum(rent_30_20kE,rent_35_20kE,rent_40_20kE,rent_50_20kE),
+         rent_35k=sum(rent_30_35kE,rent_35_35kE,rent_40_35kE,rent_50_35kE),
+         rent_50k=sum(rent_30_50kE,rent_35_50kE,rent_40_50kE,rent_50_50kE),
+         rent_75k=sum(rent_30_75kE,rent_35_75kE,rent_40_75kE,rent_50_75kE))
+
+data<-data %>% filter(tot>0)
+```
+
+# Number of Eligible household by amount of hh_income with 30% spent on rent category
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% group_by(county) %>% 
+    summarize(tot_reported=sum(number_reported),
+              tot_10k=sum(rent_10k),
+              tot_20k=sum(rent_20k),
+              tot_35k=sum(rent_35k),
+              tot_50k=sum(rent_50k),
+              tot_75k=sum(rent_75k))  %>% gather(inc_cat, count, -c(county)) %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=county,y=count))+
+  geom_bar(aes(fill=inc_cat),   # fill depends on cond2
+             stat="identity",
+             colour="black",    # Black outline for all
+             position=position_dodge())+
+  ylab("Total Count")+
+  xlab("County")+
+  labs(color = "Amount of hh_income with 30% spent on rent")+
+  ggtitle("Number of Eligible household by amount of hh_income with 30% spent on rent category")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+# Number of Eligible household with hh_income less than 75k with 30% spent on rent.
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% group_by(county) %>% 
+    summarize(tot_reported=sum(number_reported),
+              less_50k=sum(rent_10k,rent_20k,rent_35k,rent_50k),
+              less_75k=sum(rent_10k,rent_20k,rent_35k,rent_50k,rent_75k)) %>%
+  select(county,less_75k,tot_reported) %>%
+  gather(inc_cat, count, -c(county)) %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=county,y=count))+
+  geom_bar(aes(fill=inc_cat),   # fill depends on cond2
+             stat="identity",
+             colour="black",    # Black outline for all
+             position=position_dodge())+
+  ylab("Total Count")+
+  xlab("County")+
+  labs(color = "Amount of hh_income with 30% spent on rent")+
+  ggtitle("")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+
+# Proportion of household with hh_income less than 75k and 30% spent on rent NOT receiving assisstance.
+```{r, echo=FALSE}
+ggplot_cases_time_cont = data %>% group_by(county) %>% 
+    summarize(tot_reported=sum(number_reported),
+              less_50k=sum(rent_10k,rent_20k,rent_35k,rent_50k),
+              less_75k=sum(rent_10k,rent_20k,rent_35k,rent_50k,rent_75k)) %>% 
+  mutate(perc_50=(less_50k - tot_reported)/less_50k,
+         perc_75=(less_75k - tot_reported)/less_75k) %>%
+  select(county,perc_75) %>%
+  ## na.rm = TRUE ensures all values are NA are taken as 0
+  ggplot(aes(x=county,y=perc_75))+
+  geom_bar(aes(fill=county),   # fill depends on cond2
+             stat="identity",
+             colour="black",    # Black outline for all
+             position=position_dodge())+
+  ylab("Proportion")+
+  xlab("County")+
+  labs(color = "Amount of hh_income with 30% spent on rent")+
+  ggtitle("")
+
+ggplotly(ggplot_cases_time_cont) %>%
+    plotly_build()
+```
+
+# 30% or more spent on rent with rent category
 ```{r, echo=FALSE}
 
 
@@ -183,6 +273,7 @@ data$county<-substr(data$GEOID, 3, 5)
 data<-data %>% filter(tot>0)
 ```
 
+# Number of Eligible household by percentage of hh_income spent on rent category
 ```{r, echo=FALSE}
 ggplot_cases_time_cont = data %>% group_by(county,perc_hh_income_rent) %>% 
     summarize(count=sum(elCount)) %>%
@@ -195,13 +286,13 @@ ggplot_cases_time_cont = data %>% group_by(county,perc_hh_income_rent) %>%
   ylab("Total Eligible")+
   xlab("County")+
   labs(color = "Percentage of hh_income spent on rent")+
-  ggtitle("Number of Eligible household by percentage category")
+  ggtitle("Number of Eligible household by percentage of hh_income spent on rent category")
 
 ggplotly(ggplot_cases_time_cont) %>%
     plotly_build()
 ```
 
-
+# Number of Eligible household vs Number reported for Kent
 ```{r, echo=FALSE}
 ggplot_cases_time_cont = data %>% filter(county=='001') %>%
   ## na.rm = TRUE ensures all values are NA are taken as 0
@@ -217,7 +308,7 @@ ggplot_cases_time_cont = data %>% filter(county=='001') %>%
 ggplotly(ggplot_cases_time_cont) %>%
     plotly_build()
 ```
-
+# Number of Eligible household vs Number reported for NC
 ```{r, echo=FALSE}
 ggplot_cases_time_cont = data %>% filter(county=='003') %>%
   ## na.rm = TRUE ensures all values are NA are taken as 0
@@ -233,7 +324,7 @@ ggplot_cases_time_cont = data %>% filter(county=='003') %>%
 ggplotly(ggplot_cases_time_cont) %>%
     plotly_build()
 ```
-
+# Number of Eligible household vs Number reported for Sussex
 ```{r, echo=FALSE}
 ggplot_cases_time_cont = data %>% filter(county=='005') %>%
   ## na.rm = TRUE ensures all values are NA are taken as 0
@@ -252,7 +343,7 @@ ggplotly(ggplot_cases_time_cont) %>%
 
 
 
-
+# Number of household eligible for receiving rental assistance by housing vouchers
 ```{r, echo=FALSE}
 ggplot_cases_time_cont = data %>% group_by(county) %>% 
     summarize(eligible=sum(elCount),reported=sum(tot)) %>%
@@ -271,7 +362,7 @@ ggplot_cases_time_cont = data %>% group_by(county) %>%
 ggplotly(ggplot_cases_time_cont) %>%
     plotly_build()
 ```
-
+# Number of household receiving rental assistance by housing vouchers
 ```{r, echo=FALSE}
 ggplot_cases_time_cont = data %>% group_by(county) %>% 
     summarize(eligible=sum(elCount),reported=sum(tot)) %>%
@@ -290,7 +381,7 @@ ggplot_cases_time_cont = data %>% group_by(county) %>%
 ggplotly(ggplot_cases_time_cont) %>%
     plotly_build()
 ```
-
+# Proportion of household not receiving rental assistance by housing vouchers
 ```{r, echo=FALSE}
 ggplot_cases_time_cont = data %>% group_by(county) %>% 
     summarize(eligible=sum(elCount),reported=sum(tot)) %>%
