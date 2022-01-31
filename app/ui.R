@@ -1,11 +1,10 @@
 library(shiny)
 library(leaflet)
 library(plotly)
-library(here)
 
 # Load tab-panels
-source(here("app/home_panel.r"))
-source(here("app/advocates_panel.r"))
+source("home_panel.r")
+source("advocates_panel.r")
 
 navbarPage(
     "Housing Choice Voucher in Delaware",
