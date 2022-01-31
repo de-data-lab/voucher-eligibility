@@ -1,14 +1,4 @@
-#
-# This is the server logic of a Shiny web application. You can run the
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
-library(here)
 library(tidyverse)
 library(plotly)
 library(sf)
@@ -112,5 +102,10 @@ shinyServer(function(input, output) {
         paste0("In Delaware, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
                "% of the families needing Housing Choice Voucher are receiving it")
     )
+    
+    output$GEOID_selector <- renderUI({
+        multiInput("GEOID_selector", "Choose GEOIDs",
+                   choices = geo_data$GEOID)
+    })
     
 })
