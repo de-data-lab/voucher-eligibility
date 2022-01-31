@@ -15,6 +15,11 @@
     justify-content: center;
 }
 
+.center-container {
+    display: flex;
+    justify-content: center;
+}
+
 .take-action-container {
     display: flex;
     justify-content: center;
