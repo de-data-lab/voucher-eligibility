@@ -13,7 +13,25 @@ library(tidyverse)
 library(plotly)
 library(sf)
 
+# Load Data
 geo_data <- read_rds("acs_hud_de_geojoined.rds")
+
+# Reshape the dataset into the long format for summarizing 
+geo_long <- geo_data %>%
+    st_drop_geometry() %>% 
+    mutate(number_not_using = eligible_renters - number_reported) %>%
+    select(GEOID, COUNTYFP, number_not_using, number_reported) %>%
+    pivot_longer(cols = c("number_not_using", "number_reported")) %>%
+    mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
+                              name == "number_reported" ~ "Receiving Voucher"))
+# Get the summarized data for rendering percentages
+de_summary <- geo_long %>% 
+    group_by(labels) %>%
+    summarise(counts = sum(value, na.rm = T)) %>%
+    mutate(percent = 100 * counts / sum(counts))
+# Get the vector of percentages of people receiving vs not receiving voucher
+de_summary_percent_str <- de_summary %>% 
+    select(labels, percent) %>% deframe()
 
 # Labels
 popUp <- with(geo_data,
@@ -31,7 +49,7 @@ default_lng <- -75.2
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-    
+
     output$map <- renderLeaflet({
         geo_data %>% 
             leaflet() %>%
@@ -48,18 +66,9 @@ shinyServer(function(input, output) {
                       values = geo_data$prop_serviced,
                       position = "bottomright",
                       title = paste("Proportion of <br> Serviced Renters",sep=" "))
-        
-        
     })
     
     output$mainplot <- renderPlotly({
-        geo_long <- geo_data %>%
-            st_drop_geometry() %>% 
-            mutate(number_not_using = eligible_renters - number_reported) %>%
-            select(GEOID, COUNTYFP, number_not_using, number_reported) %>%
-            pivot_longer(cols = c("number_not_using", "number_reported")) %>%
-            mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
-                                      name == "number_reported" ~ "Receiving Voucher"))
         
         # If the county is not selected, show the Delaware overall
         if(input$selectedCounty == "all"){
@@ -94,5 +103,14 @@ shinyServer(function(input, output) {
                    margin = list(t = 100))
         
     })
+    
+    output$de_service_rate <- renderText(
+        round(de_summary_percent_str[["Receiving Voucher"]])
+        )
+    
+    output$main_text <- renderText(
+        paste0("In Delaware, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
+               "% of the families needing Housing Choice Voucher are receiving it")
+    )
     
 })

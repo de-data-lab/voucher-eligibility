@@ -1,0 +1,62 @@
+
+/* Main Message */
+.main-point {
+    text-align: center;
+    font-size: 5rem;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 15em;
+}
+
+.select-county {
+    display: flex;
+    justify-content: center;
+}
+
+.take-action-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.take-action-card {
+    padding: 4rem;
+    margin: auto;
+    max-width: 100rem;
+    display: flex;
+    background: #D7F5B5;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.call-to-action-text {
+    text-align: center;
+    font-size: 4rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 15em;
+}
+
+
+.follow-campaign-list {
+    text-align: left;
+    font-size: 3rem;
+    max-width: 15em;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer {
+    background: rgb(248, 248, 248);;
+    padding: 0.5rem;
+    margin-top: 10rem;
+    min-height: 10rem;
+}
+
+.footer-container {
+    margin: 2rem;
+}
