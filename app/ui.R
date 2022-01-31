@@ -13,12 +13,13 @@ library(plotly)
 
 
 
-shinyUI(navbarPage(
+navbarPage(
     "Housing Choice Voucher in Delaware",
-    tags$head(
+    header = tags$head(
         tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
     ),
     tabPanel("Home",
+             
              tags$div(class = "main-point",
                       textOutput("main_text")),
              plotlyOutput("mainplot"),
@@ -53,5 +54,5 @@ shinyUI(navbarPage(
     ),
     footer = tags$div(class = "footer",
                       includeHTML("footer.html"))
-))
+)
 
