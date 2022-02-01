@@ -1,0 +1,66 @@
+---
+title: "Computing_Racial_Majority"
+author: "Mehak Gupta"
+date: "01/10/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load packages:
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  here,
+  tidyverse,
+  lubridate,
+  tidycensus,
+  tigris,
+  acs,
+  leaflet,
+  mapview,
+  viridis)
+theme_set(theme_minimal())
+```
+
+##ACS Data 
+
+First, the ACS Data including the respective variables neccesary to calculate the % of White identifying individuals in the Census Tract withing NCCo:
+```{r}
+KEY <- "613f63935274399fc24e0f9ca8e47dd4adc2fc55"  # use your own key please: 
+KEY <- as.character(KEY)
+census_api_key(KEY)
+variables_acs <- load_variables(2019, "acs1", cache = TRUE) # 5 year estimates 
+
+
+pop_estimates<- get_acs(geography = "tract", variables = c(med_inc='B06011_001',med_f='B10010_001', hh_inc='B19001_001',tot_hh='B11001_001',renter_householders='B07013_003',
+  tot_pop_rent='B25008_003',tot_hu='B25001_001',pop_hu='B25008_001',popTotE='B01003_001'),  state = "DE",  year = 2019,output = "wide") # end year; year=year
+
+rent_estimates<- get_acs(geography = "tract", variables = c(med_rent='B25031_001',no_bed='B25031_002', one_bed='B25031_003',               med_rent_perc='B25071_001',two_bed='B25031_004',three_bed='B25031_005',four_bed='B25031_006',five_bed='B25031_007'),  state = "DE",  year = 2019,output = "wide") # end year; year=year
+#B25074_002
+rent_estimates_30<- get_acs(geography = "tract", variables = c(rent_30='B25070_007',rent_35='B25070_008',rent_40='B25070_009',rent_50='B25070_010'),  state = "DE",  year = 2019,output = "wide") # end year; year=year
+rent_estimates_30$above30=rent_estimates_30$rent_30E+rent_estimates_30$rent_35E+rent_estimates_30$rent_40E+rent_estimates_30$rent_50E
+
+
+rent_10k<- get_acs(geography = "tract", variables = c(rent_30_10k='B25074_006',rent_35_10k='B25074_007',rent_40_10k='B25074_008',rent_50_10k='B25074_009',rent_30_20k='B25074_015',rent_35_20k='B25074_016',rent_40_20k='B25074_017',rent_50_20k='B25074_018',rent_30_35k='B25074_024',rent_35_35k='B25074_025',rent_40_35k='B25074_026',rent_50_35k='B25074_027',rent_30_50k='B25074_033',rent_35_50k='B25074_034',rent_40_50k='B25074_035',rent_50_50k='B25074_036',rent_30_75k='B25074_042',rent_35_75k='B25074_043',rent_40_75k='B25074_044',rent_50_75k='B25074_045'),  state = "DE",  year = 2019,output = "wide") # end year; year=year
+
+
+
+#rent_30='B25070_007',rent_35='B25070_008',rent_40='B25070_009',rent_50='B25070_010'
+#rent_perc='B25070_001',rent_perc10='B25070_002')
+#gross_rent='B25063_001'
+#median_gross_rent='B25064_001'
+#insPop='B27001_001',
+#pop_estimates$pop<-pop_estimates$popTotE-(pop_estimates$m1E+pop_estimates$m2E+pop_estimates$m3E+pop_estimates$m4E+pop_estimates$f1E+pop_estimates$f2E+pop_estimates$f3E+pop_estimates$f4E)
+
+write.csv(data/raw/rent_10k,'rent_income.csv')
+
+write.csv(data/raw/pop_estimates,'pop2019.csv')
+write.csv(data/raw/rent_estimates,'rent019.csv')
+write.csv(data/raw/rent_estimates_30,'rent302019.csv')
+
+```
+
+
