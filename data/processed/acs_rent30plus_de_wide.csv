@@ -1,219 +1,219 @@
-GEOID,NAME,B25070_007,B25070_008,B25070_009,B25070_010,eligible_renters
-10001040100,"Census Tract 401, Kent County, Delaware",49,69,9,12,139
-10001040201,"Census Tract 402.01, Kent County, Delaware",37,61,26,156,280
-10001040202,"Census Tract 402.02, Kent County, Delaware",108,38,0,153,299
-10001040203,"Census Tract 402.03, Kent County, Delaware",13,65,56,141,275
-10001040501,"Census Tract 405.01, Kent County, Delaware",18,132,70,160,380
-10001040502,"Census Tract 405.02, Kent County, Delaware",16,35,9,90,150
-10001040700,"Census Tract 407, Kent County, Delaware",60,15,98,276,449
-10001040900,"Census Tract 409, Kent County, Delaware",94,48,20,155,317
-10001041000,"Census Tract 410, Kent County, Delaware",157,145,98,359,759
-10001041100,"Census Tract 411, Kent County, Delaware",114,127,240,368,849
-10001041200,"Census Tract 412, Kent County, Delaware",57,53,46,94,250
-10001041300,"Census Tract 413, Kent County, Delaware",41,10,40,222,313
-10001041400,"Census Tract 414, Kent County, Delaware",141,102,35,285,563
-10001041500,"Census Tract 415, Kent County, Delaware",87,74,80,195,436
-10001041600,"Census Tract 416, Kent County, Delaware",27,7,12,66,112
-10001041701,"Census Tract 417.01, Kent County, Delaware",22,56,40,122,240
-10001041702,"Census Tract 417.02, Kent County, Delaware",50,0,62,40,152
-10001041801,"Census Tract 418.01, Kent County, Delaware",44,79,139,154,416
-10001041802,"Census Tract 418.02, Kent County, Delaware",0,54,125,88,267
-10001041900,"Census Tract 419, Kent County, Delaware",32,0,11,46,89
-10001042000,"Census Tract 420, Kent County, Delaware",0,7,11,0,18
-10001042100,"Census Tract 421, Kent County, Delaware",5,10,48,79,142
-10001042201,"Census Tract 422.01, Kent County, Delaware",131,38,315,221,705
-10001042202,"Census Tract 422.02, Kent County, Delaware",34,0,151,187,372
-10001042500,"Census Tract 425, Kent County, Delaware",97,96,112,148,453
-10001042800,"Census Tract 428, Kent County, Delaware",123,57,8,158,346
-10001042900,"Census Tract 429, Kent County, Delaware",10,27,0,48,85
-10001043000,"Census Tract 430, Kent County, Delaware",208,129,0,230,567
-10001043100,"Census Tract 431, Kent County, Delaware",1,3,0,24,28
-10001043202,"Census Tract 432.02, Kent County, Delaware",65,0,102,145,312
-10001043300,"Census Tract 433, Kent County, Delaware",116,112,48,252,528
-10001043400,"Census Tract 434, Kent County, Delaware",111,6,34,122,273
-10001990000,"Census Tract 9900, Kent County, Delaware",0,0,0,0,0
-10003000200,"Census Tract 2, New Castle County, Delaware",29,152,46,253,480
-10003000300,"Census Tract 3, New Castle County, Delaware",36,32,10,166,244
-10003000400,"Census Tract 4, New Castle County, Delaware",101,49,133,203,486
-10003000500,"Census Tract 5, New Castle County, Delaware",22,20,61,136,239
-10003000601,"Census Tract 6.01, New Castle County, Delaware",28,18,59,172,277
-10003000602,"Census Tract 6.02, New Castle County, Delaware",100,18,21,284,423
-10003000900,"Census Tract 9, New Castle County, Delaware",40,33,54,268,395
-10003001100,"Census Tract 11, New Castle County, Delaware",162,26,103,274,565
-10003001200,"Census Tract 12, New Castle County, Delaware",35,13,40,15,103
-10003001300,"Census Tract 13, New Castle County, Delaware",11,18,0,33,62
-10003001400,"Census Tract 14, New Castle County, Delaware",50,22,18,122,212
-10003001500,"Census Tract 15, New Castle County, Delaware",15,5,32,224,276
-10003001600,"Census Tract 16, New Castle County, Delaware",68,33,47,154,302
-10003001902,"Census Tract 19.02, New Castle County, Delaware",27,18,36,178,259
-10003002100,"Census Tract 21, New Castle County, Delaware",68,45,26,184,323
-10003002200,"Census Tract 22, New Castle County, Delaware",8,14,48,154,224
-10003002300,"Census Tract 23, New Castle County, Delaware",87,27,56,201,371
-10003002400,"Census Tract 24, New Castle County, Delaware",67,16,122,347,552
-10003002500,"Census Tract 25, New Castle County, Delaware",43,30,105,99,277
-10003002600,"Census Tract 26, New Castle County, Delaware",72,52,74,298,496
-10003002700,"Census Tract 27, New Castle County, Delaware",6,29,24,119,178
-10003002800,"Census Tract 28, New Castle County, Delaware",9,41,52,188,290
-10003002900,"Census Tract 29, New Castle County, Delaware",140,73,83,240,536
-10003003002,"Census Tract 30.02, New Castle County, Delaware",14,34,39,154,241
-10003010101,"Census Tract 101.01, New Castle County, Delaware",150,113,97,188,548
-10003010104,"Census Tract 101.04, New Castle County, Delaware",139,63,95,265,562
-10003010200,"Census Tract 102, New Castle County, Delaware",0,9,0,13,22
-10003010300,"Census Tract 103, New Castle County, Delaware",36,0,9,36,81
-10003010400,"Census Tract 104, New Castle County, Delaware",19,16,28,70,133
-10003010502,"Census Tract 105.02, New Castle County, Delaware",51,36,88,226,401
-10003010702,"Census Tract 107.02, New Castle County, Delaware",41,20,261,367,689
-10003010800,"Census Tract 108, New Castle County, Delaware",23,31,17,108,179
-10003010900,"Census Tract 109, New Castle County, Delaware",9,0,8,43,60
-10003011000,"Census Tract 110, New Castle County, Delaware",0,0,0,4,4
-10003011100,"Census Tract 111, New Castle County, Delaware",7,7,2,55,71
-10003011201,"Census Tract 112.01, New Castle County, Delaware",7,5,10,14,36
-10003011202,"Census Tract 112.02, New Castle County, Delaware",0,5,0,14,19
-10003011203,"Census Tract 112.03, New Castle County, Delaware",111,37,26,180,354
-10003011204,"Census Tract 112.04, New Castle County, Delaware",8,17,0,31,56
-10003011205,"Census Tract 112.05, New Castle County, Delaware",0,0,0,20,20
-10003011206,"Census Tract 112.06, New Castle County, Delaware",0,27,9,14,50
-10003011300,"Census Tract 113, New Castle County, Delaware",0,0,15,52,67
-10003011400,"Census Tract 114, New Castle County, Delaware",0,0,38,89,127
-10003011500,"Census Tract 115, New Castle County, Delaware",0,0,41,45,86
-10003011600,"Census Tract 116, New Castle County, Delaware",0,8,9,9,26
-10003011700,"Census Tract 117, New Castle County, Delaware",0,0,0,31,31
-10003011800,"Census Tract 118, New Castle County, Delaware",76,0,14,154,244
-10003011900,"Census Tract 119, New Castle County, Delaware",0,9,6,60,75
-10003012000,"Census Tract 120, New Castle County, Delaware",0,44,0,68,112
-10003012100,"Census Tract 121, New Castle County, Delaware",10,16,13,99,138
-10003012200,"Census Tract 122, New Castle County, Delaware",52,13,6,212,283
-10003012300,"Census Tract 123, New Castle County, Delaware",10,26,24,186,246
-10003012400,"Census Tract 124, New Castle County, Delaware",34,14,66,58,172
-10003012500,"Census Tract 125, New Castle County, Delaware",123,35,59,139,356
-10003012600,"Census Tract 126, New Castle County, Delaware",66,11,0,11,88
-10003012700,"Census Tract 127, New Castle County, Delaware",14,42,9,189,254
-10003012900,"Census Tract 129, New Castle County, Delaware",159,131,47,135,472
-10003013000,"Census Tract 130, New Castle County, Delaware",15,0,0,8,23
-10003013100,"Census Tract 131, New Castle County, Delaware",6,10,10,26,52
-10003013200,"Census Tract 132, New Castle County, Delaware",23,23,0,87,133
-10003013300,"Census Tract 133, New Castle County, Delaware",15,16,0,32,63
-10003013400,"Census Tract 134, New Castle County, Delaware",26,0,0,63,89
-10003013501,"Census Tract 135.01, New Castle County, Delaware",16,11,68,91,186
-10003013503,"Census Tract 135.03, New Castle County, Delaware",0,14,50,120,184
-10003013505,"Census Tract 135.05, New Castle County, Delaware",0,0,0,37,37
-10003013506,"Census Tract 135.06, New Castle County, Delaware",0,0,0,22,22
-10003013604,"Census Tract 136.04, New Castle County, Delaware",21,0,54,34,109
-10003013607,"Census Tract 136.07, New Castle County, Delaware",184,145,54,17,400
-10003013608,"Census Tract 136.08, New Castle County, Delaware",3,17,16,90,126
-10003013610,"Census Tract 136.10, New Castle County, Delaware",0,0,77,137,214
-10003013611,"Census Tract 136.11, New Castle County, Delaware",83,100,65,81,329
-10003013612,"Census Tract 136.12, New Castle County, Delaware",0,0,49,51,100
-10003013613,"Census Tract 136.13, New Castle County, Delaware",15,0,80,168,263
-10003013614,"Census Tract 136.14, New Castle County, Delaware",47,48,65,127,287
-10003013615,"Census Tract 136.15, New Castle County, Delaware",47,8,26,82,163
-10003013700,"Census Tract 137, New Castle County, Delaware",22,59,64,168,313
-10003013800,"Census Tract 138, New Castle County, Delaware",103,39,19,136,297
-10003013901,"Census Tract 139.01, New Castle County, Delaware",59,22,8,18,107
-10003013903,"Census Tract 139.03, New Castle County, Delaware",8,0,0,6,14
-10003013904,"Census Tract 139.04, New Castle County, Delaware",147,106,115,226,594
-10003014000,"Census Tract 140, New Castle County, Delaware",152,11,190,240,593
-10003014100,"Census Tract 141, New Castle County, Delaware",10,24,85,40,159
-10003014200,"Census Tract 142, New Castle County, Delaware",0,0,0,15,15
-10003014300,"Census Tract 143, New Castle County, Delaware",60,16,0,78,154
-10003014402,"Census Tract 144.02, New Castle County, Delaware",47,55,19,230,351
-10003014403,"Census Tract 144.03, New Castle County, Delaware",51,51,109,304,515
-10003014404,"Census Tract 144.04, New Castle County, Delaware",14,20,93,186,313
-10003014501,"Census Tract 145.01, New Castle County, Delaware",28,24,74,519,645
-10003014502,"Census Tract 145.02, New Castle County, Delaware",39,14,10,454,517
-10003014702,"Census Tract 147.02, New Castle County, Delaware",5,0,4,13,22
-10003014703,"Census Tract 147.03, New Castle County, Delaware",83,48,18,211,360
-10003014705,"Census Tract 147.05, New Castle County, Delaware",88,40,56,96,280
-10003014706,"Census Tract 147.06, New Castle County, Delaware",106,18,0,93,217
-10003014803,"Census Tract 148.03, New Castle County, Delaware",40,0,58,32,130
-10003014805,"Census Tract 148.05, New Castle County, Delaware",0,0,19,18,37
-10003014807,"Census Tract 148.07, New Castle County, Delaware",38,15,24,29,106
-10003014808,"Census Tract 148.08, New Castle County, Delaware",117,0,116,156,389
-10003014809,"Census Tract 148.09, New Castle County, Delaware",34,13,82,94,223
-10003014810,"Census Tract 148.10, New Castle County, Delaware",74,43,51,128,296
-10003014903,"Census Tract 149.03, New Castle County, Delaware",56,30,33,355,474
-10003014904,"Census Tract 149.04, New Castle County, Delaware",0,87,51,390,528
-10003014906,"Census Tract 149.06, New Castle County, Delaware",48,91,122,150,411
-10003014907,"Census Tract 149.07, New Castle County, Delaware",0,3,47,49,99
-10003014908,"Census Tract 149.08, New Castle County, Delaware",63,45,35,72,215
-10003014909,"Census Tract 149.09, New Castle County, Delaware",197,14,92,267,570
-10003015000,"Census Tract 150, New Castle County, Delaware",24,33,62,168,287
-10003015100,"Census Tract 151, New Castle County, Delaware",39,13,0,8,60
-10003015200,"Census Tract 152, New Castle County, Delaware",68,75,0,126,269
-10003015400,"Census Tract 154, New Castle County, Delaware",22,0,28,57,107
-10003015502,"Census Tract 155.02, New Castle County, Delaware",20,26,19,134,199
-10003015600,"Census Tract 156, New Castle County, Delaware",5,0,43,20,68
-10003015802,"Census Tract 158.02, New Castle County, Delaware",11,5,16,74,106
-10003015900,"Census Tract 159, New Castle County, Delaware",61,45,0,17,123
-10003016000,"Census Tract 160, New Castle County, Delaware",93,23,34,29,179
-10003016100,"Census Tract 161, New Castle County, Delaware",18,16,27,58,119
-10003016200,"Census Tract 162, New Castle County, Delaware",79,28,45,96,248
-10003016301,"Census Tract 163.01, New Castle County, Delaware",57,93,32,110,292
-10003016302,"Census Tract 163.02, New Castle County, Delaware",0,0,0,51,51
-10003016305,"Census Tract 163.05, New Castle County, Delaware",73,126,140,114,453
-10003016401,"Census Tract 164.01, New Castle County, Delaware",0,0,0,0,0
-10003016404,"Census Tract 164.04, New Castle County, Delaware",37,21,9,36,103
-10003016601,"Census Tract 166.01, New Castle County, Delaware",114,21,21,180,336
-10003016602,"Census Tract 166.02, New Castle County, Delaware",0,16,58,0,74
-10003016604,"Census Tract 166.04, New Castle County, Delaware",0,2,73,84,159
-10003016608,"Census Tract 166.08, New Castle County, Delaware",0,0,0,0,0
-10003016801,"Census Tract 168.01, New Castle County, Delaware",3,47,0,72,122
-10003016804,"Census Tract 168.04, New Castle County, Delaware",0,0,15,17,32
-10003016901,"Census Tract 169.01, New Castle County, Delaware",0,0,0,11,11
-10003016904,"Census Tract 169.04, New Castle County, Delaware",0,0,0,5,5
-10003980100,"Census Tract 9801, New Castle County, Delaware",0,0,0,0,0
-10003990100,"Census Tract 9901, New Castle County, Delaware",0,0,0,0,0
-10005050101,"Census Tract 501.01, Sussex County, Delaware",0,0,13,71,84
-10005050103,"Census Tract 501.03, Sussex County, Delaware",0,14,27,30,71
-10005050104,"Census Tract 501.04, Sussex County, Delaware",79,35,31,81,226
-10005050105,"Census Tract 501.05, Sussex County, Delaware",42,0,0,38,80
-10005050200,"Census Tract 502, Sussex County, Delaware",27,0,84,54,165
-10005050301,"Census Tract 503.01, Sussex County, Delaware",21,92,34,144,291
-10005050302,"Census Tract 503.02, Sussex County, Delaware",14,10,22,38,84
-10005050401,"Census Tract 504.01, Sussex County, Delaware",21,11,0,51,83
-10005050403,"Census Tract 504.03, Sussex County, Delaware",39,28,16,29,112
-10005050405,"Census Tract 504.05, Sussex County, Delaware",59,54,14,64,191
-10005050406,"Census Tract 504.06, Sussex County, Delaware",7,102,172,212,493
-10005050407,"Census Tract 504.07, Sussex County, Delaware",50,30,65,77,222
-10005050408,"Census Tract 504.08, Sussex County, Delaware",36,10,0,96,142
-10005050501,"Census Tract 505.01, Sussex County, Delaware",0,0,80,122,202
-10005050503,"Census Tract 505.03, Sussex County, Delaware",67,70,147,211,495
-10005050504,"Census Tract 505.04, Sussex County, Delaware",86,34,43,55,218
-10005050601,"Census Tract 506.01, Sussex County, Delaware",0,15,0,13,28
-10005050602,"Census Tract 506.02, Sussex County, Delaware",48,12,89,294,443
-10005050701,"Census Tract 507.01, Sussex County, Delaware",27,15,37,103,182
-10005050703,"Census Tract 507.03, Sussex County, Delaware",8,19,14,65,106
-10005050704,"Census Tract 507.04, Sussex County, Delaware",73,0,16,16,105
-10005050705,"Census Tract 507.05, Sussex County, Delaware",23,32,18,176,249
-10005050706,"Census Tract 507.06, Sussex County, Delaware",9,0,10,0,19
-10005050801,"Census Tract 508.01, Sussex County, Delaware",129,5,25,99,258
-10005050802,"Census Tract 508.02, Sussex County, Delaware",5,0,16,118,139
-10005050803,"Census Tract 508.03, Sussex County, Delaware",0,16,0,152,168
-10005050901,"Census Tract 509.01, Sussex County, Delaware",31,9,0,48,88
-10005050902,"Census Tract 509.02, Sussex County, Delaware",51,45,29,145,270
-10005051003,"Census Tract 510.03, Sussex County, Delaware",14,33,40,73,160
-10005051004,"Census Tract 510.04, Sussex County, Delaware",21,21,25,52,119
-10005051005,"Census Tract 510.05, Sussex County, Delaware",0,6,12,43,61
-10005051006,"Census Tract 510.06, Sussex County, Delaware",0,9,0,57,66
-10005051007,"Census Tract 510.07, Sussex County, Delaware",15,0,20,104,139
-10005051101,"Census Tract 511.01, Sussex County, Delaware",7,0,18,25,50
-10005051102,"Census Tract 511.02, Sussex County, Delaware",3,4,0,13,20
-10005051103,"Census Tract 511.03, Sussex County, Delaware",0,0,5,20,25
-10005051201,"Census Tract 512.01, Sussex County, Delaware",5,25,16,20,66
-10005051202,"Census Tract 512.02, Sussex County, Delaware",0,0,0,0,0
-10005051203,"Census Tract 512.03, Sussex County, Delaware",0,0,0,0,0
-10005051204,"Census Tract 512.04, Sussex County, Delaware",0,0,0,0,0
-10005051205,"Census Tract 512.05, Sussex County, Delaware",0,0,2,0,2
-10005051301,"Census Tract 513.01, Sussex County, Delaware",37,0,0,28,65
-10005051302,"Census Tract 513.02, Sussex County, Delaware",13,5,3,8,29
-10005051303,"Census Tract 513.03, Sussex County, Delaware",31,19,34,56,140
-10005051305,"Census Tract 513.05, Sussex County, Delaware",79,17,70,53,219
-10005051306,"Census Tract 513.06, Sussex County, Delaware",11,19,0,26,56
-10005051400,"Census Tract 514, Sussex County, Delaware",47,0,100,95,242
-10005051500,"Census Tract 515, Sussex County, Delaware",34,15,20,106,175
-10005051701,"Census Tract 517.01, Sussex County, Delaware",0,19,0,31,50
-10005051702,"Census Tract 517.02, Sussex County, Delaware",92,0,36,11,139
-10005051801,"Census Tract 518.01, Sussex County, Delaware",18,0,97,149,264
-10005051802,"Census Tract 518.02, Sussex County, Delaware",107,80,52,169,408
-10005051900,"Census Tract 519, Sussex County, Delaware",88,23,75,78,264
-10005990000,"Census Tract 9900, Sussex County, Delaware",0,0,0,0,0
+GEOID,NAME,B25070_007,B25070_008,B25070_009,B25070_010,rent_30_10kE,rent_30_10kM,rent_35_10kE,rent_35_10kM,rent_40_10kE,rent_40_10kM,rent_50_10kE,rent_50_10kM,rent_30_20kE,rent_30_20kM,rent_35_20kE,rent_35_20kM,rent_40_20kE,rent_40_20kM,rent_50_20kE,rent_50_20kM,rent_30_35kE,rent_30_35kM,rent_35_35kE,rent_35_35kM,rent_40_35kE,rent_40_35kM,rent_50_35kE,rent_50_35kM,rent_30_50kE,rent_30_50kM,rent_35_50kE,rent_35_50kM,rent_40_50kE,rent_40_50kM,rent_50_50kE,rent_50_50kM,rent_30_75kE,rent_30_75kM,rent_35_75kE,rent_35_75kM,rent_40_75kE,rent_40_75kM,rent_50_75kE,rent_50_75kM,eligible_old,eligible_renters
+10001040100,"Census Tract 401, Kent County, Delaware",49,69,9,12,0,17,0,17,0,17,0,17,0,17,0,17,0,17,10,11,0,17,23,35,9,11,2,3,19,28,46,55,0,17,0,17,30,47,0,17,0,17,0,17,139,139
+10001040201,"Census Tract 402.01, Kent County, Delaware",37,61,26,156,0,12,0,12,0,12,49,55,0,12,0,12,0,12,82,65,25,26,31,30,26,27,25,20,12,19,6,11,0,12,0,12,0,12,24,29,0,12,0,12,280,280
+10001040202,"Census Tract 402.02, Kent County, Delaware",108,38,0,153,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,56,91,38,59,0,19,112,76,17,27,0,19,0,19,41,58,35,54,0,19,0,19,0,19,299,299
+10001040203,"Census Tract 402.03, Kent County, Delaware",13,65,56,141,0,17,0,17,0,17,54,52,0,17,36,41,42,70,87,99,0,17,29,48,14,22,0,17,13,21,0,17,0,17,0,17,0,17,0,17,0,17,0,17,275,275
+10001040501,"Census Tract 405.01, Kent County, Delaware",18,132,70,160,0,12,0,12,0,12,16,26,0,12,0,12,0,12,62,51,0,12,96,91,57,52,82,58,18,29,36,58,13,20,0,12,0,12,0,12,0,12,0,12,380,380
+10001040502,"Census Tract 405.02, Kent County, Delaware",16,35,9,90,0,12,0,12,0,12,0,12,0,12,19,29,0,12,75,47,16,18,13,20,0,12,15,17,0,12,0,12,9,14,0,12,0,12,0,12,0,12,0,12,150,147
+10001040700,"Census Tract 407, Kent County, Delaware",60,15,98,276,0,12,0,12,0,12,52,75,0,12,0,12,19,32,173,127,51,63,0,12,55,85,51,62,0,12,15,25,24,38,0,12,9,17,0,12,0,12,0,12,449,449
+10001040900,"Census Tract 409, Kent County, Delaware",94,48,20,155,0,12,0,12,0,12,33,31,44,53,11,16,9,15,115,72,50,59,20,22,0,12,7,25,0,12,17,34,11,17,0,12,0,12,0,12,0,12,0,12,317,317
+10001041000,"Census Tract 410, Kent County, Delaware",157,145,98,359,22,34,0,17,0,17,57,55,44,64,0,17,34,52,274,152,17,26,16,24,51,62,28,34,44,75,129,100,0,17,0,17,30,40,0,17,13,22,0,17,759,759
+10001041100,"Census Tract 411, Kent County, Delaware",114,127,240,368,0,12,0,12,0,12,19,20,0,12,0,12,0,12,17,20,0,12,0,12,0,12,231,91,10,15,53,53,240,100,101,64,104,75,74,52,0,12,0,12,849,849
+10001041200,"Census Tract 412, Kent County, Delaware",57,53,46,94,25,41,0,12,0,12,7,13,0,12,0,12,16,25,0,12,12,20,8,12,16,18,54,54,0,12,45,50,0,12,33,49,8,14,0,12,14,22,0,12,250,238
+10001041300,"Census Tract 413, Kent County, Delaware",41,10,40,222,0,12,8,12,0,12,105,56,24,39,0,12,4,8,90,64,6,10,2,4,31,31,21,21,6,9,0,12,5,8,6,10,5,7,0,12,0,12,0,12,313,313
+10001041400,"Census Tract 414, Kent County, Delaware",141,102,35,285,0,12,0,12,8,13,111,82,9,16,13,20,6,13,107,70,53,46,61,66,21,24,67,47,60,39,28,44,0,12,0,12,19,30,0,12,0,12,0,12,563,563
+10001041500,"Census Tract 415, Kent County, Delaware",87,74,80,195,0,12,9,18,0,12,31,40,0,12,0,12,0,12,121,79,23,37,65,62,45,59,43,32,27,33,0,12,35,35,0,12,25,29,0,12,0,12,0,12,436,424
+10001041600,"Census Tract 416, Kent County, Delaware",27,7,12,66,0,12,0,12,0,12,20,30,6,8,0,12,0,12,0,12,0,12,0,12,12,14,46,34,21,25,7,11,0,12,0,12,0,12,0,12,0,12,0,12,112,112
+10001041701,"Census Tract 417.01, Kent County, Delaware",22,56,40,122,0,17,0,17,0,17,49,46,0,17,0,17,16,18,15,18,11,19,0,17,24,35,58,74,3,8,0,17,0,17,0,17,8,9,56,66,0,17,0,17,240,240
+10001041702,"Census Tract 417.02, Kent County, Delaware",50,0,62,40,0,12,0,12,0,12,21,34,0,12,0,12,0,12,19,31,19,27,0,12,62,57,0,12,0,12,0,12,0,12,0,12,31,44,0,12,0,12,0,12,152,152
+10001041801,"Census Tract 418.01, Kent County, Delaware",44,79,139,154,0,19,0,19,3,5,18,16,0,19,0,19,18,24,74,57,10,8,14,11,40,44,62,49,24,29,65,72,20,34,0,19,10,15,0,19,54,77,0,19,416,412
+10001041802,"Census Tract 418.02, Kent County, Delaware",0,54,125,88,0,17,0,17,0,17,15,24,0,17,0,17,0,17,13,21,0,17,0,17,19,22,40,41,0,17,54,67,56,58,20,31,0,17,0,17,50,76,0,17,267,267
+10001041900,"Census Tract 419, Kent County, Delaware",32,0,11,46,0,17,0,17,0,17,9,14,19,32,0,17,0,17,25,34,0,17,0,17,11,17,12,18,13,20,0,17,0,17,0,17,0,17,0,17,0,17,0,17,89,89
+10001042000,"Census Tract 420, Kent County, Delaware",0,7,11,0,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,11,16,0,12,0,12,7,13,0,12,0,12,18,18
+10001042100,"Census Tract 421, Kent County, Delaware",5,10,48,79,0,12,0,12,0,12,10,13,0,12,0,12,0,12,58,59,0,12,10,16,48,60,11,16,5,8,0,12,0,12,0,12,0,12,0,12,0,12,0,12,142,142
+10001042201,"Census Tract 422.01, Kent County, Delaware",131,38,315,221,0,19,0,19,29,45,61,85,38,61,0,19,0,19,125,83,0,19,0,19,231,150,2,11,59,72,38,65,55,59,33,54,34,42,0,19,0,19,0,19,705,705
+10001042202,"Census Tract 422.02, Kent County, Delaware",34,0,151,187,0,17,0,17,6,10,42,58,0,17,0,17,0,17,22,27,0,17,0,17,2,4,106,111,6,10,0,17,143,112,17,26,28,42,0,17,0,17,0,17,372,372
+10001042500,"Census Tract 425, Kent County, Delaware",97,96,112,148,45,59,0,12,0,12,66,49,0,12,0,12,0,12,82,67,30,38,0,12,82,96,0,12,22,40,96,74,30,49,0,12,0,12,0,12,0,12,0,12,453,453
+10001042800,"Census Tract 428, Kent County, Delaware",123,57,8,158,0,17,0,17,4,6,21,17,19,21,3,5,0,17,76,64,5,9,54,76,0,17,57,52,78,84,0,17,4,7,4,8,21,32,0,17,0,17,0,17,346,346
+10001042900,"Census Tract 429, Kent County, Delaware",10,27,0,48,0,12,0,12,0,12,0,12,0,12,0,12,0,12,28,41,2,3,0,12,0,12,20,24,6,10,27,38,0,12,0,12,2,3,0,12,0,12,0,12,85,85
+10001043000,"Census Tract 430, Kent County, Delaware",208,129,0,230,0,17,0,17,0,17,117,101,76,92,0,17,0,17,93,113,0,17,29,48,0,17,20,34,57,59,33,41,0,17,0,17,75,105,67,61,0,17,0,17,567,567
+10001043100,"Census Tract 431, Kent County, Delaware",1,3,0,24,0,12,0,12,0,12,0,12,0,12,0,12,0,12,18,21,1,2,0,12,0,12,6,11,0,12,0,12,0,12,0,12,0,12,3,6,0,12,0,12,28,28
+10001043202,"Census Tract 432.02, Kent County, Delaware",65,0,102,145,0,12,0,12,0,12,65,48,6,9,0,12,0,12,13,16,44,48,0,12,90,67,56,57,15,14,0,12,12,18,11,14,0,12,0,12,0,12,0,12,312,312
+10001043300,"Census Tract 433, Kent County, Delaware",116,112,48,252,0,17,0,17,0,17,87,61,28,46,12,20,0,17,99,63,32,33,0,17,31,42,59,40,30,24,100,76,0,17,7,12,15,25,0,17,0,17,0,17,528,500
+10001043400,"Census Tract 434, Kent County, Delaware",111,6,34,122,0,17,0,17,0,17,3,6,0,17,0,17,0,17,107,75,30,28,0,17,23,24,12,20,81,61,0,17,11,18,0,17,0,17,6,13,0,17,0,17,273,273
+10001990000,"Census Tract 9900, Kent County, Delaware",0,0,0,0,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,0
+10003000200,"Census Tract 2, New Castle County, Delaware",29,152,46,253,0,17,0,17,0,17,96,83,0,17,0,17,0,17,38,62,0,17,39,61,46,56,119,120,29,54,113,134,0,17,0,17,0,17,0,17,0,17,0,17,480,480
+10003000300,"Census Tract 3, New Castle County, Delaware",36,32,10,166,0,12,0,12,0,12,60,48,0,12,0,12,0,12,81,58,17,25,0,12,10,17,25,38,8,13,32,44,0,12,0,12,11,16,0,12,0,12,0,12,244,244
+10003000400,"Census Tract 4, New Castle County, Delaware",101,49,133,203,44,51,0,12,18,21,92,80,10,17,20,28,34,51,70,58,38,48,10,15,76,58,41,50,0,12,0,12,0,12,0,12,0,12,19,30,5,9,0,12,486,477
+10003000500,"Census Tract 5, New Castle County, Delaware",22,20,61,136,0,12,0,12,0,12,50,46,0,12,0,12,0,12,68,52,0,12,0,12,44,43,18,28,22,32,20,33,9,15,0,12,0,12,0,12,8,14,0,12,239,239
+10003000601,"Census Tract 6.01, New Castle County, Delaware",28,18,59,172,0,12,0,12,0,12,61,51,0,12,0,12,22,34,63,51,12,13,5,8,33,36,48,37,16,25,13,21,4,7,0,12,0,12,0,12,0,12,0,12,277,277
+10003000602,"Census Tract 6.02, New Castle County, Delaware",100,18,21,284,27,31,18,30,0,12,97,65,29,46,0,12,0,12,102,75,44,53,0,12,21,38,85,66,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,423,423
+10003000900,"Census Tract 9, New Castle County, Delaware",40,33,54,268,0,12,0,12,0,12,61,32,15,24,0,12,0,12,168,69,12,13,33,30,42,37,39,34,13,19,0,12,12,19,0,12,0,12,0,12,0,12,0,12,395,395
+10003001100,"Census Tract 11, New Castle County, Delaware",162,26,103,274,13,25,0,12,0,12,147,115,0,12,0,12,23,33,37,30,116,84,15,23,70,69,0,12,14,23,11,22,10,18,90,95,9,15,0,12,0,12,0,12,565,555
+10003001200,"Census Tract 12, New Castle County, Delaware",35,13,40,15,0,12,0,12,0,12,11,12,0,12,0,12,0,12,4,6,0,12,0,12,4,6,0,12,19,29,0,12,0,12,0,12,16,15,13,13,14,21,0,12,103,81
+10003001300,"Census Tract 13, New Castle County, Delaware",11,18,0,33,0,12,0,12,0,12,33,43,0,12,0,12,0,12,0,12,4,8,18,19,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,62,55
+10003001400,"Census Tract 14, New Castle County, Delaware",50,22,18,122,0,12,0,12,0,12,52,38,14,12,0,12,18,29,28,23,5,8,5,8,0,12,42,42,26,41,17,22,0,12,0,12,5,7,0,12,0,12,0,12,212,212
+10003001500,"Census Tract 15, New Castle County, Delaware",15,5,32,224,0,12,0,12,0,12,87,64,0,12,0,12,0,12,87,56,9,14,5,8,25,23,42,48,6,11,0,12,0,12,8,13,0,12,0,12,7,12,0,12,276,276
+10003001600,"Census Tract 16, New Castle County, Delaware",68,33,47,154,0,12,26,30,0,12,58,40,12,12,0,12,10,16,75,49,56,48,0,12,37,37,18,20,0,12,7,12,0,12,3,6,0,12,0,12,0,12,0,12,302,302
+10003001902,"Census Tract 19.02, New Castle County, Delaware",27,18,36,178,4,7,0,12,0,12,112,64,0,12,11,10,0,12,28,32,0,12,0,12,0,12,27,23,23,24,0,12,21,26,5,7,0,12,7,11,15,23,6,8,259,259
+10003002100,"Census Tract 21, New Castle County, Delaware",68,45,26,184,0,12,25,28,0,12,110,53,53,34,9,15,14,13,32,31,11,18,0,12,12,13,19,22,4,7,11,16,0,12,23,21,0,12,0,12,0,12,0,12,323,323
+10003002200,"Census Tract 22, New Castle County, Delaware",8,14,48,154,8,13,0,12,0,12,67,41,0,12,0,12,0,12,63,36,0,12,14,23,48,35,13,21,0,12,0,12,0,12,11,16,0,12,0,12,0,12,0,12,224,224
+10003002300,"Census Tract 23, New Castle County, Delaware",87,27,56,201,0,12,0,12,0,12,51,61,0,12,0,12,0,12,62,74,72,84,16,19,40,49,65,53,15,25,11,17,16,27,23,36,0,12,0,12,0,12,0,12,371,371
+10003002400,"Census Tract 24, New Castle County, Delaware",67,16,122,347,0,12,0,12,0,12,98,101,0,12,0,12,0,12,104,81,41,47,16,28,122,113,70,65,12,20,0,12,0,12,75,91,14,24,0,12,0,12,0,12,552,552
+10003002500,"Census Tract 25, New Castle County, Delaware",43,30,105,99,0,12,0,12,0,12,0,12,0,12,0,12,0,12,32,51,6,11,30,48,95,51,67,74,0,12,0,12,10,17,0,12,37,54,0,12,0,12,0,12,277,277
+10003002600,"Census Tract 26, New Castle County, Delaware",72,52,74,298,0,12,0,12,0,12,46,43,26,41,0,12,0,12,100,67,0,12,42,48,66,58,126,70,25,40,10,17,8,13,26,44,21,33,0,12,0,12,0,12,496,496
+10003002700,"Census Tract 27, New Castle County, Delaware",6,29,24,119,0,12,0,12,0,12,8,14,0,12,0,12,0,12,42,28,0,12,11,15,24,25,48,37,6,9,6,9,0,12,21,25,0,12,12,19,0,12,0,12,178,178
+10003002800,"Census Tract 28, New Castle County, Delaware",9,41,52,188,0,12,0,12,0,12,133,63,0,12,0,12,13,21,24,33,0,12,26,31,39,41,31,42,0,12,0,12,0,12,0,12,9,14,15,23,0,12,0,12,290,290
+10003002900,"Census Tract 29, New Castle County, Delaware",140,73,83,240,25,30,0,12,0,12,127,82,92,61,10,15,47,55,86,54,23,37,63,55,36,43,27,36,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,536,536
+10003003002,"Census Tract 30.02, New Castle County, Delaware",14,34,39,154,0,12,0,12,25,31,65,41,0,12,8,13,9,14,77,56,14,20,17,22,5,7,7,12,0,12,9,13,0,12,5,10,0,12,0,12,0,12,0,12,241,241
+10003010101,"Census Tract 101.01, New Castle County, Delaware",150,113,97,188,70,71,0,12,7,11,67,59,0,12,9,14,8,12,13,21,29,38,56,49,49,46,108,60,32,40,48,60,33,43,0,12,19,24,0,12,0,12,0,12,548,548
+10003010104,"Census Tract 101.04, New Castle County, Delaware",139,63,95,265,0,12,0,12,0,12,0,12,0,12,0,12,0,12,242,108,99,76,63,66,95,81,23,25,40,35,0,12,0,12,0,12,0,12,0,12,0,12,0,12,562,562
+10003010200,"Census Tract 102, New Castle County, Delaware",0,9,0,13,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,7,11,0,12,0,12,0,12,6,10,0,12,9,12,0,12,0,12,22,22
+10003010300,"Census Tract 103, New Castle County, Delaware",36,0,9,36,0,12,0,12,0,12,0,12,0,12,0,12,0,12,36,56,0,12,0,12,0,12,0,12,9,15,0,12,9,14,0,12,27,28,0,12,0,12,0,12,81,81
+10003010400,"Census Tract 104, New Castle County, Delaware",19,16,28,70,0,12,0,12,0,12,34,34,0,12,0,12,0,12,36,25,0,12,0,12,0,12,0,12,0,12,16,18,28,35,0,12,19,22,0,12,0,12,0,12,133,133
+10003010502,"Census Tract 105.02, New Castle County, Delaware",51,36,88,226,0,17,0,17,0,17,50,49,0,17,0,17,0,17,122,104,34,48,36,33,51,64,54,66,17,26,0,17,37,55,0,17,0,17,0,17,0,17,0,17,401,401
+10003010702,"Census Tract 107.02, New Castle County, Delaware",41,20,261,367,0,17,0,17,0,17,35,44,0,17,0,17,0,17,66,67,21,34,0,17,230,164,266,201,0,17,20,31,31,37,0,17,20,31,0,17,0,17,0,17,689,689
+10003010800,"Census Tract 108, New Castle County, Delaware",23,31,17,108,0,12,0,12,0,12,77,57,0,12,0,12,0,12,17,21,0,12,16,19,0,12,14,16,17,20,0,12,8,13,0,12,6,9,15,17,9,14,0,12,179,179
+10003010900,"Census Tract 109, New Castle County, Delaware",9,0,8,43,0,12,0,12,0,12,0,12,0,12,0,12,0,12,11,16,0,12,0,12,8,14,0,12,0,12,0,12,0,12,32,47,0,12,0,12,0,12,0,12,60,51
+10003011000,"Census Tract 110, New Castle County, Delaware",0,0,0,4,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,4,7,4,4
+10003011100,"Census Tract 111, New Castle County, Delaware",7,7,2,55,0,12,0,12,0,12,1,2,0,12,0,12,1,3,14,13,2,3,0,12,1,2,19,15,2,3,6,8,0,12,21,32,3,3,1,3,0,12,0,12,71,71
+10003011201,"Census Tract 112.01, New Castle County, Delaware",7,5,10,14,0,12,0,12,0,12,6,9,0,12,0,12,0,12,5,8,0,12,0,12,0,12,3,6,0,12,0,12,10,11,0,12,7,11,5,8,0,12,0,12,36,36
+10003011202,"Census Tract 112.02, New Castle County, Delaware",0,5,0,14,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,8,12,0,12,5,9,0,12,6,9,0,12,0,12,0,12,0,12,19,19
+10003011203,"Census Tract 112.03, New Castle County, Delaware",111,37,26,180,0,12,0,12,0,12,65,64,0,12,0,12,0,12,72,88,40,69,16,26,26,32,18,28,47,56,21,31,0,12,25,39,24,36,0,12,0,12,0,12,354,354
+10003011204,"Census Tract 112.04, New Castle County, Delaware",8,17,0,31,0,12,0,12,0,12,7,11,0,12,0,12,0,12,0,12,8,13,8,12,0,12,24,20,0,12,0,12,0,12,0,12,0,12,9,12,0,12,0,12,56,56
+10003011205,"Census Tract 112.05, New Castle County, Delaware",0,0,0,20,0,12,0,12,0,12,4,6,0,12,0,12,0,12,16,24,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,20,20
+10003011206,"Census Tract 112.06, New Castle County, Delaware",0,27,9,14,0,12,0,12,0,12,0,12,0,12,8,13,0,12,8,14,0,12,9,14,9,13,0,12,0,12,0,12,0,12,6,10,0,12,10,16,0,12,0,12,50,50
+10003011300,"Census Tract 113, New Castle County, Delaware",0,0,15,52,0,12,0,12,0,12,5,8,0,12,0,12,0,12,15,16,0,12,0,12,10,11,27,26,0,12,0,12,5,8,0,12,0,12,0,12,0,12,5,7,67,67
+10003011400,"Census Tract 114, New Castle County, Delaware",0,0,38,89,0,12,0,12,0,12,22,34,0,12,0,12,0,12,14,18,0,12,0,12,30,37,23,21,0,12,0,12,0,12,7,13,0,12,0,12,0,12,8,12,127,104
+10003011500,"Census Tract 115, New Castle County, Delaware",0,0,41,45,0,12,0,12,0,12,35,54,0,12,0,12,0,12,0,12,0,12,0,12,41,47,10,17,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,86,86
+10003011600,"Census Tract 116, New Castle County, Delaware",0,8,9,9,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,9,14,9,14,0,12,0,12,0,12,0,12,0,12,8,13,0,12,0,12,26,26
+10003011700,"Census Tract 117, New Castle County, Delaware",0,0,0,31,0,12,0,12,0,12,0,12,0,12,0,12,0,12,31,40,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,31,31
+10003011800,"Census Tract 118, New Castle County, Delaware",76,0,14,154,0,12,0,12,0,12,28,25,0,12,0,12,0,12,52,50,0,12,0,12,8,14,43,30,37,30,0,12,6,10,31,38,16,17,0,12,0,12,0,12,244,221
+10003011900,"Census Tract 119, New Castle County, Delaware",0,9,6,60,0,12,0,12,0,12,27,32,0,12,0,12,0,12,33,39,0,12,9,16,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,6,10,0,12,75,75
+10003012000,"Census Tract 120, New Castle County, Delaware",0,44,0,68,0,12,0,12,0,12,19,22,0,12,0,12,0,12,28,26,0,12,9,15,0,12,21,34,0,12,25,41,0,12,0,12,0,12,10,15,0,12,0,12,112,112
+10003012100,"Census Tract 121, New Castle County, Delaware",10,16,13,99,0,12,0,12,0,12,25,31,0,12,0,12,0,12,0,12,10,15,0,12,13,17,74,57,0,12,16,25,0,12,0,12,0,12,0,12,0,12,0,12,138,138
+10003012200,"Census Tract 122, New Castle County, Delaware",52,13,6,212,0,12,0,12,0,12,82,65,0,12,0,12,0,12,63,47,33,40,13,19,6,10,67,56,12,19,0,12,0,12,0,12,7,12,0,12,0,12,0,12,283,283
+10003012300,"Census Tract 123, New Castle County, Delaware",10,26,24,186,0,12,0,12,0,12,46,60,0,12,0,12,0,12,63,44,0,12,26,31,24,30,66,73,10,16,0,12,0,12,11,19,0,12,0,12,0,12,0,12,246,246
+10003012400,"Census Tract 124, New Castle County, Delaware",34,14,66,58,0,12,0,12,0,12,0,12,0,12,0,12,0,12,53,54,0,12,0,12,0,12,5,8,34,54,14,19,66,60,0,12,0,12,0,12,0,12,0,12,172,172
+10003012500,"Census Tract 125, New Castle County, Delaware",123,35,59,139,0,12,0,12,0,12,17,28,0,12,0,12,0,12,70,76,13,21,35,51,46,71,52,54,110,88,0,12,13,22,0,12,0,12,0,12,0,12,0,12,356,356
+10003012600,"Census Tract 126, New Castle County, Delaware",66,11,0,11,0,12,0,12,0,12,0,12,0,12,0,12,0,12,11,17,19,32,0,12,0,12,0,12,0,12,11,19,0,12,0,12,47,44,0,12,0,12,0,12,88,88
+10003012700,"Census Tract 127, New Castle County, Delaware",14,42,9,189,0,12,28,49,0,12,101,73,0,12,0,12,0,12,6,11,0,12,14,23,9,11,82,58,14,18,0,12,0,12,0,12,0,12,0,12,0,12,0,12,254,254
+10003012900,"Census Tract 129, New Castle County, Delaware",159,131,47,135,0,12,0,12,0,12,52,39,0,12,0,12,0,12,42,27,93,62,103,64,28,30,33,55,66,58,28,36,19,27,8,12,0,12,0,12,0,12,0,12,472,472
+10003013000,"Census Tract 130, New Castle County, Delaware",15,0,0,8,0,12,0,12,0,12,0,12,0,12,0,12,0,12,8,10,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,15,23,0,12,0,12,0,12,23,23
+10003013100,"Census Tract 131, New Castle County, Delaware",6,10,10,26,0,12,0,12,0,12,6,10,0,12,0,12,0,12,0,12,0,12,5,7,10,10,3,5,6,12,5,7,0,12,17,28,0,12,0,12,0,12,0,12,52,52
+10003013200,"Census Tract 132, New Castle County, Delaware",23,23,0,87,0,12,0,12,0,12,58,57,0,12,0,12,0,12,22,34,23,38,23,36,0,12,7,13,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,133,133
+10003013300,"Census Tract 133, New Castle County, Delaware",15,16,0,32,0,12,0,12,0,12,0,12,0,12,0,12,0,12,26,26,0,12,0,12,0,12,6,9,0,12,0,12,0,12,0,12,15,25,16,23,0,12,0,12,63,63
+10003013400,"Census Tract 134, New Castle County, Delaware",26,0,0,63,0,12,0,12,0,12,51,45,0,12,0,12,0,12,12,19,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,26,34,0,12,0,12,0,12,89,89
+10003013501,"Census Tract 135.01, New Castle County, Delaware",16,11,68,91,0,17,0,17,0,17,15,25,0,17,0,17,0,17,15,25,0,17,0,17,0,17,10,17,0,17,0,17,0,17,0,17,0,17,11,18,0,17,36,56,186,87
+10003013503,"Census Tract 135.03, New Castle County, Delaware",0,14,50,120,0,17,0,17,0,17,16,26,0,17,0,17,0,17,26,33,0,17,14,22,0,17,63,77,0,17,0,17,50,77,15,24,0,17,0,17,0,17,0,17,184,184
+10003013505,"Census Tract 135.05, New Castle County, Delaware",0,0,0,37,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,37,64,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,37,37
+10003013506,"Census Tract 135.06, New Castle County, Delaware",0,0,0,22,0,12,0,12,0,12,0,12,0,12,0,12,0,12,22,31,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,22,22
+10003013604,"Census Tract 136.04, New Castle County, Delaware",21,0,54,34,0,12,0,12,0,12,0,12,0,12,0,12,0,12,25,35,10,16,0,12,54,46,9,13,11,17,0,12,0,12,0,12,0,12,0,12,0,12,0,12,109,109
+10003013607,"Census Tract 136.07, New Castle County, Delaware",184,145,54,17,0,17,0,17,0,17,0,17,18,29,49,76,0,17,17,29,0,17,0,17,17,28,0,17,68,67,36,43,37,43,0,17,64,67,60,63,0,17,0,17,400,366
+10003013608,"Census Tract 136.08, New Castle County, Delaware",3,17,16,90,0,12,0,12,0,12,8,9,0,12,0,12,0,12,62,34,0,12,0,12,16,15,20,15,3,5,0,12,0,12,0,12,0,12,17,25,0,12,0,12,126,126
+10003013610,"Census Tract 136.10, New Castle County, Delaware",0,0,77,137,0,17,0,17,0,17,0,17,0,17,0,17,0,17,91,94,0,17,0,17,35,35,46,36,0,17,0,17,42,52,0,17,0,17,0,17,0,17,0,17,214,214
+10003013611,"Census Tract 136.11, New Castle County, Delaware",83,100,65,81,0,17,0,17,0,17,30,34,0,17,0,17,0,17,25,30,43,68,0,17,29,33,26,21,14,23,100,95,36,42,0,17,12,19,0,17,0,17,0,17,329,315
+10003013612,"Census Tract 136.12, New Castle County, Delaware",0,0,49,51,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,51,63,0,17,0,17,10,18,0,17,0,17,0,17,39,57,0,17,100,100
+10003013613,"Census Tract 136.13, New Castle County, Delaware",15,0,80,168,0,17,0,17,0,17,0,17,0,17,0,17,20,31,116,128,0,17,0,17,60,61,52,81,15,22,0,17,0,17,0,17,0,17,0,17,0,17,0,17,263,263
+10003013614,"Census Tract 136.14, New Castle County, Delaware",47,48,65,127,0,12,0,12,0,12,17,21,0,12,0,12,0,12,62,59,0,12,29,46,57,64,48,49,10,16,19,22,8,14,0,12,37,45,0,12,0,12,0,12,287,287
+10003013615,"Census Tract 136.15, New Castle County, Delaware",47,8,26,82,0,12,0,12,0,12,27,33,0,12,0,12,0,12,8,12,0,12,8,14,8,13,47,46,8,13,0,12,0,12,0,12,39,45,0,12,18,28,0,12,163,163
+10003013700,"Census Tract 137, New Castle County, Delaware",22,59,64,168,0,12,0,12,0,12,49,41,0,12,0,12,0,12,94,64,7,12,22,24,64,50,25,37,0,12,37,45,0,12,0,12,0,12,0,12,0,12,0,12,313,298
+10003013800,"Census Tract 138, New Castle County, Delaware",103,39,19,136,0,17,0,17,0,17,47,61,0,17,13,24,0,17,0,17,0,17,0,17,15,25,50,60,39,45,13,21,4,8,39,60,51,41,13,22,0,17,0,17,297,284
+10003013901,"Census Tract 139.01, New Castle County, Delaware",59,22,8,18,0,12,0,12,0,12,8,13,0,12,0,12,0,12,0,12,11,17,8,13,8,12,10,17,24,24,14,20,0,12,0,12,24,38,0,12,0,12,0,12,107,107
+10003013903,"Census Tract 139.03, New Castle County, Delaware",8,0,0,6,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,6,16,8,13,0,17,0,17,0,17,14,14
+10003013904,"Census Tract 139.04, New Castle County, Delaware",147,106,115,226,0,17,0,17,0,17,37,41,0,17,0,17,37,59,51,60,0,17,0,17,16,22,69,87,67,53,94,107,62,76,17,26,45,74,12,19,0,17,52,83,594,559
+10003014000,"Census Tract 140, New Castle County, Delaware",152,11,190,240,0,17,0,17,0,17,52,50,0,17,0,17,0,17,175,109,64,80,0,17,190,97,13,22,88,90,11,18,0,17,0,17,0,17,0,17,0,17,0,17,593,593
+10003014100,"Census Tract 141, New Castle County, Delaware",10,24,85,40,0,12,0,12,8,13,0,12,0,12,0,12,7,11,26,37,0,12,8,12,35,49,14,22,0,12,8,13,0,12,0,12,10,17,8,13,35,50,0,12,159,159
+10003014200,"Census Tract 142, New Castle County, Delaware",0,0,0,15,0,12,0,12,0,12,15,16,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,15,15
+10003014300,"Census Tract 143, New Castle County, Delaware",60,16,0,78,0,17,0,17,0,17,9,13,0,17,0,17,0,17,12,19,0,17,0,17,0,17,46,52,45,61,0,17,0,17,11,17,0,17,16,25,0,17,0,17,154,139
+10003014402,"Census Tract 144.02, New Castle County, Delaware",47,55,19,230,0,12,0,12,0,12,81,56,0,12,0,12,0,12,10,13,0,12,48,54,9,15,80,57,9,14,7,12,10,15,59,64,9,14,0,12,0,12,0,12,351,322
+10003014403,"Census Tract 144.03, New Castle County, Delaware",51,51,109,304,9,14,0,17,0,17,63,43,0,17,18,30,0,17,122,107,0,17,24,33,89,62,106,101,0,17,9,14,14,22,13,20,42,47,0,17,6,10,0,17,515,515
+10003014404,"Census Tract 144.04, New Castle County, Delaware",14,20,93,186,0,12,0,12,0,12,29,33,0,12,0,12,0,12,48,61,0,12,0,12,20,26,97,85,0,12,0,12,64,93,12,18,14,24,20,33,9,15,0,12,313,313
+10003014501,"Census Tract 145.01, New Castle County, Delaware",28,24,74,519,14,22,0,12,0,12,201,89,0,12,14,21,22,29,156,63,3,6,10,12,47,36,139,57,11,12,0,12,0,12,11,10,0,12,0,12,0,12,12,19,645,640
+10003014502,"Census Tract 145.02, New Castle County, Delaware",39,14,10,454,0,17,0,17,0,17,182,77,23,35,0,17,0,17,197,78,9,14,0,17,10,15,48,34,0,17,14,17,0,17,27,21,7,11,0,17,0,17,0,17,517,517
+10003014702,"Census Tract 147.02, New Castle County, Delaware",5,0,4,13,0,12,0,12,0,12,13,18,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,4,6,0,12,5,8,0,12,0,12,0,12,22,22
+10003014703,"Census Tract 147.03, New Castle County, Delaware",83,48,18,211,0,12,0,12,0,12,36,56,0,12,0,12,10,16,11,17,0,12,42,63,0,12,164,83,45,36,6,10,8,13,0,12,38,43,0,12,0,12,0,12,360,360
+10003014705,"Census Tract 147.05, New Castle County, Delaware",88,40,56,96,0,17,0,17,0,17,28,26,0,17,9,14,0,17,34,42,0,17,0,17,25,22,25,23,0,17,0,17,31,50,9,15,88,70,31,41,0,17,0,17,280,280
+10003014706,"Census Tract 147.06, New Castle County, Delaware",106,18,0,93,0,12,0,12,0,12,10,17,0,12,8,16,0,12,61,63,7,10,0,12,0,12,22,34,74,62,10,16,0,12,0,12,25,34,0,12,0,12,0,12,217,217
+10003014803,"Census Tract 148.03, New Castle County, Delaware",40,0,58,32,0,12,0,12,0,12,0,12,0,12,0,12,0,12,16,18,17,20,0,12,44,50,16,18,16,18,0,12,14,20,0,12,7,13,0,12,0,12,0,12,130,130
+10003014805,"Census Tract 148.05, New Castle County, Delaware",0,0,19,18,0,19,0,19,0,19,0,19,0,19,0,19,0,19,18,28,0,19,0,19,0,19,0,19,0,19,0,19,19,28,0,19,0,19,0,19,0,19,0,19,37,37
+10003014807,"Census Tract 148.07, New Castle County, Delaware",38,15,24,29,0,17,0,17,0,17,19,31,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,14,22,15,24,24,30,10,18,24,29,0,17,0,17,0,17,106,106
+10003014808,"Census Tract 148.08, New Castle County, Delaware",117,0,116,156,0,17,0,17,0,17,27,43,0,17,0,17,0,17,10,17,0,17,0,17,64,99,119,85,70,60,0,17,52,60,0,17,47,48,0,17,0,17,0,17,389,389
+10003014809,"Census Tract 148.09, New Castle County, Delaware",34,13,82,94,0,17,0,17,0,17,37,46,0,17,0,17,0,17,0,17,0,17,0,17,18,30,21,41,0,17,0,17,64,85,0,17,26,33,13,20,0,17,36,52,223,215
+10003014810,"Census Tract 148.10, New Castle County, Delaware",74,43,51,128,0,17,0,17,0,17,0,17,0,17,0,17,0,17,19,42,0,17,0,17,51,77,109,95,74,132,43,61,0,17,0,17,0,17,0,17,0,17,0,17,296,296
+10003014903,"Census Tract 149.03, New Castle County, Delaware",56,30,33,355,0,17,0,17,0,17,0,17,0,17,0,17,0,17,171,97,0,17,0,17,33,38,184,133,37,60,10,16,0,17,0,17,19,30,20,33,0,17,0,17,474,474
+10003014904,"Census Tract 149.04, New Castle County, Delaware",0,87,51,390,0,12,0,12,0,12,71,70,0,12,0,12,0,12,47,43,0,12,0,12,43,50,219,124,0,12,87,102,8,14,53,81,0,12,0,12,0,12,0,12,528,528
+10003014906,"Census Tract 149.06, New Castle County, Delaware",48,91,122,150,0,17,0,17,0,17,0,17,0,17,0,17,0,17,84,72,0,17,14,18,103,82,54,49,0,17,77,59,19,17,12,20,48,52,0,17,0,17,0,17,411,411
+10003014907,"Census Tract 149.07, New Castle County, Delaware",0,3,47,49,0,12,0,12,0,12,40,49,0,12,0,12,0,12,9,14,0,12,0,12,29,37,0,12,0,12,3,7,18,27,0,12,0,12,0,12,0,12,0,12,99,99
+10003014908,"Census Tract 149.08, New Castle County, Delaware",63,45,35,72,0,12,0,12,0,12,20,20,10,15,0,12,0,12,31,38,21,19,12,24,35,38,21,21,5,16,33,35,0,12,0,12,27,23,0,12,0,12,0,12,215,215
+10003014909,"Census Tract 149.09, New Castle County, Delaware",197,14,92,267,0,17,0,17,0,17,0,17,0,17,0,17,0,17,40,49,0,17,0,17,61,72,227,137,58,54,14,23,31,33,0,17,139,134,0,17,0,17,0,17,570,570
+10003015000,"Census Tract 150, New Castle County, Delaware",24,33,62,168,0,17,0,17,0,17,45,57,0,17,0,17,0,17,63,74,10,17,33,50,62,68,60,48,0,17,0,17,0,17,0,17,14,47,0,17,0,17,0,17,287,287
+10003015100,"Census Tract 151, New Castle County, Delaware",39,13,0,8,0,12,0,12,0,12,8,14,0,12,0,12,0,12,0,12,0,12,13,20,0,12,0,12,39,47,0,12,0,12,0,12,0,12,0,12,0,12,0,12,60,60
+10003015200,"Census Tract 152, New Castle County, Delaware",68,75,0,126,0,17,0,17,0,17,43,48,0,17,0,17,0,17,57,52,0,17,24,36,0,17,0,17,68,55,51,46,0,17,26,40,0,17,0,17,0,17,0,17,269,269
+10003015400,"Census Tract 154, New Castle County, Delaware",22,0,28,57,0,12,0,12,0,12,0,12,0,12,0,12,0,12,57,49,0,12,0,12,28,35,0,12,22,34,0,12,0,12,0,12,0,12,0,12,0,12,0,12,107,107
+10003015502,"Census Tract 155.02, New Castle County, Delaware",20,26,19,134,0,12,0,12,0,12,23,26,0,12,0,12,0,12,67,42,0,12,20,32,19,29,44,42,0,12,6,8,0,12,0,12,20,32,0,12,0,12,0,12,199,199
+10003015600,"Census Tract 156, New Castle County, Delaware",5,0,43,20,0,12,0,12,0,12,8,14,0,12,0,12,0,12,0,12,5,10,0,12,31,31,9,13,0,12,0,12,12,19,3,6,0,12,0,12,0,12,0,12,68,68
+10003015802,"Census Tract 158.02, New Castle County, Delaware",11,5,16,74,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,64,33,8,13,5,7,16,24,10,15,3,7,0,12,0,12,0,12,106,106
+10003015900,"Census Tract 159, New Castle County, Delaware",61,45,0,17,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,17,21,61,57,0,12,0,12,0,12,0,12,45,58,0,12,0,12,123,123
+10003016000,"Census Tract 160, New Castle County, Delaware",93,23,34,29,0,12,0,12,0,12,6,13,0,12,0,12,0,12,0,12,61,54,0,12,34,30,23,35,32,42,23,36,0,12,0,12,0,12,0,12,0,12,0,12,179,179
+10003016100,"Census Tract 161, New Castle County, Delaware",18,16,27,58,0,12,0,12,0,12,0,12,0,12,0,12,0,12,32,28,0,12,16,24,19,17,26,29,18,30,0,12,0,12,0,12,0,12,0,12,8,11,0,12,119,119
+10003016200,"Census Tract 162, New Castle County, Delaware",79,28,45,96,0,12,0,12,0,12,0,12,0,12,0,12,0,12,30,38,0,12,20,21,0,12,66,61,13,23,8,13,45,49,0,12,66,63,0,12,0,12,0,12,248,248
+10003016301,"Census Tract 163.01, New Castle County, Delaware",57,93,32,110,0,17,0,17,0,17,9,14,14,22,0,17,0,17,51,54,0,17,0,17,32,49,11,18,0,17,52,65,0,17,39,46,43,66,41,65,0,17,0,17,292,292
+10003016302,"Census Tract 163.02, New Castle County, Delaware",0,0,0,51,0,17,0,17,0,17,0,17,0,17,0,17,0,17,16,28,0,17,0,17,0,17,21,34,0,17,0,17,0,17,0,17,0,17,0,17,0,17,14,22,51,51
+10003016305,"Census Tract 163.05, New Castle County, Delaware",73,126,140,114,0,17,0,17,0,17,23,26,0,17,0,17,0,17,56,56,0,17,126,135,95,82,35,57,26,30,0,17,0,17,0,17,47,67,0,17,45,60,0,17,453,453
+10003016401,"Census Tract 164.01, New Castle County, Delaware",0,0,0,0,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,0
+10003016404,"Census Tract 164.04, New Castle County, Delaware",37,21,9,36,0,12,0,12,0,12,11,12,9,14,5,9,0,12,9,12,12,14,0,12,9,9,16,17,11,10,14,16,0,12,0,12,5,7,2,4,0,12,0,12,103,103
+10003016601,"Census Tract 166.01, New Castle County, Delaware",114,21,21,180,0,19,0,19,0,19,0,19,0,19,0,19,0,19,38,46,16,25,0,19,21,34,123,102,98,115,0,19,0,19,0,19,0,19,21,34,0,19,19,31,336,336
+10003016602,"Census Tract 166.02, New Castle County, Delaware",0,16,58,0,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,0,19,16,26,58,85,0,19,74,74
+10003016604,"Census Tract 166.04, New Castle County, Delaware",0,2,73,84,0,19,0,19,0,19,64,71,0,19,0,19,2,4,0,19,0,19,2,4,67,58,20,31,0,19,0,19,2,4,0,19,0,19,0,19,2,4,0,19,159,159
+10003016608,"Census Tract 166.08, New Castle County, Delaware",0,0,0,0,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,0
+10003016801,"Census Tract 168.01, New Castle County, Delaware",3,47,0,72,0,17,0,17,0,17,15,23,0,17,0,17,0,17,0,17,0,17,47,75,0,17,57,79,3,6,0,17,0,17,0,17,0,17,0,17,0,17,0,17,122,122
+10003016804,"Census Tract 168.04, New Castle County, Delaware",0,0,15,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,17,28,0,17,0,17,15,27,0,17,0,17,0,17,0,17,0,17,32,32
+10003016901,"Census Tract 169.01, New Castle County, Delaware",0,0,0,11,0,12,0,12,0,12,0,12,0,12,0,12,0,12,11,13,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,11,11
+10003016904,"Census Tract 169.04, New Castle County, Delaware",0,0,0,5,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,5,8,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,5,5
+10003980100,"Census Tract 9801, New Castle County, Delaware",0,0,0,0,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,0
+10003990100,"Census Tract 9901, New Castle County, Delaware",0,0,0,0,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,0
+10005050101,"Census Tract 501.01, Sussex County, Delaware",0,0,13,71,0,12,0,12,0,12,0,12,0,12,0,12,0,12,18,20,0,12,0,12,0,12,9,14,0,12,0,12,13,19,44,46,0,12,0,12,0,12,0,12,84,84
+10005050103,"Census Tract 501.03, Sussex County, Delaware",0,14,27,30,0,12,0,12,0,12,0,12,0,12,0,12,2,5,1,3,0,12,0,12,25,40,29,33,0,12,14,17,0,12,0,12,0,12,0,12,0,12,0,12,71,71
+10005050104,"Census Tract 501.04, Sussex County, Delaware",79,35,31,81,0,12,0,12,0,12,0,12,0,12,0,12,0,12,41,44,0,12,8,14,31,48,40,34,56,59,27,30,0,12,0,12,23,36,0,12,0,12,0,12,226,226
+10005050105,"Census Tract 501.05, Sussex County, Delaware",42,0,0,38,0,17,0,17,0,17,20,34,13,22,0,17,0,17,18,28,0,17,0,17,0,17,0,17,29,45,0,17,0,17,0,17,0,17,0,17,0,17,0,17,80,80
+10005050200,"Census Tract 502, Sussex County, Delaware",27,0,84,54,0,12,0,12,0,12,36,41,0,12,0,12,0,12,4,6,14,24,0,12,70,63,14,23,13,22,0,12,14,22,0,12,0,12,0,12,0,12,0,12,165,165
+10005050301,"Census Tract 503.01, Sussex County, Delaware",21,92,34,144,3,5,16,26,0,17,51,52,0,17,59,40,21,30,63,48,0,17,16,25,10,16,18,15,12,14,1,5,3,6,12,19,6,11,0,17,0,17,0,17,291,291
+10005050302,"Census Tract 503.02, Sussex County, Delaware",14,10,22,38,0,17,0,17,0,17,0,17,0,17,0,17,0,17,38,37,14,23,10,18,22,28,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,84,84
+10005050401,"Census Tract 504.01, Sussex County, Delaware",21,11,0,51,0,12,0,12,0,12,41,54,0,12,0,12,0,12,0,12,13,18,0,12,0,12,10,15,8,14,11,17,0,12,0,12,0,12,0,12,0,12,0,12,83,83
+10005050403,"Census Tract 504.03, Sussex County, Delaware",39,28,16,29,0,12,0,12,0,12,4,6,0,12,0,12,3,5,11,18,25,39,15,19,10,17,14,22,14,19,13,21,3,5,0,12,0,12,0,12,0,12,0,12,112,112
+10005050405,"Census Tract 504.05, Sussex County, Delaware",59,54,14,64,0,12,0,12,0,12,9,16,0,12,0,12,10,17,44,50,0,12,10,16,4,12,11,17,55,70,44,61,0,12,0,12,4,13,0,12,0,12,0,12,191,191
+10005050406,"Census Tract 504.06, Sussex County, Delaware",7,102,172,212,0,17,32,40,10,16,84,75,7,12,23,38,130,109,52,64,0,17,32,49,8,12,76,78,0,17,0,17,0,17,0,17,0,17,7,12,17,18,0,17,493,478
+10005050407,"Census Tract 504.07, Sussex County, Delaware",50,30,65,77,0,17,0,17,0,17,0,17,0,17,0,17,0,17,35,40,0,17,0,17,59,42,42,29,42,41,21,24,6,10,0,17,0,17,9,13,0,17,0,17,222,214
+10005050408,"Census Tract 504.08, Sussex County, Delaware",36,10,0,96,0,12,0,12,0,12,10,15,0,12,0,12,0,12,58,57,0,12,0,12,0,12,18,19,36,41,10,16,0,12,10,15,0,12,0,12,0,12,0,12,142,142
+10005050501,"Census Tract 505.01, Sussex County, Delaware",0,0,80,122,0,12,0,12,0,12,39,50,0,12,0,12,0,12,0,12,0,12,0,12,80,67,68,64,0,12,0,12,0,12,15,21,0,12,0,12,0,12,0,12,202,202
+10005050503,"Census Tract 505.03, Sussex County, Delaware",67,70,147,211,0,17,0,17,0,17,56,76,30,35,15,23,90,62,30,39,37,42,15,26,12,19,43,40,0,17,40,56,0,17,82,121,0,17,0,17,45,68,0,17,495,495
+10005050504,"Census Tract 505.04, Sussex County, Delaware",86,34,43,55,0,17,12,21,0,17,0,17,0,17,15,23,0,17,13,22,24,34,0,17,43,39,26,40,46,56,7,21,0,17,16,24,16,23,0,17,0,17,0,17,218,218
+10005050601,"Census Tract 506.01, Sussex County, Delaware",0,15,0,13,0,17,0,17,0,17,0,17,0,17,0,17,0,17,13,19,0,17,15,24,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,28,28
+10005050602,"Census Tract 506.02, Sussex County, Delaware",48,12,89,294,0,17,0,17,0,17,73,77,0,17,0,17,0,17,104,97,34,52,0,17,89,66,117,102,14,23,12,20,0,17,0,17,0,17,0,17,0,17,0,17,443,443
+10005050701,"Census Tract 507.01, Sussex County, Delaware",27,15,37,103,0,12,0,12,0,12,33,36,0,12,0,12,18,28,30,20,24,30,10,12,0,12,37,32,0,12,5,9,19,20,3,4,3,5,0,12,0,12,0,12,182,182
+10005050703,"Census Tract 507.03, Sussex County, Delaware",8,19,14,65,0,12,0,12,7,9,19,29,0,12,3,4,0,12,19,21,6,6,11,19,7,7,14,12,2,3,2,3,0,12,13,17,0,12,3,4,0,12,0,12,106,106
+10005050704,"Census Tract 507.04, Sussex County, Delaware",73,0,16,16,48,75,0,17,0,17,0,17,0,17,0,17,16,25,0,17,0,17,0,17,0,17,16,27,0,17,0,17,0,17,0,17,25,37,0,17,0,17,0,17,105,105
+10005050705,"Census Tract 507.05, Sussex County, Delaware",23,32,18,176,0,12,0,12,0,12,0,12,0,12,0,12,0,12,117,128,0,12,0,12,18,28,59,85,23,24,32,39,0,12,0,12,0,12,0,12,0,12,0,12,249,249
+10005050706,"Census Tract 507.06, Sussex County, Delaware",9,0,10,0,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,5,8,0,12,0,12,0,12,0,12,0,12,10,14,0,12,4,8,0,12,0,12,0,12,19,19
+10005050801,"Census Tract 508.01, Sussex County, Delaware",129,5,25,99,0,12,0,12,0,12,17,17,9,14,5,7,15,17,16,20,66,55,0,12,0,12,44,51,12,20,0,12,10,17,22,35,42,53,0,12,0,12,0,12,258,258
+10005050802,"Census Tract 508.02, Sussex County, Delaware",5,0,16,118,0,17,0,17,0,17,55,87,0,17,0,17,0,17,23,27,0,17,0,17,16,27,26,39,5,9,0,17,0,17,14,22,0,17,0,17,0,17,0,17,139,139
+10005050803,"Census Tract 508.03, Sussex County, Delaware",0,16,0,152,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,152,174,0,17,0,17,0,17,0,17,0,17,16,26,0,17,0,17,168,168
+10005050901,"Census Tract 509.01, Sussex County, Delaware",31,9,0,48,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,41,47,17,19,0,12,0,12,7,12,14,22,0,12,0,12,0,12,88,79
+10005050902,"Census Tract 509.02, Sussex County, Delaware",51,45,29,145,0,17,0,17,0,17,32,36,17,27,0,17,0,17,0,17,0,17,29,34,29,33,96,102,17,25,0,17,0,17,0,17,0,17,16,25,0,17,17,28,270,253
+10005051003,"Census Tract 510.03, Sussex County, Delaware",14,33,40,73,0,17,0,17,0,17,23,34,0,17,0,17,0,17,0,17,0,17,13,22,22,35,50,57,0,17,0,17,0,17,0,17,14,23,20,36,18,28,0,17,160,160
+10005051004,"Census Tract 510.04, Sussex County, Delaware",21,21,25,52,0,17,0,17,0,17,52,77,0,17,0,17,0,17,0,17,16,23,0,17,10,18,0,17,3,5,18,22,13,16,0,17,2,3,0,17,2,4,0,17,119,116
+10005051005,"Census Tract 510.05, Sussex County, Delaware",0,6,12,43,0,17,0,17,0,17,0,17,0,17,0,17,0,17,6,11,0,17,0,17,0,17,37,41,0,17,0,17,0,17,0,17,0,17,6,6,12,13,0,17,61,61
+10005051006,"Census Tract 510.06, Sussex County, Delaware",0,9,0,57,0,12,0,12,0,12,0,12,0,12,0,12,0,12,47,46,0,12,0,12,0,12,10,16,0,12,0,12,0,12,0,12,0,12,9,14,0,12,0,12,66,66
+10005051007,"Census Tract 510.07, Sussex County, Delaware",15,0,20,104,0,12,0,12,0,12,58,90,0,12,0,12,0,12,17,27,15,24,0,12,0,12,15,24,0,12,0,12,20,33,0,12,0,12,0,12,0,12,14,21,139,139
+10005051101,"Census Tract 511.01, Sussex County, Delaware",7,0,18,25,0,12,0,12,0,12,2,3,0,12,0,12,0,12,16,19,4,5,0,12,15,17,7,7,0,12,0,12,3,5,0,12,3,6,0,12,0,12,0,12,50,50
+10005051102,"Census Tract 511.02, Sussex County, Delaware",3,4,0,13,0,12,0,12,0,12,0,12,0,12,0,12,0,12,3,4,0,12,2,4,0,12,10,14,3,4,0,12,0,12,0,12,0,12,2,4,0,12,0,12,20,20
+10005051103,"Census Tract 511.03, Sussex County, Delaware",0,0,5,20,0,12,0,12,0,12,0,12,0,12,0,12,0,12,14,13,0,12,0,12,0,12,6,8,0,12,0,12,5,7,0,12,0,12,0,12,0,12,0,12,25,25
+10005051201,"Census Tract 512.01, Sussex County, Delaware",5,25,16,20,0,12,0,12,0,12,5,8,0,12,0,12,0,12,5,8,5,8,15,24,5,7,10,12,0,12,5,7,5,8,0,12,0,12,5,7,6,8,0,12,66,66
+10005051202,"Census Tract 512.02, Sussex County, Delaware",0,0,0,0,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,0
+10005051203,"Census Tract 512.03, Sussex County, Delaware",0,0,0,0,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,0
+10005051204,"Census Tract 512.04, Sussex County, Delaware",0,0,0,0,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,0
+10005051205,"Census Tract 512.05, Sussex County, Delaware",0,0,2,0,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,2,3,0,12,0,12,0,12,0,12,0,12,2,2
+10005051301,"Census Tract 513.01, Sussex County, Delaware",37,0,0,28,0,17,0,17,0,17,13,21,0,17,0,17,0,17,0,17,0,17,0,17,0,17,15,21,0,17,0,17,0,17,0,17,37,60,0,17,0,17,0,17,65,65
+10005051302,"Census Tract 513.02, Sussex County, Delaware",13,5,3,8,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,8,11,13,21,0,12,3,5,0,12,0,12,5,8,0,12,0,12,29,29
+10005051303,"Census Tract 513.03, Sussex County, Delaware",31,19,34,56,0,17,0,17,0,17,12,20,0,17,0,17,0,17,30,33,4,8,0,17,4,8,12,20,14,25,0,17,22,25,2,4,5,9,19,23,8,11,0,17,140,132
+10005051305,"Census Tract 513.05, Sussex County, Delaware",79,17,70,53,0,12,0,12,0,12,0,12,0,12,0,12,13,19,35,28,0,12,0,12,48,41,18,19,33,43,17,19,0,12,0,12,46,42,0,12,9,14,0,12,219,219
+10005051306,"Census Tract 513.06, Sussex County, Delaware",11,19,0,26,0,12,0,12,0,12,18,20,0,12,0,12,0,12,8,14,0,12,0,12,0,12,0,12,0,12,10,15,0,12,0,12,11,18,9,14,0,12,0,12,56,56
+10005051400,"Census Tract 514, Sussex County, Delaware",47,0,100,95,0,12,0,12,0,12,5,8,0,12,0,12,22,18,63,55,8,11,0,12,49,51,27,30,39,35,0,12,19,32,0,12,0,12,0,12,0,12,0,12,242,232
+10005051500,"Census Tract 515, Sussex County, Delaware",34,15,20,106,0,17,0,17,0,17,2,4,0,17,0,17,2,3,51,57,8,12,6,7,10,14,53,27,3,4,9,14,8,14,0,17,19,23,0,17,0,17,0,17,175,171
+10005051701,"Census Tract 517.01, Sussex County, Delaware",0,19,0,31,0,12,0,12,0,12,21,32,0,12,8,12,0,12,10,15,0,12,0,12,0,12,0,12,0,12,11,17,0,12,0,12,0,12,0,12,0,12,0,12,50,50
+10005051702,"Census Tract 517.02, Sussex County, Delaware",92,0,36,11,0,17,0,17,0,17,0,17,0,17,0,17,0,17,0,17,77,121,0,17,36,55,11,19,15,23,0,17,0,17,0,17,0,17,0,17,0,17,0,17,139,139
+10005051801,"Census Tract 518.01, Sussex County, Delaware",18,0,97,149,0,12,0,12,0,12,12,24,16,29,0,12,54,74,103,104,0,12,0,12,41,58,34,54,0,12,0,12,2,4,0,12,0,12,0,12,0,12,0,12,264,262
+10005051802,"Census Tract 518.02, Sussex County, Delaware",107,80,52,169,0,12,0,12,0,12,109,83,13,19,0,12,8,12,48,40,47,58,38,56,39,45,0,12,47,46,42,37,5,10,12,18,0,12,0,12,0,12,0,12,408,408
+10005051900,"Census Tract 519, Sussex County, Delaware",88,23,75,78,4,6,0,12,0,12,29,21,13,15,0,12,14,18,35,26,24,18,16,15,59,46,14,15,47,41,7,8,2,5,0,12,0,12,0,12,0,12,0,12,264,264
+10005990000,"Census Tract 9900, Sussex County, Delaware",0,0,0,0,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,12,0,0
