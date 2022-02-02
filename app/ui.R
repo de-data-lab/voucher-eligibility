@@ -15,7 +15,10 @@ navbarPage(
     advocates_panel,
     tabPanel("Details",
              leafletOutput("map"),
-             "We defined renters potentially eligible for housing vouchers by calculating renter households paying 30% or more income on rent."
+             tags$h1("Methodology"),
+             "We defined households potentially eligible for housing vouchers by 
+             calculating renter households paying 30% or more income on rent. We
+             also excluded households with gross income exceeding $100,000."
     ),
     footer = tags$div(class = "footer",
                       includeHTML("footer.html"))
