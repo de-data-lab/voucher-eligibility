@@ -10,6 +10,17 @@
     max-width: 15em;
 }
 
+.comment {
+    text-align: center;
+    color: gray;
+    font-size: 2rem;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 15em;
+}
+
 .select-county {
     display: flex;
     justify-content: center;
