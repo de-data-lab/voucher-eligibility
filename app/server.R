@@ -1,8 +1,27 @@
-library(shiny)
-library(tidyverse)
-library(plotly)
-library(sf)
-library(here)
+
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+    here,
+    htmltools,
+    tippy,
+    xml2,
+    tibble, 
+    rvest, 
+    stringr, 
+    tidyr, 
+    janitor, 
+    dplyr, 
+    pdftools, 
+    readr, 
+    leaflet, 
+    tigris, 
+    tidyverse, 
+    shiny, 
+    ggpubr, 
+    plotly, 
+    lubridate, 
+    RColorBrewer,peRspective,reshape,plotly,sf)
+
 
 # Load Data
 geo_data <- read_rds("acs_hud_de_geojoined.rds")
