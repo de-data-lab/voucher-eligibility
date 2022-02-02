@@ -3,8 +3,8 @@
 .main-point {
     text-align: center;
     font-size: 5rem;
-    margin-top: 10rem;
-    margin-bottom: 10rem;
+    margin-top: 12rem;
+    margin-bottom: 6rem;
     margin-left: auto;
     margin-right: auto;
     max-width: 15em;
@@ -45,7 +45,16 @@
     background: #D7F5B5;
     justify-content: center;
     flex-direction: column;
+}
 
+.take-action-card-blue {
+    padding: 4rem;
+    margin: auto;
+    max-width: 100rem;
+    display: flex;
+    background: #CED7F5;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .call-to-action-text {
@@ -54,6 +63,11 @@
     margin-left: auto;
     margin-right: auto;
     max-width: 15em;
+}
+.call-to-action-text-sub {
+    margin-top: 2rem;
+    font-size: 2rem;
+    max-width: none;
 }
 
 
@@ -64,6 +78,21 @@
     margin-top: 2rem;
     margin-left: auto;
     margin-right: auto;
+}
+.follow-campaign-list li {
+        margin-top: 1.5rem
+}
+
+.follow-housing-authorities-list {
+    text-align: left;
+    font-size: 2rem;
+    max-width: 50rem;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto; 
+}
+.follow-housing-authorities-list li {
+    margin-top: 1.5rem;
 }
 
 .footer {
