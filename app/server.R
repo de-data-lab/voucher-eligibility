@@ -5,7 +5,8 @@ library(sf)
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
-geo_data_nogeometry <- acs_hud_de_geojoined %>% 
+geo_data <- acs_hud_de_geojoined
+geo_data_nogeometry <- geo_data %>% 
     st_drop_geometry()
 
 # Reshape the dataset into the long format for summarizing 
