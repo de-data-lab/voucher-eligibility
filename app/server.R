@@ -24,19 +24,18 @@ de_summary_percent_str <- de_summary %>%
     select(labels, percent) %>% deframe()
 
 # Load data for advocates and county tabs
-hud_de_section8 <- read_rds("hud_de_section8.rds")
 pop <- read_csv('pop2019.csv')
 rent <- read_csv('rent019.csv')
 rent30 <- read_csv('rent302019.csv')
 rent_income <- read_csv('rent_income.csv')
 
-hud_de_section8 <- hud_de_section8 %>% 
+
+de_summary_table <- geo_data %>% 
     select("gsl", "entities", "sumlevel",
            "program_label", "program", "sub_program", "name", "GEOID",
            "rent_per_month", "hh_income", "person_income", 
-           "spending_per_month","number_reported")
-
-de_summary_table <- hud_de_section8 %>% group_by(GEOID) %>% 
+           "spending_per_month","number_reported") %>%
+    group_by(GEOID) %>% 
     mutate(tot = number_reported)
 
 eligible <- rent %>%
