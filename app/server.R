@@ -4,8 +4,8 @@ library(shiny)
 library(tidyverse)
 library(plotly)
 library(sf)
-install.packages('here')
-library(here)
+#install.packages('here')
+#library(here)
 
 # Load Data
 geo_data <- read_rds("acs_hud_de_geojoined.rds")
@@ -31,9 +31,9 @@ de_summary_percent_str <- de_summary %>%
 
 # Load data for advocates and county tabs
 hud_de_section8 <- read_rds(here("data/processed/hud_de_section8.rds"))
-pop <- read_csv(here('data/raw/pop2019.csv'))
-rent <- read_csv(here('data/raw/rent019.csv'))
-rent30 <- read_csv(here('data/raw/rent302019.csv'))
+pop <- read_csv('data/raw/pop2019.csv')
+rent <- read_csv('data/raw/rent019.csv')
+rent30 <- read_csv('data/raw/rent302019.csv')
 
 rent_income <- read_csv(here('data/raw/rent_income.csv'))
 
