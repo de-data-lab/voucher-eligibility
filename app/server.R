@@ -1,11 +1,7 @@
-
-
 library(shiny)
 library(tidyverse)
 library(plotly)
 library(sf)
-#install.packages('here')
-#library(here)
 
 # Load Data
 geo_data <- read_rds("acs_hud_de_geojoined.rds")
@@ -27,20 +23,18 @@ de_summary <- geo_long %>%
 de_summary_percent_str <- de_summary %>% 
     select(labels, percent) %>% deframe()
 
-
-
 # Load data for advocates and county tabs
-hud_de_section8 <- read_rds(here("data/processed/hud_de_section8.rds"))
-pop <- read_csv('data/raw/pop2019.csv')
-rent <- read_csv('data/raw/rent019.csv')
-rent30 <- read_csv('data/raw/rent302019.csv')
+hud_de_section8 <- read_rds("hud_de_section8.rds")
+pop <- read_csv('pop2019.csv')
+rent <- read_csv('rent019.csv')
+rent30 <- read_csv('rent302019.csv')
+rent_income <- read_csv('rent_income.csv')
 
-rent_income <- read_csv(here('data/raw/rent_income.csv'))
-
-
-hud_de_section8<- hud_de_section8 %>% select("gsl","entities","sumlevel",
-                                             "program_label", "program","sub_program", "name", "GEOID",
-                                             "rent_per_month","hh_income","person_income","spending_per_month","number_reported")
+hud_de_section8 <- hud_de_section8 %>% 
+    select("gsl", "entities", "sumlevel",
+           "program_label", "program", "sub_program", "name", "GEOID",
+           "rent_per_month", "hh_income", "person_income", 
+           "spending_per_month","number_reported")
 
 de_summary_table <- hud_de_section8 %>% group_by(GEOID) %>% 
     mutate(tot = number_reported)
