@@ -52,35 +52,66 @@ data_county <- inner_join(de_summary_table %>% filter(number_reported>0),
     summarize(reported_HUD=sum(number_reported),rent_above30=sum(above30),rent_above50=sum(above50))
 
 # Number of households spending above 30% and 50% of hh_income on rent.
-number_county = data_county %>%  
+number_county_30 = data_county %>%  select(reported_HUD,rent_above30,county) %>%
     dplyr::rename(
         'Household applied for Section 8 assisstance'=reported_HUD,
-        'Household spending above 30% of income on rent'=rent_above30,
-        'Household spending above 50% of income on rent'=rent_above50) %>%
-    gather(cat, count, -c(county)) %>%
+        'Household spending above 30% of income on rent'=rent_above30) %>%
+    gather(Category, count, -c(county)) %>%
     ## na.rm = TRUE ensures all values are NA are taken as 0
     ggplot(aes(x=county,y=count))+
-    geom_bar(aes(fill=cat),   # fill depends on cond2
+    geom_bar(aes(fill=Category),   # fill depends on cond2
              stat="identity",
              colour="black",    # Black outline for all
              position=position_dodge())+
     ylab("Number of households")+
     xlab("County")+
     labs(color = "Percentage of hh_income spent on rent")+
-    ggtitle("")
+    ggtitle("Number of households soending above 50% of household income on rent")
 
-# Proportion of households spending above 30% and 50% of hh_income on rent and not receiving assitance.
-prop_county = data_county %>% mutate(rent_above30=(rent_above30-reported_HUD)/rent_above30,
-                                     rent_above50=(rent_above50-reported_HUD)/rent_above50) %>%
-    select(county,rent_above30,rent_above50) %>%
+number_county_50 = data_county %>%  select(reported_HUD,rent_above50,county) %>%
     dplyr::rename(
-        'Households spending above 30% of income on rent'=rent_above30,
-        'Households spending above 50% of income on ren'=rent_above50,
-        ) %>%
-    gather(cat, count, -c(county)) %>%
+        'Household applied for Section 8 assisstance'=reported_HUD,
+        'Household spending above 50% of income on rent'=rent_above50) %>%
+    gather(Category, count, -c(county)) %>%
     ## na.rm = TRUE ensures all values are NA are taken as 0
     ggplot(aes(x=county,y=count))+
-    geom_bar(aes(fill=cat),   # fill depends on cond2
+    geom_bar(aes(fill=Category),   # fill depends on cond2
+             stat="identity",
+             colour="black",    # Black outline for all
+             position=position_dodge())+
+    ylab("Number of households")+
+    xlab("County")+
+    labs(color = "Percentage of hh_income spent on rent")+
+    ggtitle("Number of households soending above 50% of household income on rent")
+
+# Proportion of households spending above 30% and 50% of hh_income on rent and not receiving assitance.
+prop_county_30 = data_county %>% mutate(rent_above30=(rent_above30-reported_HUD)/rent_above30) %>%
+    select(county,rent_above30) %>%
+    dplyr::rename(
+        'Households spending above 30% of income on rent'=rent_above30) %>%
+    gather(Category, count, -c(county)) %>%
+    ## na.rm = TRUE ensures all values are NA are taken as 0
+    ggplot(aes(x=county,y=count))+
+    geom_bar(aes(fill=Category),   # fill depends on cond2
+             stat="identity",
+             colour="black",    # Black outline for all
+             position=position_dodge())+
+    ylab("Proportion of households NOT receiving assistance")+
+    xlab("County")+
+    labs(color = "Percentage of hh_income spent on rent")+
+    theme(legend.position="top") +
+    ggtitle("")
+
+
+prop_county_50 = data_county %>% mutate(rent_above50=(rent_above50-reported_HUD)/rent_above50) %>%
+    select(county,rent_above50) %>%
+    dplyr::rename(
+        'Households spending above 50% of income on ren'=rent_above50
+    ) %>%
+    gather(Category, count, -c(county)) %>%
+    ## na.rm = TRUE ensures all values are NA are taken as 0
+    ggplot(aes(x=county,y=count))+
+    geom_bar(aes(fill=Category),   # fill depends on cond2
              stat="identity",
              colour="black",    # Black outline for all
              position=position_dodge())+
@@ -189,11 +220,28 @@ shinyServer(function(input, output) {
     
     output$GEOID_selector <- renderUI({
         multiInput("GEOID_selector", "Choose GEOIDs",
-                   choices = geo_data$GEOID)
+                   choices = advoc_table$GEOID)
     })
     
-    output$number_county <- renderPlotly({number_county})
-    output$prop_county <- renderPlotly({prop_county})
+    output$number_county <- renderPlotly({
+        # If the county is not selected, show the Delaware overall
+        if(input$selectedNumber == "30"){
+            mainplot_data <- number_county_30 
+        } 
+        else {
+            mainplot_data <- number_county_50
+        }
+        })
+    output$prop_county <- renderPlotly({
+        # If the county is not selected, show the Delaware overall
+        if(input$selectedProp == "30"){
+            mainplot_data <- prop_county_30 
+        } 
+        else {
+            mainplot_data <- prop_county_50
+        }
+        })
+    output$prop_county_50 <- renderPlotly({prop_county_50})
     output$advoc_table <- renderTable({advoc_table %>% filter(GEOID %in% input$GEOID_selector)})
     
 })
