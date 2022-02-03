@@ -24,7 +24,6 @@ de_summary_percent_str <- de_summary %>%
     select(labels, percent) %>% deframe()
 
 # Load data for advocates and county tabs
-pop <- read_csv('pop2019.csv')
 rent <- read_csv('rent019.csv')
 rent30 <- read_csv('rent302019.csv')
 rent_income <- read_csv('rent_income.csv')
