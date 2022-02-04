@@ -8,6 +8,7 @@ acs_rent30plus_wide <- read_rds(here("data/processed/acs_rent30plus_de_wide.rds"
 # "-4" = Suppressed (where the cell entry is less than 11 for reported families)"
 # Treat the -4's as 10
 hud_de_section8 <- hud_de_section8 %>% 
+    mutate(number_reported_raw = number_reported) %>% # Retain the original values
     mutate(number_reported = case_when(number_reported == -4 ~ 10,
                                        TRUE ~ number_reported))
 
