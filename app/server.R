@@ -4,11 +4,13 @@ library(plotly)
 library(sf)
 
 # Load Data
-geo_data <- read_rds("acs_hud_de_geojoined.rds")
+acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
+geo_data <- acs_hud_de_geojoined
+geo_data_nogeometry <- geo_data %>% 
+    st_drop_geometry()
 
 # Reshape the dataset into the long format for summarizing 
-geo_long <- geo_data %>%
-    st_drop_geometry() %>% 
+geo_long <- geo_data_nogeometry %>%
     mutate(number_not_using = eligible_renters - number_reported) %>%
     select(GEOID, COUNTYFP, number_not_using, number_reported) %>%
     pivot_longer(cols = c("number_not_using", "number_reported")) %>%
@@ -24,32 +26,24 @@ de_summary_percent_str <- de_summary %>%
     select(labels, percent) %>% deframe()
 
 # Load data for advocates and county tabs
-hud_de_section8 <- read_rds("hud_de_section8.rds")
-pop <- read_csv('pop2019.csv')
-rent <- read_csv('rent019.csv')
-rent30 <- read_csv('rent302019.csv')
-rent_income <- read_csv('rent_income.csv')
-
-hud_de_section8 <- hud_de_section8 %>% 
+de_summary_table <- geo_data_nogeometry %>% 
     select("gsl", "entities", "sumlevel",
            "program_label", "program", "sub_program", "name", "GEOID",
            "rent_per_month", "hh_income", "person_income", 
-           "spending_per_month","number_reported")
-
-de_summary_table <- hud_de_section8 %>% group_by(GEOID) %>% 
+           "spending_per_month","number_reported") %>%
+    group_by(GEOID) %>% 
     mutate(tot = number_reported)
 
-eligible <- rent %>%
-    inner_join(rent30, by="GEOID") %>%
-    filter(med_rent_percE > 30)
-
-data_county <- inner_join(de_summary_table %>% filter(number_reported>0),
-                   eligible %>%
-                       mutate(GEOID=as.character(GEOID)),
-                   by="GEOID") %>% mutate(county=substr(GEOID, 3, 5)) %>%
-    mutate(above30=sum(rent_30E,rent_35E,rent_40E),above50=rent_50E) %>%
+data_county <- geo_data_nogeometry %>%
+    filter(number_reported > 0) %>%
+    mutate(county = substr(GEOID, 3, 5)) %>%
+    rowwise() %>% 
+    mutate(above30 = sum(rent_30E, rent_35E, rent_40E),
+           above50 = rent_50E) %>%
     group_by(county) %>%
-    summarize(reported_HUD=sum(number_reported),rent_above30=sum(above30),rent_above50=sum(above50))
+    summarize(reported_HUD = sum(number_reported),
+              rent_above30 = sum(above30),
+              rent_above50 = sum(above50))
 
 # Number of households spending above 30% and 50% of hh_income on rent.
 number_county_30 = data_county %>%  select(reported_HUD,rent_above30,county) %>%
@@ -124,11 +118,11 @@ prop_county_50 = data_county %>% mutate(rent_above50=(rent_above50-reported_HUD)
 
 # Data for Advocates Tab
 #Statistics for GEOIDs
-advoc_table <- inner_join(de_summary_table %>% filter(number_reported>0),
-                         eligible %>%
-                             mutate(GEOID=as.character(GEOID)),
-                         by="GEOID")  %>%
-    mutate(above30=sum(rent_30E,rent_35E,rent_40E),above50=rent_50E) %>%
+advoc_table <- geo_data_nogeometry %>%
+    filter(number_reported > 0 ) %>%
+    rowwise() %>%
+    mutate(above30 = sum(rent_30E, rent_35E, rent_40E),
+           above50=rent_50E) %>%
     group_by(GEOID) %>%
     summarize(reported_HUD=sum(number_reported),rent_above30=sum(above30),rent_above50=sum(above50)) %>%
     dplyr::rename(

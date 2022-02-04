@@ -6,20 +6,10 @@ Sys.getenv("CENSUS_API_KEY")
 # Select the columns corresponding to the counts of hte 
 # households who are paying 30 percent or more on rent 
 # https://censusreporter.org/data/table/?table=B25070&geo_ids=140|04000US10&primary_geo_id=04000US10#valueType|estimate
-rent_30plus_vars <- c("B25070_007",
-                      "B25070_008",
-                      "B25070_009",
-                      "B25070_010")
-de_rent_30plus <- get_acs(
-    geography = "tract", 
-    variables = rent_30plus_vars,
-    state = "DE")
-
-de_rent30plus_wide <- de_rent_30plus %>% 
-    select(-moe) %>% 
-    pivot_wider(id_cols = c("GEOID", "NAME"),
-                values_from = estimate,
-                names_from = variable)
+rent_30plus_vars <- c(rent_30='B25070_007',
+                      rent_35='B25070_008',
+                      rent_40='B25070_009',
+                      rent_50='B25070_010')
 
 # Get Rent Categories x Household Income Table (B25074)
 # For each income category and percentage rent spend on household income:
@@ -44,21 +34,33 @@ rent_10k_vars <- c(rent_30_10k = 'B25074_006',
                    rent_35_75k = 'B25074_043',
                    rent_40_75k = 'B25074_044',
                    rent_50_75k = 'B25074_045')
-rent_10k <- get_acs(geography = "tract",
-                    variables = rent_10k_vars,
-                    state = "DE",
-                    year = 2019,
-                    output = "wide")
 
-# Join the datasets
-acs_data_joined <-de_rent30plus_wide %>% 
-    left_join(rent_10k, by = c("GEOID", "NAME"))
+rent_variables <- c(med_rent = 'B25031_001',
+                    no_bed = 'B25031_002',
+                    one_bed = 'B25031_003',    
+                    med_rent_perc = 'B25071_001',
+                    two_bed = 'B25031_004',
+                    three_bed = 'B25031_005',
+                    four_bed = 'B25031_006',
+                    five_bed = 'B25031_007')
+
+all_census_vars <- c(rent_30plus_vars,
+                     rent_10k_vars,
+                     rent_variables)
+
+# Get all ACS data in one query
+acs_data_joined <- get_acs(
+        geography = "tract", 
+        variables = all_census_vars,
+        state = "DE",
+        output = "wide")
+
 
 # Calculate the potentially-eligible renters
 rent_10k_vars_estimates <- paste0(names(rent_10k_vars), "E")
 acs_data_joined <- acs_data_joined %>%
     rowwise() %>% 
-    mutate(eligible_old = sum(c_across(rent_30plus_vars)),
+    mutate(eligible_old = sum(c_across(paste0(names(rent_30plus_vars), "E"))),
            eligible_renters = sum(c_across(rent_10k_vars_estimates))) %>% 
     ungroup()
 
