@@ -30,7 +30,6 @@ number_county_common_layers <- list(
              stat = "identity",
              position = position_dodge()),
     ylab("Number of households"),
-    xlab("County"),
     theme_minimal(),
     scale_y_continuous(limits = c(0, 30000)),
     scale_fill_brewer(palette = "Set2", direction = -1),
