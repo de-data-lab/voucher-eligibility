@@ -111,3 +111,9 @@
 .footer-container {
     margin: 2rem;
 }
+
+.select-threshold {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
