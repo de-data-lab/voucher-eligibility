@@ -28,10 +28,11 @@ data_county <- geo_data_nogeometry %>%
 number_county_common_layers <- list(
     geom_bar(aes(fill = Category),
              stat = "identity",
-             colour = "black",
              position = position_dodge()),
     ylab("Number of households"),
-    xlab("County")
+    xlab("County"),
+    theme_minimal(),
+    scale_fill_brewer(palette = "Set2", direction = -1)
 )
 
 number_county_30 <- data_county %>%  
@@ -56,7 +57,7 @@ number_county_50 <- data_county %>%
 
 # Proportion of households spending above 30% and 50% of hh_income on rent and not receiving assitance.
 prop_county_common_layers <- list(
-    geom_bar(fill = "gray",
+    geom_bar(fill = "#fa9fb5",
              stat = "identity",
              width = 0.3),
     scale_y_continuous(labels = scales::percent,
