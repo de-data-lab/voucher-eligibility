@@ -3,7 +3,7 @@ library(tidyverse)
 library(plotly)
 library(sf)
 library(leaflet)
-
+library(tigris)
 
 
 shape <- tracts(state='10')
