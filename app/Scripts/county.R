@@ -2,6 +2,7 @@ library(shiny)
 library(tidyverse)
 library(plotly)
 library(sf)
+library(RColorBrewer)
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
@@ -24,7 +25,7 @@ data_county <- geo_data_nogeometry %>%
               rent_above50 = sum(above50)) 
 
 # Number of households spending above 30% and 50% of hh_income on rent.
-number_county_common_elements <- list(
+number_county_common_layers <- list(
     geom_bar(aes(fill = Category),
              stat = "identity",
              colour = "black",
@@ -40,7 +41,7 @@ number_county_30 <- data_county %>%
         'Spending 30%+ income on rent' = rent_above30) %>%
     gather(Category, count, -c(county)) %>%
     ggplot(aes(x = county, y = count)) + 
-    number_county_common_elements +
+    number_county_common_layers +
     ggtitle("Households Spending 30%+ Income on Rent")
 
 number_county_50 <- data_county %>% 
@@ -50,15 +51,14 @@ number_county_50 <- data_county %>%
         'Spending 50%+ income on rent' = rent_above50) %>%
     gather(Category, count, -c(county)) %>%
     ggplot(aes(x = county, y = count))+
-    number_county_common_elements +
+    number_county_common_layers +
     ggtitle("Households Spending 50%+ Income on Rent")
 
 # Proportion of households spending above 30% and 50% of hh_income on rent and not receiving assitance.
-prop_county_common_elements <- list(
-    geom_bar(aes(fill = Category),
+prop_county_common_layers <- list(
+    geom_bar(fill = "gray",
              stat = "identity",
-             position = position_dodge(),
-             width = 0.6),
+             width = 0.3),
     scale_y_continuous(labels = scales::percent,
                        limits = c(0, 1)),
     ylab(""),
@@ -76,7 +76,7 @@ prop_county_30 <- data_county %>%
         'Households spending 30%+ income on rent' = rent_above30) %>%
     gather(Category, count, -c(county)) %>%
     ggplot(aes(x = county, y = count)) + 
-    prop_county_common_elements
+    prop_county_common_layers
 
 prop_county_50 <- data_county %>%
     mutate(rent_above50 = (rent_above50 - reported_HUD) / rent_above50) %>%
@@ -87,5 +87,5 @@ prop_county_50 <- data_county %>%
     gather(Category, count, -c(county)) %>%
     ## na.rm = TRUE ensures all values are NA are taken as 0
     ggplot(aes(x = county,y = count)) +
-    prop_county_common_elements
+    prop_county_common_layers
 
