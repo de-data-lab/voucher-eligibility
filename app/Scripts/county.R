@@ -25,10 +25,10 @@ data_county <- geo_data_nogeometry %>%
 
 # Number of households spending above 30% and 50% of hh_income on rent.
 number_county_common_elements <- list(
-    geom_bar(aes(fill=Category),
-             stat="identity",
-             colour="black",
-             position=position_dodge()),
+    geom_bar(aes(fill = Category),
+             stat = "identity",
+             colour = "black",
+             position = position_dodge()),
     ylab("Number of households"),
     xlab("County")
 )
@@ -55,23 +55,23 @@ number_county_50 <- data_county %>%
 
 # Proportion of households spending above 30% and 50% of hh_income on rent and not receiving assitance.
 prop_county_common_elements <- list(
-    geom_bar(aes(fill=Category),
-             stat="identity",
-             position=position_dodge(),
+    geom_bar(aes(fill = Category),
+             stat = "identity",
+             position = position_dodge(),
              width = 0.6),
     scale_y_continuous(labels = scales::percent,
                        limits = c(0, 1)),
     ylab(""),
     xlab(""),
     theme_minimal(),
-    theme(legend.position="none"),
+    theme(legend.position = "none"),
     coord_flip(),
     ggtitle("Potentialy-Eligible Households Not Receiving Voucher")
 )
 
 prop_county_30 <- data_county %>% 
-    mutate(rent_above30=(rent_above30-reported_HUD)/rent_above30) %>%
-    select(county,rent_above30) %>%
+    mutate(rent_above30 = (rent_above30 - reported_HUD) / rent_above30) %>%
+    select(county, rent_above30) %>%
     dplyr::rename(
         'Households spending 30%+ income on rent' = rent_above30) %>%
     gather(Category, count, -c(county)) %>%
@@ -79,7 +79,7 @@ prop_county_30 <- data_county %>%
     prop_county_common_elements
 
 prop_county_50 <- data_county %>%
-    mutate(rent_above50=(rent_above50-reported_HUD)/rent_above50) %>%
+    mutate(rent_above50 = (rent_above50 - reported_HUD) / rent_above50) %>%
     select(county,rent_above50) %>%
     dplyr::rename(
         'Households spending 50%+ income on rent' = rent_above50
