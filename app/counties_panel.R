@@ -9,9 +9,9 @@ counties_panel <- tabPanel(
     plotlyOutput("number_county"),
     tags$div(class = "select-threshold",
              radioGroupButtons("selectedNumber", 
-                               label = "Focusing on households with rent spending above:",
-                               choices = c("30%+" = "30",
-                                           "50%+" = "50"),
+                               label = "Focusing on households with rent spending:",
+                               choices = c("30%+ of income" = "30",
+                                           "50%+ of income" = "50"),
                                selected='30')
     ),
     tags$div(class = "main-point",
@@ -20,9 +20,9 @@ counties_panel <- tabPanel(
     plotlyOutput("prop_county"),
     tags$div(class = "select-threshold",
              radioGroupButtons("selectedProp", 
-                               label = "Focusing on households with rent spending above:",
-                               choices = c("30%+" = "30",
-                                           "50%+" = "50"),
+                               label = "Focusing on households with rent spending:",
+                               choices = c("30%+ of income" = "30",
+                                           "50%+ of income" = "50"),
                                selected='30')
     )
 )
