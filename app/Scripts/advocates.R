@@ -2,6 +2,25 @@ library(shiny)
 library(tidyverse)
 library(plotly)
 library(sf)
+library(leaflet)
+
+
+
+shape <- tracts(state='10')
+lat <- 39.1824#39.5393
+lng <- -75.2
+advoc_map <- shape %>%
+  leaflet() %>%
+  addTiles(providers$CartoDB.Positron) %>%   #not including one, sets the general maps version
+  setView(lng, lat, zoom = 8.0) %>%
+  addPolygons(fillColor = "blue",
+              highlight=highlightOptions(weight=5,
+                                         color='red',
+                                         fillOpacity = 0.7,
+                                         bringToFront=TRUE),
+              label= ~NAMELSAD, layerId = ~GEOID)
+
+
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
