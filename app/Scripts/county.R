@@ -32,7 +32,9 @@ number_county_common_layers <- list(
     ylab("Number of households"),
     xlab("County"),
     theme_minimal(),
-    scale_fill_brewer(palette = "Set2", direction = -1)
+    scale_y_continuous(limits = c(0, 30000)),
+    scale_fill_brewer(palette = "Set2", direction = -1),
+    coord_flip()
 )
 
 number_county_30 <- data_county %>%  
