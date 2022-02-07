@@ -80,12 +80,12 @@ prop_county_30 <- data_county %>%
 
 prop_county_50 <- data_county %>%
     mutate(rent_above50 = (rent_above50 - reported_HUD) / rent_above50) %>%
-    select(county,rent_above50) %>%
+    select(county, rent_above50) %>%
     dplyr::rename(
         'Households spending 50%+ income on rent' = rent_above50
     ) %>%
     gather(Category, count, -c(county)) %>%
     ## na.rm = TRUE ensures all values are NA are taken as 0
-    ggplot(aes(x=county,y=count)) +
+    ggplot(aes(x = county,y = count)) +
     prop_county_common_elements
 
