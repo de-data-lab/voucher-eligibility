@@ -73,6 +73,22 @@ de_h30 <- hud_de_section8 %>% group_by(GEOID) %>%
 ```
 
 ```{r, echo=FALSE}
+shape <- tracts(state='10')
+lat <- 39.1824#39.5393
+lng <- -75.2
+shape %>%
+    leaflet() %>%
+    addTiles(providers$CartoDB.Positron) %>%   #not including one, sets the general maps version
+    setView(lng, lat, zoom = 8.0) %>%
+    addPolygons(fillColor = "white",
+                color = "#B2AEAE",
+                fillOpacity = 1,
+                weight = 1,
+                smoothFactor = 0.4)
+```
+
+
+```{r, echo=FALSE}
 eligible <- inner_join(rent,rent30,by="GEOID") %>% 
     filter(med_rent_percE>30)
 shape <- tracts(state='10')
