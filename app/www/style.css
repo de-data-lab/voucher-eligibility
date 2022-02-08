@@ -117,3 +117,8 @@
     display: flex;
     justify-content: center;
 }
+
+#prop_county {
+    margin: auto;
+    max-width: 800px;
+}
