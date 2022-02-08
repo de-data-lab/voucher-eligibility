@@ -37,6 +37,13 @@ de_summary_table <- geo_data_nogeometry %>%
     group_by(GEOID) %>% 
     mutate(tot = number_reported)
 
+# Dictionary of counties and keys
+county_list <- c(
+    "all" = "All Delaware",
+    "001" = "Kent County",
+    "003" = "New Castle County",
+    "005" = "Sussex County")
+
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -52,12 +59,6 @@ shinyServer(function(input, output, session) {
         }
         
         # Determine the title of the plot
-        county_list <- c(
-            "all" = "All Delaware",
-            "001" = "Kent County",
-            "003" = "New Castle County",
-            "005" = "Sussex County"
-        )
         mainplot_title <- paste("Renters Potentially Eligible for Housing Choice Voucher",
                                 county_list[[input$selectedCounty]],
                                 sep = "<br>")
