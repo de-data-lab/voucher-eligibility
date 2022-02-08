@@ -115,8 +115,8 @@ shinyServer(function(input, output) {
         )
     
     output$main_text <- renderText(
-        paste0("In Delaware, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
-               "% of the families needing Housing Choice Voucher are receiving it")
+        paste0("However, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
+               "% of the Delaware families needing a voucher are receiving it")
     )
     
     output$GEOID_selector <- renderUI({
