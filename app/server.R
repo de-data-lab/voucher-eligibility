@@ -43,7 +43,10 @@ county_list <- c(
     "001" = "Kent County",
     "003" = "New Castle County",
     "005" = "Sussex County")
-
+# Update the 
+geo_long <- geo_long %>%
+    mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
+                                    " County"))
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -89,7 +92,6 @@ shinyServer(function(input, output, session) {
     })
     
     output$number_county <- renderPlotly({
-        # If the county is not selected, show the Delaware overall
         if(input$selectedNumber == "30"){
             mainplot_data <- number_county_30 
         } 
@@ -97,8 +99,36 @@ shinyServer(function(input, output, session) {
             mainplot_data <- number_county_50
         }
         })
+    
+    output$prop_counties <- renderPlotly({
+        cur_data <- geo_long %>%
+            group_by(county_name, labels) %>%
+            summarise(count = sum(value, na.rm = TRUE)) %>%
+            mutate(prop = count / sum(count))
+        
+        out_plot <- cur_data %>%
+            ggplot(aes(x = county_name, y = prop, fill = labels,
+                       label = paste(scales::percent(prop)))) +
+            geom_bar(position = "fill", 
+                     stat = "identity",
+                     width = 0.7) +
+            theme_minimal() +
+            geom_text(color = "white") + 
+            scale_y_continuous(labels = scales::percent) +
+            scale_fill_brewer(palette = "Set2", name = "") + 
+            scale_x_discrete(limits = rev(c("New Castle",
+                                            "Kent",
+                                            "Sussex"))) + 
+            ylab("") +
+            xlab("") +
+            ggtitle("Renters Potentially Eligible for Voucher") +
+            coord_flip()
+        out_plot %>%
+            ggplotly() %>%
+            layout(legend = list(orientation = 'h'))
+    })
+    
     output$prop_county <- renderPlotly({
-        # If the county is not selected, show the Delaware overall
         if(input$selectedProp == "30"){
             mainplot_data <- prop_county_30 
         } 

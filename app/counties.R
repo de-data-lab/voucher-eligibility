@@ -14,6 +14,7 @@ counties_div <- tags$div(
     ),
     tags$div(class = "main-point",
              "But, it does the best job serving families than other counties"),
+    plotlyOutput("prop_counties"),
     tags$div(class = "main-point",
              "On the other hand, families in Sussex County may be facing 
              the most difficulty getting vouchers"),
