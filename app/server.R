@@ -38,42 +38,9 @@ de_summary_table <- geo_data_nogeometry %>%
     mutate(tot = number_reported)
 
 
-
-# Labels
-popUp <- with(geo_data,
-              paste0("<br><b>GEOID:</b> ", geo_data$GEOID,
-                     "<br><b>Census Tract:</b> ", geo_data$tract,
-                     "<br><b>Serviced Renters:</b> ", geo_data$number_reported,
-                     "<br><b>Eligible Renters:</b> ", geo_data$eligible_renters
-              ))
-cols <- colorNumeric(
-    palette = "inferno",
-    domain = geo_data$prop_serviced, reverse = TRUE)
-
-default_lat <- 39.1824
-default_lng <- -75.2
-
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
 
-    output$map <- renderLeaflet({
-        geo_data %>% 
-            leaflet() %>%
-            addTiles(providers$CartoDB.Positron) %>%
-            setView(default_lng, default_lat, zoom = 8.0) %>%
-            addPolygons(fillColor = ~cols(geo_data$prop_serviced),
-                        color = "#B2AEAE",
-                        fillOpacity = 1,
-                        weight = 1,
-                        smoothFactor = 0.4,
-                        popup = popUp
-            ) %>%
-            addLegend(pal = cols,
-                      values = geo_data$prop_serviced,
-                      position = "bottomright",
-                      title = paste("Proportion of <br> Serviced Renters",sep=" "))
-    })
-    
     output$mainplot <- renderPlotly({
         
         # If the county is not selected, show the Delaware overall
@@ -109,10 +76,6 @@ shinyServer(function(input, output, session) {
                    margin = list(t = 100))
         
     })
-    
-    output$de_service_rate <- renderText(
-        round(de_summary_percent_str[["Receiving Voucher"]])
-        )
     
     output$main_text <- renderText(
         paste0("However, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
