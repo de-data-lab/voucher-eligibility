@@ -54,7 +54,7 @@ default_lat <- 39.1824
 default_lng <- -75.2
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
 
     output$map <- renderLeaflet({
         geo_data %>% 
@@ -163,4 +163,8 @@ shinyServer(function(input, output) {
         
     })
     
+    # Observe the click to the advocates page
+    observeEvent(input$to_advocates_page, {
+        updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
+    })
 })
