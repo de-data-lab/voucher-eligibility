@@ -8,7 +8,8 @@ source("advocates_panel.r")
 source("methods_panel.R")
 
 navbarPage(
-    "Housing Choice Voucher in Delaware",
+    id = "main_page",
+    title = "Housing Choice Voucher in Delaware",
     header = tags$head(
         tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
     ),
