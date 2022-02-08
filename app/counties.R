@@ -1,11 +1,9 @@
 # Counties Panel
 
-
-counties_panel <- tabPanel(
-    "By County",
-    tags$div(class = "main-point",
-             "Families in the New Castle County are 
-             most likely to receive a voucher"),
+counties_div <- tags$div(
+    tags$div(class = "main-point-sm",
+             "New Castle County has the largest number of
+             potentially-eligible families"),
     plotlyOutput("number_county"),
     tags$div(class = "select-threshold",
              radioGroupButtons("selectedNumber", 
@@ -14,9 +12,11 @@ counties_panel <- tabPanel(
                                            "50%+ of income" = "50"),
                                selected='30')
     ),
-    tags$div(class = "main-point",
-             "Families in Sussex County may be facing the most difficulty
-             getting Housing Choice Voucher"),
+    tags$div(class = "main-point-sm",
+             "But, it does the best job serving families than other counties."),
+    tags$div(class = "main-point-sm",
+             "On the other hand, families in Sussex County may be facing 
+             the most difficulty getting vouchers"),
     plotlyOutput("prop_county"),
     tags$div(class = "select-threshold",
              radioGroupButtons("selectedProp", 
