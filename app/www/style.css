@@ -6,6 +6,20 @@
 
 
 /* Main Message */
+.main-point--container {
+    text-align: center;
+    font-size: 5rem;
+    margin-top: 12rem;
+    margin-bottom: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 15em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 .main-point {
     text-align: center;
     font-size: 5rem;
@@ -14,6 +28,23 @@
     margin-left: auto;
     margin-right: auto;
     max-width: 15em;
+}
+
+.main-point-sm {
+    text-align: center;
+    font-size: 4rem;
+    margin-top: 12rem;
+    margin-bottom: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 15em;
+}
+
+.main-point--footnote {
+    text-align: center;
+    color: gray;
+    font-size: 2rem;
+    margin-bottom: 6rem;
 }
 
 .comment {
@@ -122,3 +153,24 @@
     margin: auto;
     max-width: 800px;
 }
+
+.learn-more-button {
+    background-color: #F27405;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 2rem;
+    color: white;
+}
+
+.learn-more-button:hover {
+    background-color: #F27405;
+    color: white;
+}
+
+.learn-more-button:active {
+    background-color: #D96704;
+    color: white;
+    border: none;
+}
+
+
