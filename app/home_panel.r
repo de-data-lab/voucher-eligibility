@@ -1,8 +1,30 @@
 # homepage
 library(shinyWidgets)
+source("counties.R")
 home_panel <- tabPanel(
     "Home",
     tags$div(class = "main-point",
+             "Housing Choice Voucher in Delaware"),
+    tags$div(class = "main-point-sm",
+             "Housing Choice Voucher (Section 8) provides 
+             housing for families in housing crisis"),
+    tags$div(class = "main-point",
+             icon("house-user")),
+     tags$div(class = "main-point-sm",
+             "Housing Choice Voucher is an effective way 
+             to help families and provide better opportunities"),
+    tags$div(class = "main-point--footnote",
+             "(Source: ", 
+             tags$a(href = "https://www.cbpp.org/research/housing/housing-choice-voucher-program-oversight-and-review-of-legislative-proposals#_ftn2",
+                    target = "_blank",
+                    "CBPP, 2018"),
+             "; ",
+             tags$a(href = "https://www.cbpp.org/research/housing/housing-choice-voucher-program-oversight-and-review-of-legislative-proposals#_ftn2",
+                    target = "_blank",
+                    "CBPP, 2021"),
+             ")"
+             ),
+    tags$div(class = "main-point-sm",
              textOutput("main_text")),
     plotlyOutput("mainplot"),
     tags$div(class = "select-county",
@@ -14,8 +36,18 @@ home_panel <- tabPanel(
                                            "Kent" = "001",
                                            "Sussex" = "005"))
     ),
-    tags$div(class = "main-point",
-             "Do you think that's ok?"),
+    counties_div, 
+    tags$div(
+        class = "main-point--container",
+        tags$div(class = "main-point",
+                 "Want to learn more about how your neighboorhod is doing?"
+        ),
+        tags$div(class = "learn-more-button",
+                 "Check out our Housing Voucher Lookup Tool"),
+        tags$div(class = "main-point-sm",
+                 "Interested in doing something about the housing crisis in Delaware?"
+                 )
+    ),
     tags$div(class = "take-action-container",
              tags$div(class = "take-action-card",
                       tags$div(class = "call-to-action-text", 
