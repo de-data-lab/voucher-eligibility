@@ -2,15 +2,16 @@
 library(shinyWidgets)
 source("counties.R")
 home_panel <- tabPanel(
-    "Home",
-    tags$div(class = "main-point",
+    id = "home",
+    title = "Home",
+    tags$div(class = "title",
              "Housing Choice Voucher in Delaware"),
-    tags$div(class = "main-point-sm",
+    tags$div(class = "main-point",
              "Housing Choice Voucher (Section 8) provides 
              housing for families in housing crisis"),
-    tags$div(class = "main-point",
+    tags$div(class = "main-point main-point--icon",
              icon("house-user")),
-     tags$div(class = "main-point-sm",
+     tags$div(class = "main-point",
              "Housing Choice Voucher is an effective way 
              to help families and provide better opportunities"),
     tags$div(class = "main-point--footnote",
@@ -24,7 +25,7 @@ home_panel <- tabPanel(
                     "CBPP, 2021"),
              ")"
              ),
-    tags$div(class = "main-point-sm",
+    tags$div(class = "main-point",
              textOutput("main_text")),
     plotlyOutput("mainplot"),
     tags$div(class = "select-county",
@@ -42,11 +43,12 @@ home_panel <- tabPanel(
         tags$div(class = "main-point",
                  "Want to learn more about how your neighboorhod is doing?"
         ),
-        tags$div(class = "learn-more-button",
-                 "Check out our Housing Voucher Lookup Tool"),
-        tags$div(class = "main-point-sm",
-                 "Interested in doing something about the housing crisis in Delaware?"
-                 )
+        actionLink(inputId = "to_advocates_page", 
+                   label = "Check out our Housing Voucher Lookup Tool",
+                   class = "learn-more-button")
+    ),
+    tags$div(class = "main-point",
+             "Interested in doing something about the housing crisis in Delaware?"
     ),
     tags$div(class = "take-action-container",
              tags$div(class = "take-action-card",
