@@ -27,6 +27,7 @@ number_county_common_layers <- list(
     ylab("Number of households"),
     xlab(""),
     theme_minimal(),
+    scale_x_discrete(limits = rev(c("New Castle", "Kent", "Sussex"))),
     scale_y_continuous(limits = c(0, 30000)),
     scale_fill_brewer(palette = "Set2", direction = 1, name = ""),
     coord_flip()
@@ -35,7 +36,7 @@ number_county_common_layers <- list(
 plotly_legend_top_right <- function(p) {
     layout(p, legend = list(orientation = 'h',
                          yanchor = "top",
-                         y = 1.03,
+                         y = 1.05,
                          xanchor = "right",
                          x = 1))
 }
