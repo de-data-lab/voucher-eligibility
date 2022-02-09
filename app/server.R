@@ -77,8 +77,8 @@ shinyServer(function(input, output, session) {
                     insidetextorientation = 'horizontal',
                     showlegend = FALSE,
                     marker = list(
-                        colors = c("#ED8B00", # Tech Impact orange
-                                   "#78BE20") # Tech Impact green
+                        colors = c("#FC8D62", # Brewer Set 2 orange
+                                   "#66C2A5") # Brewer Set 2 green
                     )) %>%
             layout(title = list(text = mainplot_title),
                    margin = list(t = 100))

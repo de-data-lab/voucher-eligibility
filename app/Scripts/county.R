@@ -84,7 +84,7 @@ prop_county_common_layers <- list(
     scale_y_continuous(labels = scales::percent,
                        limits = c(0, 1)),
     scale_x_discrete(limits = rev(c("New Castle", "Kent", "Sussex"))),
-    scale_fill_manual(values = c("#F27405", "gray")),
+    scale_fill_manual(values = c("#FC8D62", "gray")),
     ylab(""),
     xlab(""),
     theme_minimal(),
