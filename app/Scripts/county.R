@@ -71,27 +71,15 @@ prop_county_common_layers <- list(
     ggtitle("Potentialy-Eligible Households Not Receiving Voucher")
 )
 
-prop_county_30_data <- data_county %>% 
-    mutate(rent_above30 = (rent_above30 - reported_HUD) / rent_above30) %>%
-    select(county, rent_above30)
+prop_county_data <- data_county %>% 
+    mutate(rent_above30_prop = (rent_above30 - reported_HUD) / rent_above30,
+           rent_above50_prop = (rent_above50 - reported_HUD) / rent_above50)
 
-prop_county_30 <- prop_county_30_data %>%
-    dplyr::rename(
-        'Households spending 30%+ income on rent' = rent_above30) %>%
-    gather(Category, count, -c(county)) %>%
-    ggplot(aes(x = county, y = count)) + 
+prop_county_30 <- prop_county_data %>%
+    ggplot(aes(x = county, y = rent_above30_prop)) +
     prop_county_common_layers
 
-prop_county_50_data <- data_county %>%
-    mutate(rent_above50 = (rent_above50 - reported_HUD) / rent_above50) %>%
-    select(county, rent_above50)
-
-prop_county_50 <- prop_county_50_data %>%
-    dplyr::rename(
-        'Households spending 50%+ income on rent' = rent_above50
-    ) %>%
-    gather(Category, count, -c(county)) %>%
-    ## na.rm = TRUE ensures all values are NA are taken as 0
-    ggplot(aes(x = county,y = count)) +
+prop_county_50 <- prop_county_data %>%
+    ggplot(aes(x = county,y = rent_above50_prop)) +
     prop_county_common_layers
 
