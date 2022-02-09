@@ -9,6 +9,7 @@ advocates_panel <- tabPanel(
     tags$div(class = "advoc-container",
              uiOutput("GEOID_selector")),
     tags$div(class = "advoc-table",
-             tableOutput("advoc_table"))
-    
+             tableOutput("advoc_table")),
+    tags$div(class = "advoc-table",
+             downloadButton("downloadData", "Download"))
 )
