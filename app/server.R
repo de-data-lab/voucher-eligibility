@@ -75,7 +75,11 @@ shinyServer(function(input, output, session) {
                     type = 'pie',
                     textinfo = 'label+percent',
                     insidetextorientation = 'horizontal',
-                    showlegend = FALSE) %>%
+                    showlegend = FALSE,
+                    marker = list(
+                        colors = c("#FC8D62", # Brewer Set 2 orange
+                                   "#66C2A5") # Brewer Set 2 green
+                    )) %>%
             layout(title = list(text = mainplot_title),
                    margin = list(t = 100))
         
@@ -101,12 +105,12 @@ shinyServer(function(input, output, session) {
         })
     
     output$prop_counties <- renderPlotly({
-        cur_data <- geo_long %>%
+        prop_counties_data <- geo_long %>%
             group_by(county_name, labels) %>%
             summarise(count = sum(value, na.rm = TRUE)) %>%
             mutate(prop = count / sum(count))
         
-        out_plot <- cur_data %>%
+        prop_counties_plot <- prop_counties_data %>%
             ggplot(aes(x = county_name, y = prop, fill = labels,
                        label = paste(scales::percent(prop)))) +
             geom_bar(position = "fill", 
@@ -115,7 +119,7 @@ shinyServer(function(input, output, session) {
             theme_minimal() +
             geom_text(color = "white") + 
             scale_y_continuous(labels = scales::percent) +
-            scale_fill_brewer(palette = "Set2", name = "") + 
+            scale_fill_brewer(palette = "Set2", name = "", direction = -1) + 
             scale_x_discrete(limits = rev(c("New Castle",
                                             "Kent",
                                             "Sussex"))) + 
@@ -123,9 +127,11 @@ shinyServer(function(input, output, session) {
             xlab("") +
             ggtitle("Renters Potentially Eligible for Voucher") +
             coord_flip()
-        out_plot %>%
+        
+        prop_counties_plot %>%
             ggplotly() %>%
-            layout(legend = list(orientation = 'h'))
+            plotly_legend_top_right %>%
+            layout(legend = list(traceorder = "reversed"))
     })
     
     output$prop_county <- renderPlotly({

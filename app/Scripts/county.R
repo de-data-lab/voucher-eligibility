@@ -4,12 +4,7 @@ library(plotly)
 library(sf)
 library(RColorBrewer)
 
-# Load Data
-acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
-geo_data <- acs_hud_de_geojoined
-geo_data_nogeometry <- geo_data %>% 
-    st_drop_geometry()
-
+# Create by-county table (data object inherited from server.R)
 data_county <- geo_data_nogeometry %>%
     filter(number_reported > 0) %>%
     mutate(county = substr(GEOID, 3, 5)) %>%
@@ -32,38 +27,64 @@ number_county_common_layers <- list(
     ylab("Number of households"),
     xlab(""),
     theme_minimal(),
+    scale_x_discrete(limits = rev(c("New Castle", "Kent", "Sussex"))),
     scale_y_continuous(limits = c(0, 30000)),
-    scale_fill_brewer(palette = "Set2", direction = -1),
+    scale_fill_brewer(palette = "Set2", direction = 1, name = ""),
     coord_flip()
 )
 
-number_county_30 <- data_county %>%  
+plotly_legend_top_right <- function(p) {
+    layout(p, legend = list(orientation = 'h',
+                         yanchor = "top",
+                         y = 1.05,
+                         xanchor = "right",
+                         x = 1))
+}
+
+number_county_30_data <- data_county %>%  
     select(reported_HUD, rent_above30, county) %>%
     dplyr::rename(
         'Receiving Voucher' = reported_HUD,
         'Spending 30%+ income on rent' = rent_above30) %>%
-    gather(Category, count, -c(county)) %>%
+    gather(Category, count, -c(county))
+    
+number_county_30 <- number_county_30_data %>%
     ggplot(aes(x = county, y = count)) + 
     number_county_common_layers +
     ggtitle("Households Spending 30%+ Income on Rent")
 
-number_county_50 <- data_county %>% 
+number_county_30 <- number_county_30 %>%
+    ggplotly() %>%
+    plotly_legend_top_right()
+
+number_county_50_data <- data_county %>% 
     select(reported_HUD, rent_above50, county) %>%
     dplyr::rename(
         'Receiving Voucher' = reported_HUD,
         'Spending 50%+ income on rent' = rent_above50) %>%
-    gather(Category, count, -c(county)) %>%
+    gather(Category, count, -c(county))
+
+number_county_50 <- number_county_50_data %>%
     ggplot(aes(x = county, y = count))+
     number_county_common_layers +
     ggtitle("Households Spending 50%+ Income on Rent")
 
+number_county_50 <- number_county_50 %>%
+    ggplotly() %>%
+    plotly_legend_top_right()
+
+# Proportion of households eligible vs participating in the voucher program
+# (currently in the main server file)
+
+
 # Proportion of households spending above 30% and 50% of hh_income on rent and not receiving assitance.
 prop_county_common_layers <- list(
-    geom_bar(fill = "#fa9fb5",
-             stat = "identity",
+    geom_bar(stat = "identity",
              width = 0.3),
     scale_y_continuous(labels = scales::percent,
                        limits = c(0, 1)),
+    scale_x_discrete(limits = rev(c("New Castle", "Kent", "Sussex"))),
+    scale_fill_manual(values = c("#FC8D62", "gray")),
     ylab(""),
     xlab(""),
     theme_minimal(),
@@ -72,23 +93,20 @@ prop_county_common_layers <- list(
     ggtitle("Potentialy-Eligible Households Not Receiving Voucher")
 )
 
-prop_county_30 <- data_county %>% 
-    mutate(rent_above30 = (rent_above30 - reported_HUD) / rent_above30) %>%
-    select(county, rent_above30) %>%
-    dplyr::rename(
-        'Households spending 30%+ income on rent' = rent_above30) %>%
-    gather(Category, count, -c(county)) %>%
-    ggplot(aes(x = county, y = count)) + 
+prop_county_data <- data_county %>% 
+    mutate(rent_above30_prop = (rent_above30 - reported_HUD) / rent_above30,
+           rent_above50_prop = (rent_above50 - reported_HUD) / rent_above50)
+
+# Add fill color 
+prop_county_data <- prop_county_data %>%
+    mutate(highlighted = case_when(max(rent_above30_prop) == rent_above30_prop ~ "highlighted",
+                                  TRUE ~ "none"))
+
+prop_county_30 <- prop_county_data %>%
+    ggplot(aes(x = county, y = rent_above30_prop, fill = highlighted)) +
     prop_county_common_layers
 
-prop_county_50 <- data_county %>%
-    mutate(rent_above50 = (rent_above50 - reported_HUD) / rent_above50) %>%
-    select(county, rent_above50) %>%
-    dplyr::rename(
-        'Households spending 50%+ income on rent' = rent_above50
-    ) %>%
-    gather(Category, count, -c(county)) %>%
-    ## na.rm = TRUE ensures all values are NA are taken as 0
-    ggplot(aes(x = county,y = count)) +
+prop_county_50 <- prop_county_data %>%
+    ggplot(aes(x = county,y = rent_above50_prop, fill = highlighted)) +
     prop_county_common_layers
 
