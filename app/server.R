@@ -121,7 +121,7 @@ shinyServer(function(input, output) {
     
     output$GEOID_selector <- renderUI({
         multiInput("GEOID_selector", "Choose GEOIDs",
-                   choices = advoc_table$GEOID)
+                   choices = advoc_table$NAMELSAD)
     })
     
     output$number_county <- renderPlotly({
@@ -143,24 +143,28 @@ shinyServer(function(input, output) {
         }
         })
     output$prop_county_50 <- renderPlotly({prop_county_50})
-    #output$advoc_table <- renderTable({advoc_table %>% filter(GEOID %in% input$GEOID_selector)})
+    output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% input$GEOID_selector) %>%  
+            dplyr::rename('Census Tract'=NAME) %>% 
+        select('Census Tract',GEOID,'# Households receiving assisstance',
+               '# Households spending above 30% of income on rent',
+               '# Households spending above 50% of income on rent') })
     
-    output$advocmap <- renderLeaflet({advoc_map})
-    clicked_ids <- reactiveValues(Clicks=list())
-    
-    #if map is clicked, set values
-    observe({
-        click = input$advocmap_shape_click
-        selected_geoid=input$advocmap_shape_click$id
-        #print(click$id)
-        sub=shape[shape$GEOID==selected_geoid,c("NAME","NAMELSAD")]
-        #clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
-        print(clicked_ids$Clicks)
-        if(is.null(click))
-            return()
-        else
-            output$advoc_table <- renderTable({advoc_table %>% filter(GEOID %in% selected_geoid)})
+    # output$advocmap <- renderLeaflet({advoc_map})
+    # clicked_ids <- reactiveValues(Clicks=list())
+    # 
+    # #if map is clicked, set values
+    # observe({
+    #     click = input$advocmap_shape_click
+    #     selected_geoid=input$advocmap_shape_click$id
+    #     #print(click$id)
+    #     sub=shape[shape$GEOID==selected_geoid,c("NAME","NAMELSAD")]
+    #     #clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
+    #     print(clicked_ids$Clicks)
+    #     if(is.null(click))
+    #         return()
+    #     else
+    #         output$advoc_table <- renderTable({advoc_table %>% filter(GEOID %in% selected_geoid)})
         
-    })
+    # })
     
 })
