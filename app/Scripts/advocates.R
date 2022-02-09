@@ -6,19 +6,19 @@ library(leaflet)
 library(tigris)
 
 
-shape <- tracts(state='10')
-lat <- 39.1824#39.5393
-lng <- -75.2
-advoc_map <- shape %>%
-  leaflet() %>%
-  addTiles(providers$CartoDB.Positron) %>%   #not including one, sets the general maps version
-  setView(lng, lat, zoom = 8.0) %>%
-  addPolygons(fillColor = "blue",
-              highlight=highlightOptions(weight=5,
-                                         color='red',
-                                         fillOpacity = 0.7,
-                                         bringToFront=TRUE),
-              label= ~NAMELSAD, layerId = ~GEOID)
+shape <- tracts(state='10') %>% select(GEOID, NAMELSAD, NAME)
+# lat <- 39.1824#39.5393
+# lng <- -75.2
+# advoc_map <- shape %>%
+#   leaflet() %>%
+#   addTiles(providers$CartoDB.Positron) %>%   #not including one, sets the general maps version
+#   setView(lng, lat, zoom = 8.0) %>%
+#   addPolygons(fillColor = "blue",
+#               highlight=highlightOptions(weight=5,
+#                                          color='red',
+#                                          fillOpacity = 0.7,
+#                                          bringToFront=TRUE),
+#               label= ~NAMELSAD, layerId = ~GEOID)
 
 
 
@@ -41,3 +41,5 @@ advoc_table <- geo_data_nogeometry %>%
     '# Households spending above 30% of income on rent'=rent_above30,
     '# Households spending above 50% of income on rent'=rent_above50,
   )
+  
+advoc_table <- inner_join(advoc_table,shape,by='GEOID') 

@@ -16,6 +16,20 @@
     max-width: 15em;
 }
 
+
+.advoc-table {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.advoc-container {
+    display: flex;
+    text-align: center;
+    font-size: 1rem;
+    justify-content: center;
+}
+
 .comment {
     text-align: center;
     color: gray;

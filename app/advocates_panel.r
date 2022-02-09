@@ -5,8 +5,10 @@ advocates_panel <- tabPanel(
     "For Advocates",
     tags$div(class = "main-point",
              "Find Out How Your Neighbohood is Doing"),
-    leafletOutput("advocmap"),
-    tags$div(class = "center-container",
+    #leafletOutput("advocmap"),
+    tags$div(class = "advoc-container",
              uiOutput("GEOID_selector")),
-    tableOutput("advoc_table")
+    tags$div(class = "advoc-table",
+             tableOutput("advoc_table"))
+    
 )
