@@ -58,12 +58,12 @@ number_county_50 <- number_county_50_data %>%
 
 # Proportion of households spending above 30% and 50% of hh_income on rent and not receiving assitance.
 prop_county_common_layers <- list(
-    geom_bar(fill = "#F27405",
-             stat = "identity",
+    geom_bar(stat = "identity",
              width = 0.3),
     scale_y_continuous(labels = scales::percent,
                        limits = c(0, 1)),
     scale_x_discrete(limits = rev(c("New Castle", "Kent", "Sussex"))),
+    scale_fill_manual(values = c("#F27405", "gray")),
     ylab(""),
     xlab(""),
     theme_minimal(),
@@ -76,11 +76,16 @@ prop_county_data <- data_county %>%
     mutate(rent_above30_prop = (rent_above30 - reported_HUD) / rent_above30,
            rent_above50_prop = (rent_above50 - reported_HUD) / rent_above50)
 
+# Add fill color 
+prop_county_data <- prop_county_data %>%
+    mutate(highlighted = case_when(max(rent_above30_prop) == rent_above30_prop ~ "highlighted",
+                                  TRUE ~ "none"))
+
 prop_county_30 <- prop_county_data %>%
-    ggplot(aes(x = county, y = rent_above30_prop)) +
+    ggplot(aes(x = county, y = rent_above30_prop, fill = highlighted)) +
     prop_county_common_layers
 
 prop_county_50 <- prop_county_data %>%
-    ggplot(aes(x = county,y = rent_above50_prop)) +
+    ggplot(aes(x = county,y = rent_above50_prop, fill = highlighted)) +
     prop_county_common_layers
 
