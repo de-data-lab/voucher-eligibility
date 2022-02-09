@@ -36,10 +36,13 @@ advoc_table <- geo_data_nogeometry %>%
          above50=rent_50E) %>%
   group_by(GEOID) %>%
   summarize(reported_HUD=sum(number_reported),rent_above30=sum(above30),rent_above50=sum(above50)) %>%
+  mutate_at(vars(reported_HUD),as.integer) %>%
+  mutate_at(vars(rent_above30),as.integer) %>%
+  mutate_at(vars(rent_above50),as.integer) %>%
   dplyr::rename(
-    '# Households receiving assisstance'=reported_HUD,
-    '# Households spending above 30% of income on rent'=rent_above30,
-    '# Households spending above 50% of income on rent'=rent_above50,
-  )
+    '# Receiving assisstance'=reported_HUD,
+    '# Spending 30%+ of income on rent'=rent_above30,
+    '# Spending 50%+ of income on rent'=rent_above50,
+  ) 
   
 advoc_table <- inner_join(advoc_table,shape,by='GEOID') 
