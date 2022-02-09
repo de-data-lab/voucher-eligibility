@@ -143,6 +143,20 @@ shinyServer(function(input, output, session) {
                '# Households spending above 30% of income on rent',
                '# Households spending above 50% of income on rent') })
     
+    output$downloadData <- downloadHandler(
+        filename = function() {
+            paste("voucher_data.csv")
+        },
+        content = function(file) {
+            write.csv(advoc_table %>% filter(NAMELSAD %in% input$GEOID_selector) %>%  
+                          dplyr::rename('Census Tract'=NAME) %>% 
+                          select('Census Tract',GEOID,'# Households receiving assisstance',
+                                 '# Households spending above 30% of income on rent',
+                                 '# Households spending above 50% of income on rent'),
+                      file, row.names = FALSE,col.names=T)
+        }
+    )
+    
     # output$advocmap <- renderLeaflet({advoc_map})
     # clicked_ids <- reactiveValues(Clicks=list())
     # 
