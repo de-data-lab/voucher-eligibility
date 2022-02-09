@@ -28,9 +28,17 @@ number_county_common_layers <- list(
     xlab(""),
     theme_minimal(),
     scale_y_continuous(limits = c(0, 30000)),
-    scale_fill_brewer(palette = "Set2", direction = -1),
+    scale_fill_brewer(palette = "Set2", direction = 1, name = ""),
     coord_flip()
 )
+
+plotly_legend_top_right <- function(p) {
+    layout(p, legend = list(orientation = 'h',
+                         yanchor = "top",
+                         y = 1.03,
+                         xanchor = "right",
+                         x = 1))
+}
 
 number_county_30_data <- data_county %>%  
     select(reported_HUD, rent_above30, county) %>%
@@ -39,10 +47,14 @@ number_county_30_data <- data_county %>%
         'Spending 30%+ income on rent' = rent_above30) %>%
     gather(Category, count, -c(county))
     
-number_county_30 <-  number_county_30_data %>%
+number_county_30 <- number_county_30_data %>%
     ggplot(aes(x = county, y = count)) + 
     number_county_common_layers +
     ggtitle("Households Spending 30%+ Income on Rent")
+
+number_county_30 <- number_county_30 %>%
+    ggplotly() %>%
+    plotly_legend_top_right()
 
 number_county_50_data <- data_county %>% 
     select(reported_HUD, rent_above50, county) %>%
@@ -55,6 +67,14 @@ number_county_50 <- number_county_50_data %>%
     ggplot(aes(x = county, y = count))+
     number_county_common_layers +
     ggtitle("Households Spending 50%+ Income on Rent")
+
+number_county_50 <- number_county_50 %>%
+    ggplotly() %>%
+    plotly_legend_top_right()
+
+# Proportion of households eligible vs participating in the voucher program
+# (currently in the main server file)
+
 
 # Proportion of households spending above 30% and 50% of hh_income on rent and not receiving assitance.
 prop_county_common_layers <- list(
