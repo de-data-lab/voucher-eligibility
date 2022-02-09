@@ -116,6 +116,7 @@ shinyServer(function(input, output, session) {
             geom_text(color = "white") + 
             scale_y_continuous(labels = scales::percent) +
             scale_fill_brewer(palette = "Set2", name = "") + 
+            scale_fill_brewer(palette = "Set2", name = "", direction = -1) + 
             scale_x_discrete(limits = rev(c("New Castle",
                                             "Kent",
                                             "Sussex"))) + 
