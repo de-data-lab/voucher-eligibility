@@ -75,7 +75,11 @@ shinyServer(function(input, output, session) {
                     type = 'pie',
                     textinfo = 'label+percent',
                     insidetextorientation = 'horizontal',
-                    showlegend = FALSE) %>%
+                    showlegend = FALSE,
+                    marker = list(
+                        colors = c("#ED8B00", # Tech Impact orange
+                                   "#78BE20") # Tech Impact green
+                    )) %>%
             layout(title = list(text = mainplot_title),
                    margin = list(t = 100))
         
@@ -123,9 +127,11 @@ shinyServer(function(input, output, session) {
             xlab("") +
             ggtitle("Renters Potentially Eligible for Voucher") +
             coord_flip()
+        
         prop_counties_plot %>%
             ggplotly() %>%
-            plotly_legend_top_right
+            plotly_legend_top_right %>%
+            layout(legend = list(traceorder = "reversed"))
     })
     
     output$prop_county <- renderPlotly({
