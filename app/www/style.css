@@ -6,7 +6,7 @@
 
 
 /* Main Message */
-.main-point {
+.main-point--container {
     text-align: center;
     font-size: 5rem;
     margin-top: 12rem;
@@ -14,6 +14,41 @@
     margin-left: auto;
     margin-right: auto;
     max-width: 15em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+    font-size: 5rem;
+    margin-top: 18rem;
+    margin-bottom: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 15em;
+}
+
+
+.main-point {
+    text-align: center;
+    font-size: 4rem;
+    margin-top: 12rem;
+    margin-bottom: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 15em;
+}
+
+.main-point--icon {
+    font-size: 8rem
+}
+
+.main-point--footnote {
+    text-align: center;
+    color: gray;
+    font-size: 2rem;
+    margin-bottom: 6rem;
 }
 
 
@@ -136,3 +171,45 @@
     margin: auto;
     max-width: 800px;
 }
+
+.learn-more-button {
+    background-color: #F27405;
+    border-radius: 10px;
+    padding: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    margin-top: 8rem;
+    margin-bottom: 25rem;
+}
+
+.learn-more-button:hover {
+    background-color: #F27405;
+    color: white;
+}
+
+.learn-more-button:active {
+    background-color: #D96704;
+    color: white;
+    border: none;
+}
+
+.action-button:hover {
+    color: white;
+    text-decoration-line: none;
+}
+
+.action-button:active {
+    color: white;
+    text-decoration-line: none;
+}
+
+.action-button:focus {
+    color: white;
+    text-decoration-line: none;
+}
+
+
+

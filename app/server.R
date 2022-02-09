@@ -37,43 +37,20 @@ de_summary_table <- geo_data_nogeometry %>%
     group_by(GEOID) %>% 
     mutate(tot = number_reported)
 
-
-
-# Labels
-popUp <- with(geo_data,
-              paste0("<br><b>GEOID:</b> ", geo_data$GEOID,
-                     "<br><b>Census Tract:</b> ", geo_data$tract,
-                     "<br><b>Serviced Renters:</b> ", geo_data$number_reported,
-                     "<br><b>Eligible Renters:</b> ", geo_data$eligible_renters
-              ))
-cols <- colorNumeric(
-    palette = "inferno",
-    domain = geo_data$prop_serviced, reverse = TRUE)
-
-default_lat <- 39.1824
-default_lng <- -75.2
+# Dictionary of counties and keys
+county_list <- c(
+    "all" = "All Delaware",
+    "001" = "Kent County",
+    "003" = "New Castle County",
+    "005" = "Sussex County")
+# Update the 
+geo_long <- geo_long %>%
+    mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
+                                    " County"))
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
 
-    output$map <- renderLeaflet({
-        geo_data %>% 
-            leaflet() %>%
-            addTiles(providers$CartoDB.Positron) %>%
-            setView(default_lng, default_lat, zoom = 8.0) %>%
-            addPolygons(fillColor = ~cols(geo_data$prop_serviced),
-                        color = "#B2AEAE",
-                        fillOpacity = 1,
-                        weight = 1,
-                        smoothFactor = 0.4,
-                        popup = popUp
-            ) %>%
-            addLegend(pal = cols,
-                      values = geo_data$prop_serviced,
-                      position = "bottomright",
-                      title = paste("Proportion of <br> Serviced Renters",sep=" "))
-    })
-    
     output$mainplot <- renderPlotly({
         
         # If the county is not selected, show the Delaware overall
@@ -85,12 +62,6 @@ shinyServer(function(input, output) {
         }
         
         # Determine the title of the plot
-        county_list <- c(
-            "all" = "All Delaware",
-            "001" = "Kent County",
-            "003" = "New Castle County",
-            "005" = "Sussex County"
-        )
         mainplot_title <- paste("Renters Potentially Eligible for Housing Choice Voucher",
                                 county_list[[input$selectedCounty]],
                                 sep = "<br>")
@@ -110,13 +81,9 @@ shinyServer(function(input, output) {
         
     })
     
-    output$de_service_rate <- renderText(
-        round(de_summary_percent_str[["Receiving Voucher"]])
-        )
-    
     output$main_text <- renderText(
-        paste0("In Delaware, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
-               "% of the families needing Housing Choice Voucher are receiving it")
+        paste0("However, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
+               "% of the Delaware families needing a voucher are receiving it")
     )
     
     output$GEOID_selector <- renderUI({
@@ -125,7 +92,6 @@ shinyServer(function(input, output) {
     })
     
     output$number_county <- renderPlotly({
-        # If the county is not selected, show the Delaware overall
         if(input$selectedNumber == "30"){
             mainplot_data <- number_county_30 
         } 
@@ -133,8 +99,36 @@ shinyServer(function(input, output) {
             mainplot_data <- number_county_50
         }
         })
+    
+    output$prop_counties <- renderPlotly({
+        cur_data <- geo_long %>%
+            group_by(county_name, labels) %>%
+            summarise(count = sum(value, na.rm = TRUE)) %>%
+            mutate(prop = count / sum(count))
+        
+        out_plot <- cur_data %>%
+            ggplot(aes(x = county_name, y = prop, fill = labels,
+                       label = paste(scales::percent(prop)))) +
+            geom_bar(position = "fill", 
+                     stat = "identity",
+                     width = 0.7) +
+            theme_minimal() +
+            geom_text(color = "white") + 
+            scale_y_continuous(labels = scales::percent) +
+            scale_fill_brewer(palette = "Set2", name = "") + 
+            scale_x_discrete(limits = rev(c("New Castle",
+                                            "Kent",
+                                            "Sussex"))) + 
+            ylab("") +
+            xlab("") +
+            ggtitle("Renters Potentially Eligible for Voucher") +
+            coord_flip()
+        out_plot %>%
+            ggplotly() %>%
+            layout(legend = list(orientation = 'h'))
+    })
+    
     output$prop_county <- renderPlotly({
-        # If the county is not selected, show the Delaware overall
         if(input$selectedProp == "30"){
             mainplot_data <- prop_county_30 
         } 
@@ -167,4 +161,8 @@ shinyServer(function(input, output) {
         
     # })
     
+    # Observe the click to the advocates page
+    observeEvent(input$to_advocates_page, {
+        updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
+    })
 })

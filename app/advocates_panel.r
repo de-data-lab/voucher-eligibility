@@ -2,7 +2,7 @@
 library(shinyWidgets)
 
 advocates_panel <- tabPanel(
-    "For Advocates",
+    title = "For Advocates",
     tags$div(class = "main-point",
              "Find Out How Your Neighbohood is Doing"),
     #leafletOutput("advocmap"),
