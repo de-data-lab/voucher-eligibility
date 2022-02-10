@@ -63,7 +63,7 @@ shinyServer(function(input, output, session) {
         }
         
         # Determine the title of the plot
-        mainplot_title <- paste("Renters Potentially Eligible for Housing Choice Voucher",
+        mainplot_title <- paste("Renters Potentially Eligible for <br> Housing Choice Voucher",
                                 county_list[[input$selectedCounty]],
                                 sep = "<br>")
         
@@ -81,8 +81,12 @@ shinyServer(function(input, output, session) {
                         colors = c("#FC8D62", # Brewer Set 2 orange
                                    "#66C2A5") # Brewer Set 2 green
                     )) %>%
-            layout(title = list(text = mainplot_title),
-                   margin = list(t = 100))
+            layout(title = list(text = mainplot_title,
+                                pad = list(b = 20),
+                                y = 0.95,
+                                yanchor = "top"),
+                   margin = list(t = 100)) %>%
+            plotly_hide_modebar()
         
     })
     
@@ -105,7 +109,8 @@ shinyServer(function(input, output, session) {
         }
         current_plot %>% 
             ggplotly() %>%
-            plotly_disable_zoom()
+            plotly_disable_zoom() %>%
+            plotly_hide_modebar
         })
     
     output$prop_counties <- renderPlotly({
@@ -134,8 +139,10 @@ shinyServer(function(input, output, session) {
         
         prop_counties_plot %>%
             ggplotly() %>%
+            layout(legend = list(traceorder = "reversed")) %>%
             plotly_legend_top_right %>%
-            layout(legend = list(traceorder = "reversed"))
+            plotly_disable_zoom() %>%
+            plotly_hide_modebar()
     })
     
     output$prop_county <- renderPlotly({
@@ -147,7 +154,8 @@ shinyServer(function(input, output, session) {
         }
         current_plot %>%
             ggplotly() %>%
-            plotly_disable_zoom()
+            plotly_disable_zoom() %>%
+            plotly_hide_modebar
         })
     
     output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% input$GEOID_selector) %>%  
