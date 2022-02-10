@@ -3,9 +3,9 @@ library(tidyverse)
 library(plotly)
 library(sf)
 
+source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
 source("scripts/county.R")
-source("scripts/plotly_settings.R")
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
@@ -140,7 +140,7 @@ shinyServer(function(input, output, session) {
         prop_counties_plot %>%
             ggplotly() %>%
             layout(legend = list(traceorder = "reversed")) %>%
-            plotly_legend_top_right %>%
+            plotly_legend_top_right() %>%
             plotly_disable_zoom() %>%
             plotly_hide_modebar()
     })
