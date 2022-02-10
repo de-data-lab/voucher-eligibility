@@ -98,11 +98,14 @@ shinyServer(function(input, output, session) {
     
     output$number_county <- renderPlotly({
         if(input$selectedNumber == "30"){
-            mainplot_data <- number_county_30 
+            current_plot <- number_county_30 
         } 
         else {
-            mainplot_data <- number_county_50
+            current_plot <- number_county_50
         }
+        current_plot %>% 
+            ggplotly() %>%
+            plotly_disable_zoom()
         })
     
     output$prop_counties <- renderPlotly({
@@ -137,13 +140,16 @@ shinyServer(function(input, output, session) {
     
     output$prop_county <- renderPlotly({
         if(input$selectedProp == "30"){
-            mainplot_data <- prop_county_30 
+            current_plot <- prop_county_30
         } 
         else {
-            mainplot_data <- prop_county_50
+            current_plot <- prop_county_50
         }
+        current_plot %>%
+            ggplotly() %>%
+            plotly_disable_zoom()
         })
-    output$prop_county_50 <- renderPlotly({prop_county_50})
+    
     output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% input$GEOID_selector) %>%  
             dplyr::rename('Census Tract'=NAME) %>% 
             select('Census Tract',GEOID,'# Receiving assisstance',
