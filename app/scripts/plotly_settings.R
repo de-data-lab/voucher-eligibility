@@ -15,3 +15,8 @@ plotly_disable_zoom <- function(p) {
         layout(xaxis = list(fixedrange = TRUE),
                yaxis = list(fixedrange = TRUE))
 }
+
+plotly_hide_modebar <- function(p) {
+    p %>%
+        config(displayModeBar = FALSE)
+}
