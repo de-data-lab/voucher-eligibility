@@ -3,8 +3,9 @@ library(tidyverse)
 library(plotly)
 library(sf)
 
-source("Scripts/advocates.R")
-source("Scripts/county.R")
+source("scripts/plotly_settings.R")
+source("scripts/advocates.R")
+source("scripts/county.R")
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
@@ -62,7 +63,7 @@ shinyServer(function(input, output, session) {
         }
         
         # Determine the title of the plot
-        mainplot_title <- paste("Renters Potentially Eligible for Housing Choice Voucher",
+        mainplot_title <- paste("Renters Potentially Eligible for <br> Housing Choice Voucher",
                                 county_list[[input$selectedCounty]],
                                 sep = "<br>")
         
@@ -80,8 +81,12 @@ shinyServer(function(input, output, session) {
                         colors = c("#FC8D62", # Brewer Set 2 orange
                                    "#66C2A5") # Brewer Set 2 green
                     )) %>%
-            layout(title = list(text = mainplot_title),
-                   margin = list(t = 100))
+            layout(title = list(text = mainplot_title,
+                                pad = list(b = 20),
+                                y = 0.95,
+                                yanchor = "top"),
+                   margin = list(t = 100)) %>%
+            plotly_hide_modebar()
         
     })
     
@@ -97,11 +102,15 @@ shinyServer(function(input, output, session) {
     
     output$number_county <- renderPlotly({
         if(input$selectedNumber == "30"){
-            mainplot_data <- number_county_30 
+            current_plot <- number_county_30 
         } 
         else {
-            mainplot_data <- number_county_50
+            current_plot <- number_county_50
         }
+        current_plot %>% 
+            ggplotly() %>%
+            plotly_disable_zoom() %>%
+            plotly_hide_modebar
         })
     
     output$prop_counties <- renderPlotly({
@@ -130,19 +139,25 @@ shinyServer(function(input, output, session) {
         
         prop_counties_plot %>%
             ggplotly() %>%
-            plotly_legend_top_right %>%
-            layout(legend = list(traceorder = "reversed"))
+            layout(legend = list(traceorder = "reversed")) %>%
+            plotly_legend_top_right() %>%
+            plotly_disable_zoom() %>%
+            plotly_hide_modebar()
     })
     
     output$prop_county <- renderPlotly({
         if(input$selectedProp == "30"){
-            mainplot_data <- prop_county_30 
+            current_plot <- prop_county_30
         } 
         else {
-            mainplot_data <- prop_county_50
+            current_plot <- prop_county_50
         }
+        current_plot %>%
+            ggplotly() %>%
+            plotly_disable_zoom() %>%
+            plotly_hide_modebar
         })
-    output$prop_county_50 <- renderPlotly({prop_county_50})
+    
     output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% input$GEOID_selector) %>%  
             dplyr::rename('Census Tract'=NAME) %>% 
             select('Census Tract',GEOID,'# Receiving assisstance',
