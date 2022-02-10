@@ -3,8 +3,9 @@ library(tidyverse)
 library(plotly)
 library(sf)
 
-source("Scripts/advocates.R")
-source("Scripts/county.R")
+source("scripts/advocates.R")
+source("scripts/county.R")
+source("scripts/plotly_settings.R")
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")

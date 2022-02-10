@@ -33,13 +33,6 @@ number_county_common_layers <- list(
     coord_flip()
 )
 
-plotly_legend_top_right <- function(p) {
-    layout(p, legend = list(orientation = 'h',
-                         yanchor = "top",
-                         y = 1.05,
-                         xanchor = "right",
-                         x = 1))
-}
 
 number_county_30_data <- data_county %>%  
     select(reported_HUD, rent_above30, county) %>%
