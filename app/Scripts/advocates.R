@@ -45,4 +45,6 @@ advoc_table <- geo_data_nogeometry %>%
     '# Spending 50%+ of income on rent'=rent_above50,
   ) 
   
-advoc_table <- inner_join(advoc_table,shape,by='GEOID') 
+advoc_table <- inner_join(advoc_table,shape,by='GEOID')   %>% 
+  mutate(NAME_numeric=as.numeric(NAME)) %>% 
+  arrange(NAME_numeric)
