@@ -4,6 +4,10 @@
     margin-right: auto;
 }
 
+.container-fluid {
+    padding: 0;
+}
+
 
 /* Main Message */
 .main-point--container {
