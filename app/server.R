@@ -189,4 +189,8 @@ shinyServer(function(input, output, session) {
     observeEvent(input$to_advocates_page, {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
     })
+    observeEvent(input$to_advocates_page_bottom, {
+        updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
+    })
+    
 })

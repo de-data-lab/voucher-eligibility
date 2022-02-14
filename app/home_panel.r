@@ -95,7 +95,7 @@ home_panel <- tabPanel(
         tags$div(class = "main-point",
                  "Want to learn more about how your neighborhood is doing?"
         ),
-        actionLink(inputId = "to_advocates_page", 
+        actionLink(inputId = "to_advocates_page_bottom", 
                    label = "Check out our Housing Voucher Lookup Tool",
                    class = "learn-more-button")
     )
