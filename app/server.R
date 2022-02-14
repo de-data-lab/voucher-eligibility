@@ -21,6 +21,11 @@ county_list <- c(
     "003" = "New Castle County",
     "005" = "Sussex County")
 
+# Update the county names
+geo_data_nogeometry <- geo_data_nogeometry %>%
+    mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
+                                    " County"))
+
 # Reshape the dataset into the long format for summarizing 
 geo_long <- geo_data_nogeometry %>%
     mutate(number_not_using = eligible_renters - number_reported) %>%
