@@ -6,8 +6,11 @@ home_panel <- tabPanel(
     title = "Home",
     tags$div(class = "title-container",
              tags$div(class = "title",
-                      "Housing Choice Voucher in Delaware")
-             ),
+                      "Housing Choice Voucher in Delaware"),
+                 actionLink(inputId = "to_advocates_page", 
+                            label = "Check out our Housing Voucher Lookup Tool",
+                            class = "learn-more-button")
+    ),
     tags$div(class = "main-point",
              "Housing Choice Voucher (Section 8) provides 
              housing for families in housing crisis"),

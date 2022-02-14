@@ -26,12 +26,14 @@
 .title {
     text-align: center;
     font-size: 5rem;
-    margin: auto;
     max-width: 15em;
 }
 
 .title-container {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: auto;
     height: 500px;
     background-image: url('wilmington.png');
@@ -192,8 +194,10 @@
     font-size: 2rem;
     color: white;
     cursor: pointer;
-    margin-top: 8rem;
-    margin-bottom: 25rem;
+    margin: auto;
+    margin-top: 4rem;
+    margin-bottom: 8rem;
+    max-width: 50rem;
 }
 
 .learn-more-button:hover {
