@@ -58,10 +58,13 @@ acs_data_joined <- get_acs(
 
 # Calculate the potentially-eligible renters
 rent_10k_vars_estimates <- paste0(names(rent_10k_vars), "E")
+rent_10k_vars_estimates_50pct <- rent_10k_vars_estimates[
+    grepl("_50_", names(rent_10k_vars))]
 acs_data_joined <- acs_data_joined %>%
     rowwise() %>% 
     mutate(eligible_old = sum(c_across(paste0(names(rent_30plus_vars), "E"))),
-           eligible_renters = sum(c_across(rent_10k_vars_estimates))) %>% 
+           eligible_renters = sum(c_across(rent_10k_vars_estimates)),
+           eligible_renters_50pct = sum(c_across(rent_10k_vars_estimates_50pct))) %>% 
     ungroup()
 
 # Check if the elgiibility change changed the dataset
