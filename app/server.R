@@ -158,12 +158,6 @@ shinyServer(function(input, output, session) {
             plotly_hide_modebar
         })
     
-    output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% input$GEOID_selector) %>%  
-            dplyr::rename('Census Tract'=NAME) %>% 
-            select('Census Tract',GEOID,'# Receiving assisstance',
-                   '# Spending 30%+ of income on rent',
-                   '# Spending 50%+ of income on rent') })
-    
     output$downloadData <- downloadHandler(
         filename = function() {
             paste("voucher_data.csv")
@@ -178,23 +172,61 @@ shinyServer(function(input, output, session) {
         }
     )
     
-    # output$advocmap <- renderLeaflet({advoc_map})
-    # clicked_ids <- reactiveValues(Clicks=list())
-    # 
+     output$advocmap <- renderLeaflet({advoc_map})
+     clicked_ids <- reactiveValues(Clicks=vector())
+    
     # #if map is clicked, set values
-    # observe({
-    #     click = input$advocmap_shape_click
-    #     selected_geoid=input$advocmap_shape_click$id
-    #     #print(click$id)
-    #     sub=shape[shape$GEOID==selected_geoid,c("NAME","NAMELSAD")]
-    #     #clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
-    #     print(clicked_ids$Clicks)
-    #     if(is.null(click))
-    #         return()
-    #     else
-    #         output$advoc_table <- renderTable({advoc_table %>% filter(GEOID %in% selected_geoid)})
-        
-    # })
+     observeEvent(input$advocmap_shape_click,{
+         click = input$advocmap_shape_click
+         selected_geoid=input$advocmap_shape_click$id
+         clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
+         print(clicked_ids$Clicks)
+         removePoly=clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
+         remove=FALSE
+         if(length(removePoly)>0){
+             remove=TRUE
+         }
+         clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
+         
+         #clicked_ids$Clicks=!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
+         print(clicked_ids$Clicks)
+         #print(sub)
+         if(is.null(click))
+             return()
+         else
+             if(remove==TRUE){
+                 sub <- shape %>% filter(NAMELSAD %in% (removePoly))
+                 leafletProxy("advocmap") %>% addTiles() %>%
+                 addPolygons(data=sub,
+                             fillColor = "green",
+                             highlight=highlightOptions(fillOpacity = 0.5,
+                                                        color = "red",
+                                                        weight = 2,
+                                                        bringToFront=TRUE),
+                             label= ~NAMELSAD, layerId = ~NAMELSAD)
+             }
+             else{
+                sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
+                leafletProxy("advocmap") %>% addTiles() %>%
+                addPolygons(data=sub,
+                            fillColor = "red",
+                            highlight=highlightOptions(fillOpacity = 0.5,
+                                                       color = "red",
+                                                       weight = 2,
+                                                       bringToFront=TRUE),
+                            label= ~NAMELSAD, layerId = ~NAMELSAD)
+             }
+            
+             output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+                     dplyr::rename('Census Tract'=NAME) %>% 
+                     select('Census Tract',GEOID,'# Receiving assisstance',
+                            '# Spending 30%+ of income on rent',
+                            '# Spending 50%+ of income on rent') })
+                
+             
+
+     })
+     observe({})
     
     # Observe the click to the advocates page
     observeEvent(input$to_advocates_page, {
