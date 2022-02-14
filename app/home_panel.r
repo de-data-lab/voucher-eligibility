@@ -4,8 +4,10 @@ source("counties.R")
 home_panel <- tabPanel(
     id = "home",
     title = "Home",
-    tags$div(class = "title",
-             "Housing Choice Voucher in Delaware"),
+    tags$div(class = "title-container",
+             tags$div(class = "title",
+                      "Housing Choice Voucher in Delaware")
+             ),
     tags$div(class = "main-point",
              "Housing Choice Voucher (Section 8) provides 
              housing for families in housing crisis"),
