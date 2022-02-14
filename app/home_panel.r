@@ -40,15 +40,6 @@ home_panel <- tabPanel(
                                            "Sussex" = "005"))
     ),
     counties_div, 
-    tags$div(
-        class = "main-point--container",
-        tags$div(class = "main-point",
-                 "Want to learn more about how your neighborhood is doing?"
-        ),
-        actionLink(inputId = "to_advocates_page", 
-                   label = "Check out our Housing Voucher Lookup Tool",
-                   class = "learn-more-button")
-    ),
     tags$div(class = "main-point",
              "Interested in doing something about the housing crisis in Delaware?"
     ),
@@ -94,5 +85,15 @@ home_panel <- tabPanel(
                                              target="_blank")),
                       ),
              )
+    ),
+    tags$div(
+        id = "learn-more-container",
+        class = "main-point--container",
+        tags$div(class = "main-point",
+                 "Want to learn more about how your neighborhood is doing?"
+        ),
+        actionLink(inputId = "to_advocates_page", 
+                   label = "Check out our Housing Voucher Lookup Tool",
+                   class = "learn-more-button")
     )
 )
