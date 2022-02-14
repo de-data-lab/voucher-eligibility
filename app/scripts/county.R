@@ -12,8 +12,10 @@ data_county <- geo_data_nogeometry %>%
     mutate(county=replace(county, county=='003', 'New Castle')) %>%
     mutate(county=replace(county, county=='005', 'Sussex'))  %>%
     rowwise() %>% 
-    mutate(above30 = sum(rent_30E, rent_35E, rent_40E,rent_50E),
-           above50 = rent_50E) %>%
+    #mutate(above30 = sum(rent_30E, rent_35E, rent_40E,rent_50E),
+    #       above50 = rent_50E) %>%
+    mutate(above30 = eligible_renters,
+           above50 = sum(rent_50_10kE,rent_50_20kE,rent_50_35kE,rent_50_50kE,rent_50_75kE)) %>%
     group_by(county) %>%
     summarize(reported_HUD = sum(number_reported),
               rent_above30 = sum(above30),
