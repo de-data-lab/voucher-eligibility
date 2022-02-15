@@ -6,25 +6,47 @@ library(sf)
 source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
 source("scripts/county.R")
+source("scripts/plot_prop_counties.R")
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
 geo_data <- acs_hud_de_geojoined
 geo_data_nogeometry <- geo_data %>% 
     st_drop_geometry()
-#print(length(unique(geo_data_nogeometry$GEOID)))
+
+# Dictionary of counties and keys
+county_list <- c(
+    "all" = "All Delaware",
+    "001" = "Kent County",
+    "003" = "New Castle County",
+    "005" = "Sussex County")
+
+# Update the county names
+geo_data_nogeometry <- geo_data_nogeometry %>%
+    mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
+                                    " County"))
+
 # Reshape the dataset into the long format for summarizing 
 geo_long <- geo_data_nogeometry %>%
     mutate(number_not_using = eligible_renters - number_reported) %>%
-    select(GEOID, COUNTYFP, number_not_using, number_reported) %>%
+    select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
     pivot_longer(cols = c("number_not_using", "number_reported")) %>%
     mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
                               name == "number_reported" ~ "Receiving Voucher"))
+
+geo_long_50 <- geo_data_nogeometry %>%
+    mutate(number_not_using = eligible_renters_50pct - number_reported) %>%
+    select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
+    pivot_longer(cols = c("number_not_using", "number_reported")) %>%
+    mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
+                              name == "number_reported" ~ "Receiving Voucher"))
+
 # Get the summarized data for rendering percentages
 de_summary <- geo_long %>% 
     group_by(labels) %>%
     summarise(counts = sum(value, na.rm = T)) %>%
     mutate(percent = 100 * counts / sum(counts))
+
 # Get the vector of percentages of people receiving vs not receiving voucher
 de_summary_percent_str <- de_summary %>% 
     select(labels, percent) %>% deframe()
@@ -38,16 +60,6 @@ de_summary_table <- geo_data_nogeometry %>%
     group_by(GEOID) %>% 
     mutate(tot = number_reported)
 
-# Dictionary of counties and keys
-county_list <- c(
-    "all" = "All Delaware",
-    "001" = "Kent County",
-    "003" = "New Castle County",
-    "005" = "Sussex County")
-# Update the 
-geo_long <- geo_long %>%
-    mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
-                                    " County"))
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -114,35 +126,12 @@ shinyServer(function(input, output, session) {
         })
     
     output$prop_counties <- renderPlotly({
-        prop_counties_data <- geo_long %>%
-            group_by(county_name, labels) %>%
-            summarise(count = sum(value, na.rm = TRUE)) %>%
-            mutate(prop = count / sum(count))
-        
-        prop_counties_plot <- prop_counties_data %>%
-            ggplot(aes(x = county_name, y = prop, fill = labels,
-                       label = paste(scales::percent(prop)))) +
-            geom_bar(position = "fill", 
-                     stat = "identity",
-                     width = 0.7) +
-            theme_minimal() +
-            geom_text(color = "white") + 
-            scale_y_continuous(labels = scales::percent) +
-            scale_fill_brewer(palette = "Set2", name = "", direction = -1) + 
-            scale_x_discrete(limits = rev(c("New Castle",
-                                            "Kent",
-                                            "Sussex"))) + 
-            ylab("") +
-            xlab("") +
-            ggtitle("Renters Potentially Eligible for Voucher") +
-            coord_flip()
-        
-        prop_counties_plot %>%
-            ggplotly() %>%
-            layout(legend = list(traceorder = "reversed")) %>%
-            plotly_legend_top_right() %>%
-            plotly_disable_zoom() %>%
-            plotly_hide_modebar()
+        if(input$selectedProp == "30"){
+            plot_prop_counties(geo_long)
+        } 
+        else {
+            plot_prop_counties(geo_long_50)
+        }
     })
     
     output$prop_county <- renderPlotly({
@@ -232,4 +221,8 @@ shinyServer(function(input, output, session) {
     observeEvent(input$to_advocates_page, {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
     })
+    observeEvent(input$to_advocates_page_bottom, {
+        updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
+    })
+    
 })
