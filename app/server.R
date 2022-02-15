@@ -10,7 +10,6 @@ source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
 source("scripts/county.R")
 source("scripts/plot_prop_counties.R")
-source_python("scripts/geocode.py")
 
 
 # Load Data
@@ -80,6 +79,8 @@ shinyServer(function(input, output, session) {
     reticulate::use_virtualenv(virtualenv_dir, required = T)
     
     # ------------------ App server logic (Edit anything below) --------------- #
+    
+    source_python("scripts/geocode.py")
 
     output$mainplot <- renderPlotly({
         
