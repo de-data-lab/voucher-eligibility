@@ -78,6 +78,14 @@
     justify-content: center;
 }
 
+.table-footnote {
+    text-align: center;
+    color: gray;
+    margin: auto;
+    margin-top: 2.5rem;
+    max-width: 70rem;
+}
+
 .comment {
     text-align: center;
     color: gray;
