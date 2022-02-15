@@ -11,6 +11,9 @@ source("scripts/advocates.R")
 source("scripts/county.R")
 source("scripts/plot_prop_counties.R")
 
+Sys.getenv("PYTHON_PATH") %>% print()
+Sys.getenv("RETICULATE_PYTHON") %>% print()
+
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
