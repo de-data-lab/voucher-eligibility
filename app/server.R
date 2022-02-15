@@ -5,14 +5,19 @@ library(sf)
 library(reticulate)
 
 PYTHON_DEPENDENCIES = c('pip', 'censusgeocode')
+virtualenv_dir = Sys.getenv('VIRTUALENV_NAME')
+python_path = Sys.getenv('PYTHON_PATH')
+# Create virtual env and install dependencies
+reticulate::virtualenv_create(envname = virtualenv_dir, python = python_path)
+reticulate::virtualenv_install(virtualenv_dir, packages = PYTHON_DEPENDENCIES, ignore_installed=TRUE)
+reticulate::use_virtualenv(virtualenv_dir, required = T)
+source_python("scripts/geocode.py")
+
 
 source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
 source("scripts/county.R")
 source("scripts/plot_prop_counties.R")
-
-Sys.getenv("PYTHON_PATH") %>% print()
-Sys.getenv("RETICULATE_PYTHON") %>% print()
 
 
 # Load Data
@@ -71,19 +76,7 @@ de_summary_table <- geo_data_nogeometry %>%
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
     
-    # ------------------ App virtualenv setup (Do not edit) ------------------- #
     
-    virtualenv_dir = Sys.getenv('VIRTUALENV_NAME')
-    python_path = Sys.getenv('PYTHON_PATH')
-    
-    # Create virtual env and install dependencies
-    reticulate::virtualenv_create(envname = virtualenv_dir, python = python_path)
-    reticulate::virtualenv_install(virtualenv_dir, packages = PYTHON_DEPENDENCIES, ignore_installed=TRUE)
-    reticulate::use_virtualenv(virtualenv_dir, required = T)
-    
-    # ------------------ App server logic (Edit anything below) --------------- #
-    
-    source_python("scripts/geocode.py")
 
     output$mainplot <- renderPlotly({
         
