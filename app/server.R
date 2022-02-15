@@ -2,11 +2,14 @@ library(shiny)
 library(tidyverse)
 library(plotly)
 library(sf)
+library(reticulate)
 
 source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
 source("scripts/county.R")
 source("scripts/plot_prop_counties.R")
+source_python("scripts/geocode.py")
+
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
@@ -211,8 +214,6 @@ shinyServer(function(input, output, session) {
                      select('Census Tract',GEOID,'# Receiving assisstance',
                             '# Spending 30%+ of income on rent',
                             '# Spending 50%+ of income on rent') })
-                
-             
 
      })
      
@@ -223,5 +224,11 @@ shinyServer(function(input, output, session) {
     observeEvent(input$to_advocates_page_bottom, {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
     })
+    
+    # Address lookup routine
+    current_GEOID <- eventReactive(input$address_search,
+                                   {tryCatch(return_geoid(input$address),
+                                             error = function(cond){"No GEOID found"})})
+    output$current_GEOID <-  renderText({current_GEOID()})
     
 })
