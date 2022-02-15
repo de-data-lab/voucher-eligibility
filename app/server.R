@@ -215,8 +215,7 @@ shinyServer(function(input, output, session) {
              
 
      })
-     observe({})
-    
+     
     # Observe the click to the advocates page
     observeEvent(input$to_advocates_page, {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
