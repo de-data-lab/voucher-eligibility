@@ -4,7 +4,7 @@ library(plotly)
 library(sf)
 library(reticulate)
 
-PYTHON_DEPENDENCIES = c('pip', 'numpy')
+PYTHON_DEPENDENCIES = c('pip', 'numpy', 'censusgeocode')
 
 source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
