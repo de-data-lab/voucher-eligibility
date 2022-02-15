@@ -226,5 +226,9 @@
     text-decoration-line: none;
 }
 
+.address-input-container {
+    display: flex;
+    flex-direction: row;
+}
 
 
