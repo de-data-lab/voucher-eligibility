@@ -262,7 +262,7 @@ shinyServer(function(input, output, session) {
                                    {tryCatch(
                                        {
                                            geoid <- return_geoid(input$address)
-                                           # id=shape %>% filter(GEOID==geoid)
+                                           id=shape %>% filter(GEOID==geoid)
                                            # clicked_ids$Clicks <- c(clicked_ids$Clicks, id$NAMELSAD)
                                            # clicked_ids$Clicks <- unique(clicked_ids$Clicks)
                                            # sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks)
