@@ -243,30 +243,25 @@ shinyServer(function(input, output, session) {
     current_GEOID <- eventReactive(input$address_search,
                                    {tryCatch(
                                        geoid<-return_geoid(input$address),
+                                       id=shape %>% filter(GEOID==input$current_GEOID) %>% select(NAMELSAD),
+                                       clicked_ids$Clicks <- c(clicked_ids$Clicks, id),
+                                       clicked_ids$Clicks <- unique(clicked_ids$Clicks),
+                                       
+                                       sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks)),
+                                       leafletProxy("advocmap") %>% addTiles() %>%
+                                           addPolygons(data=sub,
+                                                       fillColor = "red",color = "blue",opacity = 1,weight=2,
+                                                       fillOpacity = 0.8, smoothFactor = 0.5,
+                                                       highlight=highlightOptions(fillOpacity = 0.8,
+                                                                                  color = "red",
+                                                                                  weight = 2,
+                                                                                  bringToFront=TRUE),
+                                                       label= ~NAMELSAD, layerId = ~NAMELSAD),
                                              error = function(cond){"No GEOID found"})})
     output$current_GEOID <-  renderText({current_GEOID()})
     
     output$result<-renderText({"Hello"})
     
-    observeEvent(input$current_GEOID,{
-        output$result<-renderText({input$current_GEOID})
-        if(input$current_GEOID != 'No GEOID found'){
-            id=shape %>% filter(GEOID==input$current_GEOID) %>% select(NAMELSAD)
-            clicked_ids$Clicks <- c(clicked_ids$Clicks, id)
-            clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-            
-            sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
-            leafletProxy("advocmap") %>% addTiles() %>%
-                addPolygons(data=sub,
-                            fillColor = "red",color = "blue",opacity = 1,weight=2,
-                            fillOpacity = 0.8, smoothFactor = 0.5,
-                            highlight=highlightOptions(fillOpacity = 0.8,
-                                                       color = "red",
-                                                       weight = 2,
-                                                       bringToFront=TRUE),
-                            label= ~NAMELSAD, layerId = ~NAMELSAD)
-            
-        }
-    })
+    
     
 })
