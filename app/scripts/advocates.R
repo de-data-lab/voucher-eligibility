@@ -9,20 +9,6 @@ library(tigris)
 shape <- tracts(state='10') %>% select(GEOID, NAMELSAD, NAME)
 lat <- 39.1824#39.5393
 lng <- -75.2
-advoc_map <- shape %>%
-  leaflet() %>%
-  setView(lng, lat, zoom = 8.0) %>%
-  addTiles() %>%   #not including one, sets the general maps version
-  
-  addPolygons(fillColor = "gray",
-              stroke = TRUE, fillOpacity = 0.2, smoothFactor = 0.5,
-              color = "blue",opacity = 1,weight=2,
-              highlight=highlightOptions(fillOpacity = 0.8,
-                                         color = "red",
-                                         weight = 2,
-                                         bringToFront=TRUE),
-              label= ~NAMELSAD, layerId = ~NAMELSAD)
-
 
 
 # Load Data
@@ -44,6 +30,7 @@ advoc_table <- geo_data_nogeometry %>%
   mutate_at(vars(reported_HUD),as.integer) %>%
   mutate_at(vars(rent_above30),as.integer) %>%
   mutate_at(vars(rent_above50),as.integer) %>%
+  filter(rent_above30>0) %>% 
   dplyr::rename(
     '# Receiving assisstance'=reported_HUD,
     '# Spending 30%+ of income on rent'=rent_above30,
@@ -51,3 +38,18 @@ advoc_table <- geo_data_nogeometry %>%
   ) 
   
 advoc_table <- inner_join(advoc_table,shape,by='GEOID') 
+
+
+advoc_map <- shape %>% filter(GEOID %in% advoc_table$GEOID) %>%
+  leaflet() %>%
+  setView(lng, lat, zoom = 8.0) %>%
+  addTiles() %>%   #not including one, sets the general maps version
+  
+  addPolygons(fillColor = "#bdc9e1",
+              stroke = TRUE, fillOpacity = 0.2, smoothFactor = 0.5,
+              color = "#2b8cbe",opacity = 1,weight=2,
+              highlight=highlightOptions(fillOpacity = 0.8,
+                                         color = "#b30000",
+                                         weight = 2,
+                                         bringToFront=TRUE),
+              label= ~NAMELSAD, layerId = ~NAMELSAD)
