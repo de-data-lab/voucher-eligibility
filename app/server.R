@@ -257,12 +257,12 @@ shinyServer(function(input, output, session) {
     current_GEOID <- eventReactive(input$address_search,
                                    {tryCatch(
                                        {
-                                       geoid<- return_geoid(input$address)
-                                       id=shape %>% filter(GEOID==geoid)
-                                       clicked_ids$Clicks <- c(clicked_ids$Clicks, id$NAMELSAD)
-                                       clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-                                       sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
-                                       return geoid
+                                       return_geoid(input$address)
+                                       # id=shape %>% filter(GEOID==geoid)
+                                       # clicked_ids$Clicks <- c(clicked_ids$Clicks, id$NAMELSAD)
+                                       # clicked_ids$Clicks <- unique(clicked_ids$Clicks)
+                                       # sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
+                                       # return geoid
                                        },
                                              {
                                                  error = function(cond){"No GEOID found"}
