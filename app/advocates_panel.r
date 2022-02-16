@@ -4,7 +4,7 @@ library(shinyWidgets)
 advocates_panel <- tabPanel(
     title = "For Advocates",
     tags$div(class = "main-point",
-             "Find Out How Your Neighbohood is Doing"),
+             "Find Out How Your Neighborhood is Doing"),
     tags$div(class = "address-input-container",
              searchInput("address", label = NULL, placeholder = "Enter your address",
                          btnSearch = icon("search")),
