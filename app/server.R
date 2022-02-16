@@ -255,27 +255,29 @@ shinyServer(function(input, output, session) {
     
     # Address lookup routine
     current_GEOID <- eventReactive(input$address_search,
-                                   {tryCatch({
-                                       geoid<-return_geoid(input$address)
-                                       id=shape %>% filter(GEOID==geoid) %>% select(NAMELSAD)
-                                       clicked_ids$Clicks <- c(clicked_ids$Clicks, id)
-                                       clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-                                       
-                                       sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
-                                       leafletProxy("advocmap") %>% addTiles() %>%
-                                           addPolygons(data=sub,
-                                                       fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
-                                                       fillOpacity = 0.8, smoothFactor = 0.5,
-                                                       highlight=highlightOptions(fillOpacity = 0.8,
-                                                                                  color = "#b30000",
-                                                                                  weight = 2,
-                                                                                  bringToFront=TRUE),
-                                                       label= ~NAMELSAD, layerId = ~NAMELSAD)},
-                                             {error = function(cond){"No GEOID found"}})})
+                                   {tryCatch(
+                                       {
+                                       return_geoid(input$address)
+                                       },
+                                             {
+                                                 error = function(cond){"No GEOID found"}
+                                                 }
+                                       )
+                                       })
     output$current_GEOID <-  renderText({current_GEOID()})
-    
-    output$result<-renderText({"Hello"})
-    
-    
+    id=shape %>% filter(GEOID==current_GEOID()) %>% select(NAMELSAD)
+    clicked_ids$Clicks <- c(clicked_ids$Clicks, id)
+    clicked_ids$Clicks <- unique(clicked_ids$Clicks)
+    sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
+    output$advocmap <-renderLeaflet({leafletProxy("advocmap") %>% addTiles() %>%
+        addPolygons(data=sub,
+                    fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
+                    fillOpacity = 0.8, smoothFactor = 0.5,
+                    highlight=highlightOptions(fillOpacity = 0.8,
+                                               color = "#b30000",
+                                               weight = 2,
+                                               bringToFront=TRUE),
+                    label= ~NAMELSAD, layerId = ~NAMELSAD)
+    })
     
 })
