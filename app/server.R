@@ -183,7 +183,7 @@ shinyServer(function(input, output, session) {
          click = input$advocmap_shape_click
          selected_geoid=input$advocmap_shape_click$id
          clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
-         print(clicked_ids$Clicks)
+         #print(clicked_ids$Clicks)
          removePoly=clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
          remove=FALSE
          if(length(removePoly)>0){
@@ -192,7 +192,7 @@ shinyServer(function(input, output, session) {
          clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
          
          #clicked_ids$Clicks=!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
-         print(clicked_ids$Clicks)
+         #print(clicked_ids$Clicks)
          #print(sub)
          if(is.null(click))
              return()
@@ -244,5 +244,24 @@ shinyServer(function(input, output, session) {
                                    {tryCatch(return_geoid(input$address),
                                              error = function(cond){"No GEOID found"})})
     output$current_GEOID <-  renderText({current_GEOID()})
+    
+    observeEvent(input$current_GEOID,{
+        if(input$current_GEOID != 'No GEOID found'){
+            clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id)
+            clicked_ids$Clicks <- unique(clicked_ids$Clicks)
+            
+            sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
+            leafletProxy("advocmap") %>% addTiles() %>%
+                addPolygons(data=sub,
+                            fillColor = "red",color = "blue",opacity = 1,weight=2,
+                            fillOpacity = 0.8, smoothFactor = 0.5,
+                            highlight=highlightOptions(fillOpacity = 0.8,
+                                                       color = "red",
+                                                       weight = 2,
+                                                       bringToFront=TRUE),
+                            label= ~NAMELSAD, layerId = ~NAMELSAD)
+            
+        }
+    })
     
 })
