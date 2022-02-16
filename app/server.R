@@ -246,6 +246,7 @@ shinyServer(function(input, output, session) {
     output$current_GEOID <-  renderText({current_GEOID()})
     
     observeEvent(input$current_GEOID,{
+        output$result<-renderText({input$current_GEOID})
         if(input$current_GEOID != 'No GEOID found'){
             id=shape %>% filter(GEOID==input$current_GEOID) %>% select(NAMELSAD)
             clicked_ids$Clicks <- c(clicked_ids$Clicks, id)
