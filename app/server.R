@@ -2,11 +2,23 @@ library(shiny)
 library(tidyverse)
 library(plotly)
 library(sf)
+library(reticulate)
+
+PYTHON_DEPENDENCIES = c('pip', 'censusgeocode')
+virtualenv_dir = Sys.getenv('VIRTUALENV_NAME')
+python_path = Sys.getenv('PYTHON_PATH')
+# Create virtual env and install dependencies
+reticulate::virtualenv_create(envname = virtualenv_dir, python = python_path)
+reticulate::virtualenv_install(virtualenv_dir, packages = PYTHON_DEPENDENCIES, ignore_installed=TRUE)
+reticulate::use_virtualenv(virtualenv_dir, required = T)
+source_python("scripts/geocode.py")
+
 
 source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
 source("scripts/county.R")
 source("scripts/plot_prop_counties.R")
+
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
@@ -63,6 +75,8 @@ de_summary_table <- geo_data_nogeometry %>%
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
+    
+    
 
     output$mainplot <- renderPlotly({
         
@@ -211,12 +225,9 @@ shinyServer(function(input, output, session) {
                      select('Census Tract',GEOID,'# Receiving assisstance',
                             '# Spending 30%+ of income on rent',
                             '# Spending 50%+ of income on rent') })
-                
-             
 
      })
-     observe({})
-    
+     
     # Observe the click to the advocates page
     observeEvent(input$to_advocates_page, {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
@@ -224,5 +235,11 @@ shinyServer(function(input, output, session) {
     observeEvent(input$to_advocates_page_bottom, {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
     })
+    
+    # Address lookup routine
+    current_GEOID <- eventReactive(input$address_search,
+                                   {tryCatch(return_geoid(input$address),
+                                             error = function(cond){"No GEOID found"})})
+    output$current_GEOID <-  renderText({current_GEOID()})
     
 })
