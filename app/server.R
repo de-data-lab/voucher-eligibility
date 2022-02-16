@@ -262,7 +262,7 @@ shinyServer(function(input, output, session) {
                                            # clicked_ids$Clicks <- c(clicked_ids$Clicks, id$NAMELSAD)
                                            # clicked_ids$Clicks <- unique(clicked_ids$Clicks)
                                            # sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
-                                           # return geoid
+                                           return geoid
                                        },
                                     error = function(cond){
                                         "No GEOID found"
