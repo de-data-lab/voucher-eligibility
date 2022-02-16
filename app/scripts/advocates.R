@@ -44,6 +44,7 @@ advoc_table <- geo_data_nogeometry %>%
   mutate_at(vars(reported_HUD),as.integer) %>%
   mutate_at(vars(rent_above30),as.integer) %>%
   mutate_at(vars(rent_above50),as.integer) %>%
+  filter(rent_above30>0) %>% 
   dplyr::rename(
     '# Receiving assisstance'=reported_HUD,
     '# Spending 30%+ of income on rent'=rent_above30,

@@ -166,7 +166,21 @@ shinyServer(function(input, output, session) {
             paste("voucher_data.csv")
         },
         content = function(file) {
-            write.csv(advoc_table %>% filter(NAMELSAD %in% input$GEOID_selector) %>%  
+            write.csv(advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+                          dplyr::rename('Census Tract'=NAME) %>% 
+                          select('Census Tract',GEOID,'# Receiving assisstance',
+                                 '# Spending 30%+ of income on rent',
+                                 '# Spending 50%+ of income on rent'),
+                      file, row.names = FALSE,col.names=T)
+        }
+    )
+    
+    output$downloadAll <- downloadHandler(
+        filename = function() {
+            paste("voucher_data_All.csv")
+        },
+        content = function(file) {
+            write.csv(advoc_table %>%
                           dplyr::rename('Census Tract'=NAME) %>% 
                           select('Census Tract',GEOID,'# Receiving assisstance',
                                  '# Spending 30%+ of income on rent',
@@ -241,13 +255,13 @@ shinyServer(function(input, output, session) {
     
     # Address lookup routine
     current_GEOID <- eventReactive(input$address_search,
-                                   {tryCatch(
-                                       geoid<-return_geoid(input$address),
-                                       id=shape %>% filter(GEOID==geoid) %>% select(NAMELSAD),
-                                       clicked_ids$Clicks <- c(clicked_ids$Clicks, id),
-                                       clicked_ids$Clicks <- unique(clicked_ids$Clicks),
+                                   {tryCatch({
+                                       geoid<-return_geoid(input$address)
+                                       id=shape %>% filter(GEOID==geoid) %>% select(NAMELSAD)
+                                       clicked_ids$Clicks <- c(clicked_ids$Clicks, id)
+                                       clicked_ids$Clicks <- unique(clicked_ids$Clicks)
                                        
-                                       sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks)),
+                                       sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
                                        leafletProxy("advocmap") %>% addTiles() %>%
                                            addPolygons(data=sub,
                                                        fillColor = "red",color = "blue",opacity = 1,weight=2,
@@ -256,8 +270,8 @@ shinyServer(function(input, output, session) {
                                                                                   color = "red",
                                                                                   weight = 2,
                                                                                   bringToFront=TRUE),
-                                                       label= ~NAMELSAD, layerId = ~NAMELSAD),
-                                             error = function(cond){"No GEOID found"})})
+                                                       label= ~NAMELSAD, layerId = ~NAMELSAD)},
+                                             {error = function(cond){"No GEOID found"}})})
     output$current_GEOID <-  renderText({current_GEOID()})
     
     output$result<-renderText({"Hello"})

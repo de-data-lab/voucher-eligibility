@@ -14,7 +14,8 @@ advocates_panel <- tabPanel(
     tags$div(class = "advoc-table",
              tableOutput("advoc_table")),
     tags$div(class = "advoc-table",
-             downloadButton("downloadData", "Download")),
+             downloadButton("downloadData", "Download"),
+             downloadButton("downloadAll", "Download All")),
     tags$div(class = "table-footnote",
              "The number of households appears as 10 when there are 10 or less 
              households in a given cell. 
