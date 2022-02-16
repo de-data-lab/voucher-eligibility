@@ -244,7 +244,7 @@ shinyServer(function(input, output, session) {
                                    {tryCatch(return_geoid(input$address),
                                              error = function(cond){"No GEOID found"})})
     output$current_GEOID <-  renderText({current_GEOID()})
-    
+    output$result<-renderText({"Hello"})
     observeEvent(input$current_GEOID,{
         output$result<-renderText({input$current_GEOID})
         if(input$current_GEOID != 'No GEOID found'){
