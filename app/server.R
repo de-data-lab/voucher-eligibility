@@ -261,8 +261,8 @@ shinyServer(function(input, output, session) {
     current_GEOID <- eventReactive(input$address_search,
                                    {tryCatch(
                                        {
-                                           geoid <- return_geoid(input$address)
-                                           id=shape %>% filter(GEOID==geoid)
+                                           return_geoid(input$address)
+                                           # id=shape %>% filter(GEOID==geoid)
                                            # clicked_ids$Clicks <- c(clicked_ids$Clicks, id$NAMELSAD)
                                            # clicked_ids$Clicks <- unique(clicked_ids$Clicks)
                                            # sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks)
@@ -273,6 +273,8 @@ shinyServer(function(input, output, session) {
                                        )
                                        })
     output$current_GEOID <-  renderText({current_GEOID()})
+    search_geoid <- reactiveValues(search=vector())
+    observeEvent(input$search_geoid{output$current_GEOID <-  renderText({"Changed"})})
     # output$advocmap <-renderLeaflet({leafletProxy("advocmap") %>% addTiles() %>%
     #     addPolygons(data=sub,
     #                 fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
