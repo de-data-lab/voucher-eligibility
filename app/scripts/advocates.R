@@ -14,11 +14,11 @@ advoc_map <- shape %>%
   setView(lng, lat, zoom = 8.0) %>%
   addTiles() %>%   #not including one, sets the general maps version
   
-  addPolygons(fillColor = "gray",
+  addPolygons(fillColor = "#bdc9e1",
               stroke = TRUE, fillOpacity = 0.2, smoothFactor = 0.5,
-              color = "blue",opacity = 1,weight=2,
+              color = "#2b8cbe",opacity = 1,weight=2,
               highlight=highlightOptions(fillOpacity = 0.8,
-                                         color = "red",
+                                         color = "#b30000",
                                          weight = 2,
                                          bringToFront=TRUE),
               label= ~NAMELSAD, layerId = ~NAMELSAD)

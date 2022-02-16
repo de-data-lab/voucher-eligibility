@@ -215,11 +215,11 @@ shinyServer(function(input, output, session) {
                  sub <- shape %>% filter(NAMELSAD %in% (removePoly))
                  leafletProxy("advocmap") %>% addTiles() %>%
                  addPolygons(data=sub,
-                             fillColor = "gray",
+                             fillColor = "#bdc9e1",
                              stroke = TRUE, fillOpacity = 0.2, smoothFactor = 0.5,
-                             color = "blue",opacity = 1,weight=2,
+                             color = "#2b8cbe",opacity = 1,weight=2,
                              highlight=highlightOptions(fillOpacity = 0.8,
-                                                        color = "red",
+                                                        color = "#b30000",
                                                         weight = 2,
                                                         bringToFront=TRUE),
                              label= ~NAMELSAD, layerId = ~NAMELSAD)
@@ -228,10 +228,10 @@ shinyServer(function(input, output, session) {
                 sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
                 leafletProxy("advocmap") %>% addTiles() %>%
                 addPolygons(data=sub,
-                            fillColor = "red",color = "blue",opacity = 1,weight=2,
+                            fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
                             fillOpacity = 0.8, smoothFactor = 0.5,
                             highlight=highlightOptions(fillOpacity = 0.8,
-                                                       color = "red",
+                                                       color = "#b30000",
                                                        weight = 2,
                                                        bringToFront=TRUE),
                             label= ~NAMELSAD, layerId = ~NAMELSAD)
@@ -264,10 +264,10 @@ shinyServer(function(input, output, session) {
                                        sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
                                        leafletProxy("advocmap") %>% addTiles() %>%
                                            addPolygons(data=sub,
-                                                       fillColor = "red",color = "blue",opacity = 1,weight=2,
+                                                       fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
                                                        fillOpacity = 0.8, smoothFactor = 0.5,
                                                        highlight=highlightOptions(fillOpacity = 0.8,
-                                                                                  color = "red",
+                                                                                  color = "#b30000",
                                                                                   weight = 2,
                                                                                   bringToFront=TRUE),
                                                        label= ~NAMELSAD, layerId = ~NAMELSAD)},
