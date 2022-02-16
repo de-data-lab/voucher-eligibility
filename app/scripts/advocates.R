@@ -11,10 +11,13 @@ lat <- 39.1824#39.5393
 lng <- -75.2
 advoc_map <- shape %>%
   leaflet() %>%
-  addTiles() %>%   #not including one, sets the general maps version
   setView(lng, lat, zoom = 8.0) %>%
-  addPolygons(fillColor = "green",
-              highlight=highlightOptions(fillOpacity = 0.5,
+  addTiles() %>%   #not including one, sets the general maps version
+  
+  addPolygons(fillColor = "gray",
+              stroke = TRUE, fillOpacity = 0.2, smoothFactor = 0.5,
+              color = "blue",opacity = 1,weight=2,
+              highlight=highlightOptions(fillOpacity = 0.8,
                                          color = "red",
                                          weight = 2,
                                          bringToFront=TRUE),
