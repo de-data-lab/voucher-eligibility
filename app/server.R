@@ -101,6 +101,12 @@ shinyServer(function(input, output, session) {
             plot_ly(labels = ~labels, values = ~counts,
                     type = 'pie',
                     textinfo = 'label+percent',
+                    hoverinfo = "text",
+                    hovertemplate = paste("Eligible Households %{label}",
+                                          "Count: %{value}",
+                                          "% out of Eligible Households: %{percent}",
+                                          "<extra></extra>",
+                                          sep = "<br>"),
                     insidetextorientation = 'horizontal',
                     showlegend = FALSE,
                     marker = list(
