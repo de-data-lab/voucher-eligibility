@@ -75,9 +75,15 @@ de_summary_table <- geo_data_nogeometry %>%
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
+    # Observe the URL parameter and route the page to an appropriate tab
+    observe({
+        query <- parseQueryString(session$clientData$url_search)
+        query1 <- paste(names(query), query, sep = "=", collapse=", ")
+        if(query1 == "page=advocates"){
+            updateNavbarPage(session, inputId = "main_page", selected = "For Advocates")
+        }
+    })
     
-    
-
     output$mainplot <- renderPlotly({
         
         # If the county is not selected, show the Delaware overall
@@ -142,7 +148,7 @@ shinyServer(function(input, output, session) {
             plotly_legend_top_right() %>%
             plotly_disable_zoom() %>%
             plotly_hide_modebar()
-        })
+    })
     
     output$prop_counties <- renderPlotly({
         if(input$selectedProp == "30"){
@@ -181,44 +187,44 @@ shinyServer(function(input, output, session) {
         }
     )
     
-     output$advocmap <- renderLeaflet({advoc_map})
-     clicked_ids <- reactiveValues(Clicks=vector())
+    output$advocmap <- renderLeaflet({advoc_map})
+    clicked_ids <- reactiveValues(Clicks=vector())
     
     # #if map is clicked, set values
-     observeEvent(input$advocmap_shape_click,{
-         click = input$advocmap_shape_click
-         selected_geoid=input$advocmap_shape_click$id
-         clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
-         #print(clicked_ids$Clicks)
-         removePoly=clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
-         remove=FALSE
-         if(length(removePoly)>0){
-             remove=TRUE
-         }
-         clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
-         
-         #clicked_ids$Clicks=!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
-         #print(clicked_ids$Clicks)
-         #print(sub)
-         if(is.null(click))
-             return()
-         else
-             if(remove==TRUE){
-                 sub <- shape %>% filter(NAMELSAD %in% (removePoly))
-                 leafletProxy("advocmap") %>% addTiles() %>%
-                 addPolygons(data=sub,
-                             fillColor = "#bdc9e1",
-                             stroke = TRUE, fillOpacity = 0.2, smoothFactor = 0.5,
-                             color = "#2b8cbe",opacity = 1,weight=2,
-                             highlight=highlightOptions(fillOpacity = 0.8,
-                                                        color = "#b30000",
-                                                        weight = 2,
-                                                        bringToFront=TRUE),
-                             label= ~NAMELSAD, layerId = ~NAMELSAD)
-             }
-             else{
-                sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
+    observeEvent(input$advocmap_shape_click,{
+        click = input$advocmap_shape_click
+        selected_geoid=input$advocmap_shape_click$id
+        clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
+        #print(clicked_ids$Clicks)
+        removePoly=clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
+        remove=FALSE
+        if(length(removePoly)>0){
+            remove=TRUE
+        }
+        clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
+        
+        #clicked_ids$Clicks=!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
+        #print(clicked_ids$Clicks)
+        #print(sub)
+        if(is.null(click))
+            return()
+        else
+            if(remove==TRUE){
+                sub <- shape %>% filter(NAMELSAD %in% (removePoly))
                 leafletProxy("advocmap") %>% addTiles() %>%
+                    addPolygons(data=sub,
+                                fillColor = "#bdc9e1",
+                                stroke = TRUE, fillOpacity = 0.2, smoothFactor = 0.5,
+                                color = "#2b8cbe",opacity = 1,weight=2,
+                                highlight=highlightOptions(fillOpacity = 0.8,
+                                                           color = "#b30000",
+                                                           weight = 2,
+                                                           bringToFront=TRUE),
+                                label= ~NAMELSAD, layerId = ~NAMELSAD)
+            }
+        else{
+            sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
+            leafletProxy("advocmap") %>% addTiles() %>%
                 addPolygons(data=sub,
                             fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
                             fillOpacity = 0.8, smoothFactor = 0.5,
@@ -227,16 +233,16 @@ shinyServer(function(input, output, session) {
                                                        weight = 2,
                                                        bringToFront=TRUE),
                             label= ~NAMELSAD, layerId = ~NAMELSAD)
-             }
-            
-             output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-                     dplyr::rename('Census Tract'=NAME) %>% 
-                     select('Census Tract',GEOID,'# Receiving assisstance',
-                            '# Spending 30%+ of income on rent',
-                            '# Spending 50%+ of income on rent') })
-
-     })
-     
+        }
+        
+        output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+                dplyr::rename('Census Tract'=NAME) %>% 
+                select('Census Tract',GEOID,'# Receiving assisstance',
+                       '# Spending 30%+ of income on rent',
+                       '# Spending 50%+ of income on rent') })
+        
+    })
+    
     # Observe the click to the advocates page
     observeEvent(input$to_advocates_page, {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
@@ -245,48 +251,38 @@ shinyServer(function(input, output, session) {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
     })
     
-    # Address lookup routine
-    # current_GEOID <- eventReactive(input$address_search,
-    #                                {tryCatch(
-    #                                    {
-    #                                        return_geoid(input$address)
-    #                                    },
-    #                                 error = function(cond){
-    #                                     "No GEOID found"
-    #                                     }
-    #                                    )
-    #                                    })
+    
+    # Look for a GEOID for a given address (Python)
     found_GEOID <- reactiveValues(ids=vector())
-    # not_found <- reactiveValues(ids=vector())
     observeEvent(input$address_search,
-                                   {tryCatch(
-                                       {
-                                           found_GEOID$ids <- return_geoid(input$address)
-                                           output$current_GEOID <-  renderText({found_GEOID$ids})
-                                           sub <- shape %>% filter(GEOID %in% (found_GEOID$ids))
-                                           #output$result <- renderText({sub$NAMELSAD})
-                                           clicked_ids$Clicks <- c(clicked_ids$Clicks, sub$NAMELSAD) # name when clicked, id when unclicked
-                                           clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-                                           leafletProxy("advocmap") %>% addTiles() %>%
-                                               addPolygons(data=sub,
-                                                           fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
-                                                           fillOpacity = 0.8, smoothFactor = 0.5,
-                                                           highlight=highlightOptions(fillOpacity = 0.8,
-                                                                                      color = "#b30000",
-                                                                                      weight = 2,
-                                                                                      bringToFront=TRUE),
-                                                           label= ~NAMELSAD, layerId = ~NAMELSAD)
-                                           output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-                                                   dplyr::rename('Census Tract'=NAME) %>% 
-                                                   select('Census Tract',GEOID,'# Receiving assisstance',
-                                                          '# Spending 30%+ of income on rent',
-                                                          '# Spending 50%+ of income on rent') })
-                                       },
-                                       error = function(cond){
-                                           found_GEOID$ids <- "No GEOID found"
-                                           output$current_GEOID <-  renderText({found_GEOID$ids})
-                                       }
-                                   )
-                                   })
-
+                 {tryCatch(
+                     {
+                         found_GEOID$ids <- return_geoid(input$address)
+                         output$current_GEOID <-  renderText({found_GEOID$ids})
+                         sub <- shape %>% filter(GEOID %in% (found_GEOID$ids))
+                         #output$result <- renderText({sub$NAMELSAD})
+                         clicked_ids$Clicks <- c(clicked_ids$Clicks, sub$NAMELSAD) # name when clicked, id when unclicked
+                         clicked_ids$Clicks <- unique(clicked_ids$Clicks)
+                         leafletProxy("advocmap") %>% addTiles() %>%
+                             addPolygons(data=sub,
+                                         fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
+                                         fillOpacity = 0.8, smoothFactor = 0.5,
+                                         highlight=highlightOptions(fillOpacity = 0.8,
+                                                                    color = "#b30000",
+                                                                    weight = 2,
+                                                                    bringToFront=TRUE),
+                                         label= ~NAMELSAD, layerId = ~NAMELSAD)
+                         output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+                                 dplyr::rename('Census Tract'=NAME) %>% 
+                                 select('Census Tract',GEOID,'# Receiving assisstance',
+                                        '# Spending 30%+ of income on rent',
+                                        '# Spending 50%+ of income on rent') })
+                     },
+                     error = function(cond){
+                         found_GEOID$ids <- "No GEOID found"
+                         output$current_GEOID <-  renderText({found_GEOID$ids})
+                     }
+                 )
+                 })
+    
 })
