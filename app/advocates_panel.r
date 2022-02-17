@@ -8,7 +8,7 @@ advocates_panel <- tabPanel(
     tags$div(class = "address-input-container",
              searchInput("address", label = NULL, placeholder = "Enter your address",
                          btnSearch = icon("search")),
-             textInput("current_GEOID"),
+             textOutput("current_GEOID"),
              textOutput("result")),
     leafletOutput("advocmap"),
     tags$div(class = "advoc-table",
