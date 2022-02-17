@@ -270,14 +270,15 @@ shinyServer(function(input, output, session) {
                                        })
     
     output$current_GEOID <-  renderText({current_GEOID()})
-    output$result <- renderPrint({tryCatch(
-        {
-            return_geoid(input$address)
-        },
-        error = function(cond){
-            "No GEOID found"
-        })
-        })
+    observeEvent(input$current_GEOID{output$result <- "Hi"})
+    # output$result <- renderPrint({tryCatch(
+    #     {
+    #         return_geoid(input$address)
+    #     },
+    #     error = function(cond){
+    #         "No GEOID found"
+    #     })
+    #     })
     # observe({
     #     input$current_GEOID()
     #     output$result <-  renderText({"Changed"})})
