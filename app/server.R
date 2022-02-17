@@ -256,6 +256,16 @@ shinyServer(function(input, output, session) {
     #                                     }
     #                                    )
     #                                    })
+    # Observe the URL parameter and route the page to an appropriate tab
+    observe({
+        query <- parseQueryString(session$clientData$url_search)
+        query1 <- paste(names(query), query, sep = "=", collapse=", ")
+        if(query1 == "page=advocates"){
+            updateNavbarPage(session, inputId = "main_page", selected = "For Advocates")
+        }
+        })
+    
+    # Look for a GEOID for a given address (Python)
     found_GEOID <- reactiveValues(ids=vector())
     # not_found <- reactiveValues(ids=vector())
     observeEvent(input$address_search,
