@@ -258,31 +258,31 @@ shinyServer(function(input, output, session) {
     })
     
     # Address lookup routine
-    # current_GEOID <- eventReactive(input$address_search,
-    #                                {tryCatch(
-    #                                    {
-    #                                        return_geoid(input$address)
-    #                                    },
-    #                                 error = function(cond){
-    #                                     "No GEOID found"
-    #                                     }
-    #                                    )
-    #                                    })
-    current_GEOID <- reactiveValues(ids=vector())
-    not_found <- reactiveValues(ids=vector())
-    observeEvent(input$address_search,
+    current_GEOID <- eventReactive(input$address_search,
                                    {tryCatch(
                                        {
-                                           current_GEOID$ids <- return_geoid(input$address)
+                                           return_geoid(input$address)
                                        },
-                                       error = function(cond){
-                                           not_found$ids <- "No GEOID found"
-                                       }
-                                   )
-                                   })
-    
-    #output$current_GEOID <-  renderText({current_GEOID()})
-    output$current_GEOID <-  renderText({current_GEOID$ids})
+                                    error = function(cond){
+                                        "No GEOID found"
+                                        }
+                                       )
+                                       })
+    found_GEOID <- reactiveValues(ids=vector())
+    # not_found <- reactiveValues(ids=vector())
+    # observeEvent(input$address_search,
+    #                                {tryCatch(
+    #                                    {
+    #                                        current_GEOID$ids <- return_geoid(input$address)
+    #                                    },
+    #                                    error = function(cond){
+    #                                        not_found$ids <- "No GEOID found"
+    #                                    }
+    #                                )
+    #                                })
+    found_GEOID$ids <- current_GEOID()
+    output$current_GEOID <-  renderText({current_GEOID()})
+    #output$current_GEOID <-  renderText({current_GEOID$ids})
     # output$result <- renderText({"New"})
     # observeEvent(input$current_GEOID,{output$result <- renderText({"Hi"})
     # })
