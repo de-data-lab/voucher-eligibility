@@ -258,30 +258,47 @@ shinyServer(function(input, output, session) {
     })
     
     # Address lookup routine
-    current_GEOID <- eventReactive(input$address_search,
+    # current_GEOID <- eventReactive(input$address_search,
+    #                                {tryCatch(
+    #                                    {
+    #                                        return_geoid(input$address)
+    #                                    },
+    #                                 error = function(cond){
+    #                                     "No GEOID found"
+    #                                     }
+    #                                    )
+    #                                    })
+    found_GEOID <- reactiveValues(ids=vector())
+    # not_found <- reactiveValues(ids=vector())
+    observeEvent(input$address_search,
                                    {tryCatch(
                                        {
-                                           geoid <- return_geoid(input$address)
-                                           # id=shape %>% filter(GEOID==geoid)
-                                           # clicked_ids$Clicks <- c(clicked_ids$Clicks, id$NAMELSAD)
-                                           # clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-                                           # sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks)
+                                           found_GEOID$ids <- return_geoid(input$address)
+                                           output$current_GEOID <-  renderText({found_GEOID$ids})
+                                           sub <- shape %>% filter(GEOID %in% (found_GEOID$ids))
+                                           #output$result <- renderText({sub$NAMELSAD})
+                                           clicked_ids$Clicks <- c(clicked_ids$Clicks, sub$NAMELSAD) # name when clicked, id when unclicked
+                                           clicked_ids$Clicks <- unique(clicked_ids$Clicks)
+                                           leafletProxy("advocmap") %>% addTiles() %>%
+                                               addPolygons(data=sub,
+                                                           fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
+                                                           fillOpacity = 0.8, smoothFactor = 0.5,
+                                                           highlight=highlightOptions(fillOpacity = 0.8,
+                                                                                      color = "#b30000",
+                                                                                      weight = 2,
+                                                                                      bringToFront=TRUE),
+                                                           label= ~NAMELSAD, layerId = ~NAMELSAD)
+                                           output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+                                                   dplyr::rename('Census Tract'=NAME) %>% 
+                                                   select('Census Tract',GEOID,'# Receiving assisstance',
+                                                          '# Spending 30%+ of income on rent',
+                                                          '# Spending 50%+ of income on rent') })
                                        },
-                                    error = function(cond){
-                                        "No GEOID found"
-                                        }
-                                       )
-                                       })
-    output$current_GEOID <-  renderText({current_GEOID()})
-    # output$advocmap <-renderLeaflet({leafletProxy("advocmap") %>% addTiles() %>%
-    #     addPolygons(data=sub,
-    #                 fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
-    #                 fillOpacity = 0.8, smoothFactor = 0.5,
-    #                 highlight=highlightOptions(fillOpacity = 0.8,
-    #                                            color = "#b30000",
-    #                                            weight = 2,
-    #                                            bringToFront=TRUE),
-    #                 label= ~NAMELSAD, layerId = ~NAMELSAD)
-    # })
-    
+                                       error = function(cond){
+                                           found_GEOID$ids <- "No GEOID found"
+                                           output$current_GEOID <-  renderText({found_GEOID$ids})
+                                       }
+                                   )
+                                   })
+
 })
