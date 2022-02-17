@@ -288,6 +288,11 @@ shinyServer(function(input, output, session) {
                                                                                       weight = 2,
                                                                                       bringToFront=TRUE),
                                                            label= ~NAMELSAD, layerId = ~NAMELSAD)
+                                           output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+                                                   dplyr::rename('Census Tract'=NAME) %>% 
+                                                   select('Census Tract',GEOID,'# Receiving assisstance',
+                                                          '# Spending 30%+ of income on rent',
+                                                          '# Spending 50%+ of income on rent') })
                                        },
                                        error = function(cond){
                                            found_GEOID$ids <- "No GEOID found"
