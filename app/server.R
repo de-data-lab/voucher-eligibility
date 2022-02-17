@@ -270,8 +270,9 @@ shinyServer(function(input, output, session) {
                                        })
     
     output$current_GEOID <-  renderText({current_GEOID()})
-    output$result <- "New"
-    observeEvent(input$current_GEOID,{output$result <- "Hi"})
+    output$result <- renderText({"New"})
+    observeEvent(input$current_GEOID,{output$result <- renderText({"Hi"})
+    })
     
     # output$result <- renderPrint({tryCatch(
     #     {
