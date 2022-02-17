@@ -26,7 +26,7 @@ number_county_common_layers <- list(
     geom_bar(aes(fill = Category),
              stat = "identity",
              position = position_dodge()),
-    ylab("Number of households"),
+    ylab("Number of families"),
     xlab(""),
     theme_minimal(),
     scale_x_discrete(limits = rev(c("New Castle", "Kent", "Sussex"))),
@@ -44,13 +44,10 @@ number_county_30_data <- data_county %>%
     gather(Category, count, -c(county))
     
 number_county_30 <- number_county_30_data %>%
-    ggplot(aes(x = county, y = count)) + 
+    mutate("Eligible Families" = count) %>%
+    ggplot(aes(x = county, y = `Eligible Families`)) + 
     number_county_common_layers +
-    ggtitle("Households Spending 30%+ Income on Rent")
-
-number_county_30 <- number_county_30 %>%
-    ggplotly() %>%
-    plotly_legend_top_right()
+    ggtitle("Families Spending 30%+ Income on Rent")
 
 number_county_50_data <- data_county %>% 
     select(reported_HUD, rent_above50, county) %>%
@@ -60,11 +57,8 @@ number_county_50_data <- data_county %>%
     gather(Category, count, -c(county))
 
 number_county_50 <- number_county_50_data %>%
-    ggplot(aes(x = county, y = count))+
+    mutate("Eligible Families" = count) %>%
+    ggplot(aes(x = county, y = `Eligible Families`)) +
     number_county_common_layers +
-    ggtitle("Households Spending 50%+ Income on Rent")
-
-number_county_50 <- number_county_50 %>%
-    ggplotly() %>%
-    plotly_legend_top_right()
+    ggtitle("Families Spending 50%+ Income on Rent")
 

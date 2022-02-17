@@ -25,7 +25,7 @@ plot_prop_counties <- function(.data){
         coord_flip()
     
     out_plot <- prop_counties_plot %>%
-        ggplotly() %>%
+        ggplotly(tooltip = "") %>%
         layout(legend = list(traceorder = "reversed")) %>%
         plotly_legend_top_right() %>%
         plotly_disable_zoom() %>%
@@ -33,3 +33,4 @@ plot_prop_counties <- function(.data){
     
     return(out_plot)
 }
+

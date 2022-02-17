@@ -102,7 +102,7 @@ shinyServer(function(input, output, session) {
                     type = 'pie',
                     textinfo = 'label+percent',
                     hoverinfo = "text",
-                    hovertemplate = paste("%{value} Families",
+                    hovertemplate = paste("%{value} Eligible Families",
                                           "<extra></extra>",
                                           sep = "<br>"),
                     insidetextorientation = 'horizontal',
@@ -138,9 +138,10 @@ shinyServer(function(input, output, session) {
             current_plot <- number_county_50
         }
         current_plot %>% 
-            ggplotly() %>%
+            ggplotly(tooltip = "y") %>%
+            plotly_legend_top_right() %>%
             plotly_disable_zoom() %>%
-            plotly_hide_modebar
+            plotly_hide_modebar()
         })
     
     output$prop_counties <- renderPlotly({
@@ -151,19 +152,6 @@ shinyServer(function(input, output, session) {
             plot_prop_counties(geo_long_50)
         }
     })
-    
-    output$prop_county <- renderPlotly({
-        if(input$selectedProp == "30"){
-            current_plot <- prop_county_30
-        } 
-        else {
-            current_plot <- prop_county_50
-        }
-        current_plot %>%
-            ggplotly() %>%
-            plotly_disable_zoom() %>%
-            plotly_hide_modebar
-        })
     
     output$downloadData <- downloadHandler(
         filename = function() {
