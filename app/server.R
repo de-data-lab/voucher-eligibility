@@ -268,11 +268,19 @@ shinyServer(function(input, output, session) {
                                         }
                                        )
                                        })
+    
     output$current_GEOID <-  renderText({current_GEOID()})
-    #search_geoid <- reactiveValues(search=vector())
-    observe({
-        input$current_GEOID()
-        output$result <-  renderText({"Changed"})})
+    output$result <- renderPrint({tryCatch(
+        {
+            return_geoid(input$address)
+        },
+        error = function(cond){
+            "No GEOID found"
+        })
+        })
+    # observe({
+    #     input$current_GEOID()
+    #     output$result <-  renderText({"Changed"})})
     # output$advocmap <-renderLeaflet({leafletProxy("advocmap") %>% addTiles() %>%
     #     addPolygons(data=sub,
     #                 fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
