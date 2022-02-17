@@ -26,7 +26,7 @@ number_county_common_layers <- list(
     geom_bar(aes(fill = Category),
              stat = "identity",
              position = position_dodge()),
-    ylab("Number of households"),
+    ylab("Number of families"),
     xlab(""),
     theme_minimal(),
     scale_x_discrete(limits = rev(c("New Castle", "Kent", "Sussex"))),
@@ -46,7 +46,7 @@ number_county_30_data <- data_county %>%
 number_county_30 <- number_county_30_data %>%
     ggplot(aes(x = county, y = count)) + 
     number_county_common_layers +
-    ggtitle("Households Spending 30%+ Income on Rent")
+    ggtitle("Families Spending 30%+ Income on Rent")
 
 number_county_30 <- number_county_30 %>%
     ggplotly() %>%
@@ -62,7 +62,7 @@ number_county_50_data <- data_county %>%
 number_county_50 <- number_county_50_data %>%
     ggplot(aes(x = county, y = count))+
     number_county_common_layers +
-    ggtitle("Households Spending 50%+ Income on Rent")
+    ggtitle("Families Spending 50%+ Income on Rent")
 
 number_county_50 <- number_county_50 %>%
     ggplotly() %>%
