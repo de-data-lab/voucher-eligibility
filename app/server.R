@@ -262,10 +262,6 @@ shinyServer(function(input, output, session) {
                                    {tryCatch(
                                        {
                                            return_geoid(input$address)
-                                           # id=shape %>% filter(GEOID==geoid)
-                                           # clicked_ids$Clicks <- c(clicked_ids$Clicks, id$NAMELSAD)
-                                           # clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-                                           # sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks)
                                        },
                                     error = function(cond){
                                         "No GEOID found"
@@ -274,7 +270,9 @@ shinyServer(function(input, output, session) {
                                        })
     output$current_GEOID <-  renderText({current_GEOID()})
     #search_geoid <- reactiveValues(search=vector())
-    observeEvent(input$current_GEOID(){output$result <-  renderText({"Changed"})})
+    observe({
+        input$current_GEOID()
+        output$result <-  renderText({"Changed"})})
     # output$advocmap <-renderLeaflet({leafletProxy("advocmap") %>% addTiles() %>%
     #     addPolygons(data=sub,
     #                 fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
