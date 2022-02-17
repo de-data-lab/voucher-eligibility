@@ -44,7 +44,8 @@ number_county_30_data <- data_county %>%
     gather(Category, count, -c(county))
     
 number_county_30 <- number_county_30_data %>%
-    ggplot(aes(x = county, y = count)) + 
+    mutate("Eligible Families" = count) %>%
+    ggplot(aes(x = county, y = `Eligible Families`)) + 
     number_county_common_layers +
     ggtitle("Families Spending 30%+ Income on Rent")
 
@@ -56,7 +57,8 @@ number_county_50_data <- data_county %>%
     gather(Category, count, -c(county))
 
 number_county_50 <- number_county_50_data %>%
-    ggplot(aes(x = county, y = count))+
+    mutate("Eligible Families" = count) %>%
+    ggplot(aes(x = county, y = `Eligible Families`)) +
     number_county_common_layers +
     ggtitle("Families Spending 50%+ Income on Rent")
 
