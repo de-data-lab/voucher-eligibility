@@ -152,19 +152,6 @@ shinyServer(function(input, output, session) {
         }
     })
     
-    output$prop_county <- renderPlotly({
-        if(input$selectedProp == "30"){
-            current_plot <- prop_county_30
-        } 
-        else {
-            current_plot <- prop_county_50
-        }
-        current_plot %>%
-            ggplotly() %>%
-            plotly_disable_zoom() %>%
-            plotly_hide_modebar
-        })
-    
     output$downloadData <- downloadHandler(
         filename = function() {
             paste("voucher_data.csv")
