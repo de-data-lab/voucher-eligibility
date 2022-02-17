@@ -280,7 +280,7 @@ shinyServer(function(input, output, session) {
     #                                    }
     #                                )
     #                                })
-    found_GEOID$ids <- current_GEOID()
+    #found_GEOID$ids <- current_GEOID()
     output$current_GEOID <-  renderText({current_GEOID()})
     #output$current_GEOID <-  renderText({current_GEOID$ids})
     # output$result <- renderText({"New"})
