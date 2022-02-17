@@ -193,6 +193,21 @@
     max-width: 800px;
 }
 
+.learn-more--container {
+    background-image: url('wilmington-70pct.png');
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 500px;
+    background-origin: border-box;
+    background-position: center;
+    background-repeat: repeat-x;
+}
+
+
 .learn-more-button {
     background-color: #F27405;
     border-radius: 10px;
