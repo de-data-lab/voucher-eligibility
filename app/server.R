@@ -138,9 +138,10 @@ shinyServer(function(input, output, session) {
             current_plot <- number_county_50
         }
         current_plot %>% 
-            ggplotly() %>%
+            ggplotly(tooltip = "y") %>%
+            plotly_legend_top_right() %>%
             plotly_disable_zoom() %>%
-            plotly_hide_modebar
+            plotly_hide_modebar()
         })
     
     output$prop_counties <- renderPlotly({

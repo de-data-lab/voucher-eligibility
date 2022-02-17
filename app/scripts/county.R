@@ -48,10 +48,6 @@ number_county_30 <- number_county_30_data %>%
     number_county_common_layers +
     ggtitle("Families Spending 30%+ Income on Rent")
 
-number_county_30 <- number_county_30 %>%
-    ggplotly() %>%
-    plotly_legend_top_right()
-
 number_county_50_data <- data_county %>% 
     select(reported_HUD, rent_above50, county) %>%
     dplyr::rename(
@@ -63,8 +59,4 @@ number_county_50 <- number_county_50_data %>%
     ggplot(aes(x = county, y = count))+
     number_county_common_layers +
     ggtitle("Families Spending 50%+ Income on Rent")
-
-number_county_50 <- number_county_50 %>%
-    ggplotly() %>%
-    plotly_legend_top_right()
 
