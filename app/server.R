@@ -102,7 +102,7 @@ shinyServer(function(input, output, session) {
                     type = 'pie',
                     textinfo = 'label+percent',
                     hoverinfo = "text",
-                    hovertemplate = paste("%{value} Families",
+                    hovertemplate = paste("%{value} Eligible Families",
                                           "<extra></extra>",
                                           sep = "<br>"),
                     insidetextorientation = 'horizontal',
