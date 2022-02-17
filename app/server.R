@@ -276,7 +276,7 @@ shinyServer(function(input, output, session) {
                                            found_GEOID$ids <- return_geoid(input$address)
                                            output$current_GEOID <-  renderText({found_GEOID$ids})
                                            sub <- shape %>% filter(GEOID %in% (found_GEOID$ids))
-                                           output$result <- renderText({sub$NAMELSAD})
+                                           #output$result <- renderText({sub$NAMELSAD})
                                            clicked_ids$Clicks <- c(clicked_ids$Clicks, sub$NAMELSAD) # name when clicked, id when unclicked
                                            clicked_ids$Clicks <- unique(clicked_ids$Clicks)
                                            leafletProxy("advocmap") %>% addTiles() %>%
@@ -300,33 +300,5 @@ shinyServer(function(input, output, session) {
                                        }
                                    )
                                    })
-    #found_GEOID$ids <- current_GEOID()
-    #output$current_GEOID <-  renderText({current_GEOID()})
-    #output$current_GEOID <-  renderText({found_GEOID$ids})
-    # output$result <- renderText({"New"})
-    # observeEvent(input$current_GEOID,{output$result <- renderText({"Hi"})
-    # })
-    
-    # output$result <- renderPrint({tryCatch(
-    #     {
-    #         return_geoid(input$address)
-    #     },
-    #     error = function(cond){
-    #         "No GEOID found"
-    #     })
-    #     })
-    # observe({
-    #     input$current_GEOID()
-    #     output$result <-  renderText({"Changed"})})
-    # output$advocmap <-renderLeaflet({leafletProxy("advocmap") %>% addTiles() %>%
-    #     addPolygons(data=sub,
-    #                 fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
-    #                 fillOpacity = 0.8, smoothFactor = 0.5,
-    #                 highlight=highlightOptions(fillOpacity = 0.8,
-    #                                            color = "#b30000",
-    #                                            weight = 2,
-    #                                            bringToFront=TRUE),
-    #                 label= ~NAMELSAD, layerId = ~NAMELSAD)
-    # })
-    
+
 })
