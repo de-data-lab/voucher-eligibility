@@ -245,17 +245,6 @@ shinyServer(function(input, output, session) {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
     })
     
-    # Address lookup routine
-    # current_GEOID <- eventReactive(input$address_search,
-    #                                {tryCatch(
-    #                                    {
-    #                                        return_geoid(input$address)
-    #                                    },
-    #                                 error = function(cond){
-    #                                     "No GEOID found"
-    #                                     }
-    #                                    )
-    #                                    })
     # Observe the URL parameter and route the page to an appropriate tab
     observe({
         query <- parseQueryString(session$clientData$url_search)
@@ -267,7 +256,6 @@ shinyServer(function(input, output, session) {
     
     # Look for a GEOID for a given address (Python)
     found_GEOID <- reactiveValues(ids=vector())
-    # not_found <- reactiveValues(ids=vector())
     observeEvent(input$address_search,
                                    {tryCatch(
                                        {
