@@ -273,16 +273,18 @@ shinyServer(function(input, output, session) {
     observeEvent(input$address_search,
                                    {tryCatch(
                                        {
-                                           current_GEOID$ids <- return_geoid(input$address)
+                                           found_GEOID$ids <- return_geoid(input$address)
+                                           output$current_GEOID <-  renderText({found_GEOID$ids})
                                        },
                                        error = function(cond){
                                            found_GEOID$ids <- "No GEOID found"
+                                           output$current_GEOID <-  renderText({found_GEOID$ids})
                                        }
                                    )
                                    })
     #found_GEOID$ids <- current_GEOID()
     #output$current_GEOID <-  renderText({current_GEOID()})
-    output$current_GEOID <-  renderText({found_GEOID$ids})
+    #output$current_GEOID <-  renderText({found_GEOID$ids})
     # output$result <- renderText({"New"})
     # observeEvent(input$current_GEOID,{output$result <- renderText({"Hi"})
     # })
