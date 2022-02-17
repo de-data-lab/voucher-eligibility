@@ -91,7 +91,7 @@ home_panel <- tabPanel(
     ),
     tags$div(
         id = "learn-more-container",
-        class = "main-point--container",
+        class = "learn-more--container",
         tags$div(class = "main-point",
                  "Want to learn more about how your neighborhood is doing?"
         ),
