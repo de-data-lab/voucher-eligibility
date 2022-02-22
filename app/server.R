@@ -2,7 +2,6 @@ library(shiny)
 library(tidyverse)
 library(plotly)
 library(sf)
-library(reticulate)
 
 PYTHON_DEPENDENCIES = c('pip', 'censusgeocode')
 virtualenv_dir = Sys.getenv('VIRTUALENV_NAME')
@@ -11,7 +10,7 @@ python_path = Sys.getenv('PYTHON_PATH')
 reticulate::virtualenv_create(envname = virtualenv_dir, python = python_path)
 reticulate::virtualenv_install(virtualenv_dir, packages = PYTHON_DEPENDENCIES, ignore_installed=TRUE)
 reticulate::use_virtualenv(virtualenv_dir, required = T)
-source_python("scripts/geocode.py")
+reticulate::source_python("scripts/geocode.py")
 
 
 source("scripts/plotly_settings.R")
