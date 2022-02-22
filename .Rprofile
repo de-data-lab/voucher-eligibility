@@ -2,7 +2,7 @@
 # the environment the app is running in (local vs remote server).
 
 # Edit this name if desired when starting a new app
-VIRTUALENV_NAME = 'my_env'
+VIRTUALENV_NAME = 'voucher-eligibility-env'
 
 
 # ------------------------- Settings (Edit local settings to match your system) -------------------------- #
