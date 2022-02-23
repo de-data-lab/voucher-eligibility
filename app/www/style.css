@@ -89,7 +89,7 @@
     flex-wrap: wrap;
     text-align: center;
     justify-content: center;
-    flex-grow: 3;
+    margin-top: 2rem;
 }
 
 .advoc-table {
