@@ -12,7 +12,8 @@
 
 .title {
     text-align: center;
-    font-size: 4rem;
+    font-size: 5rem;
+    font-weight: bold;
     max-width: 30em;
 }
 
