@@ -60,7 +60,6 @@
 
 .main-point--icon {
     font-size: 8rem;
-    margin: 1rem;
 }
 
 .main-point--footnote {
@@ -180,7 +179,6 @@
 .footer {
     background: rgb(248, 248, 248);;
     padding: 0.5rem;
-    margin-top: 10rem;
     min-height: 10rem;
 }
 
