@@ -191,7 +191,7 @@ shinyServer(function(input, output, session) {
     clicked_ids <- reactiveValues(Clicks=vector())
     
     # #if map is clicked, set values
-    observeEvent(input$advocmap_shape_click,{
+    observeEvent(input$advocmap_shape_click, {
         click = input$advocmap_shape_click
         selected_geoid=input$advocmap_shape_click$id
         clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
@@ -235,11 +235,6 @@ shinyServer(function(input, output, session) {
                             label= ~NAMELSAD, layerId = ~NAMELSAD)
         }
         
-        output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-                dplyr::rename('Census Tract'=NAME) %>% 
-                select('Census Tract',GEOID,'# Receiving assisstance',
-                       '# Spending 30%+ of income on rent',
-                       '# Spending 50%+ of income on rent') })
         
         output$prop_census <- renderPlotly({
             if(input$selectedCensusProp == "30"){
@@ -259,7 +254,6 @@ shinyServer(function(input, output, session) {
     observeEvent(input$to_advocates_page_bottom, {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
     })
-    
     
     # Look for a GEOID for a given address (Python)
     found_GEOID <- reactiveValues(ids=vector())
@@ -303,6 +297,7 @@ shinyServer(function(input, output, session) {
                      }
                  )
                  })
+    
     output$prop_census <- renderPlotly({
         if(input$selectedCensusProp == "30"){
             plot_prop_census(30,clicked_ids$Clicks)
@@ -312,11 +307,13 @@ shinyServer(function(input, output, session) {
         }
     })
     
-    output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+    output$advoc_table <- renderTable({
+        output_table <- advoc_table %>% 
+            filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
             dplyr::rename('Census Tract'=NAME) %>% 
             select('Census Tract',GEOID,'# Receiving assisstance',
                    '# Spending 30%+ of income on rent',
-                   '# Spending 50%+ of income on rent') })
-    
-    
+                   '# Spending 50%+ of income on rent') 
+        return(output_table)
+    })
 })
