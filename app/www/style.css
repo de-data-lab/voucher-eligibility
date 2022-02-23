@@ -93,10 +93,10 @@
 }
 
 .advoc-table {
-    margin: 1rem;
     background-color: #f2f2f2;
     padding: 1rem;
     min-height: 35rem;
+    margin-bottom: 1rem;
 }
 
 .advoc-table-container {
