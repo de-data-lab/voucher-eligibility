@@ -84,36 +84,23 @@
     margin-bottom: 6rem;
 }
 
-
-.advoc-table {
-    height:100%;
-    width: 40%; 
-    margin:5px; 
-    float:left;
-}
-.bar-graph {
-    height:100%;
-    width: 40%; 
-    margin:5px; 
-    float:right;
-}
-
-.div1 {
-    top:0;
-    position:absolute;
-}
-.div2 {
-    bottom:0;
-    position:absolute;
-}
-
 .advoc-container {
     display: flex;
+    flex-wrap: wrap;
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
     justify-content: center;
-    height:100%;
-    width:100%;
+}
+
+.advoc-table {
+    margin: 5px; 
+    height: 80%;    
+    flex-grow: 3;
+}
+.bar-graph {
+    margin:5px; 
+    flex-grow: 2;
+    max-width: 50rem;
 }
 
 .table-footnote {
