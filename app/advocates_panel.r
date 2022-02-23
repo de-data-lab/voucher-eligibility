@@ -10,14 +10,24 @@ advocates_panel <- tabPanel(
                          btnSearch = icon("search")),
              textOutput("current_GEOID")),
     leafletOutput("advocmap"),
-    tags$div(class = "advoc-table",
-             tableOutput("advoc_table")),
-    tags$div(class = "advoc-table",
-             downloadButton("downloadData", "Download"),
-             downloadButton("downloadAll", "Download All")),
-    tags$div(class = "table-footnote",
-             "The number of households appears as 10 when there are 10 or less 
-             households in a given cell. 
-             NA indicates that there are no households participating in
-             Section 8 for the given census tract, according to HUD.")
+    tags$div(class = "advoc-container",
+        tags$div(class = "advoc-table",
+            tags$div(class = "div1",
+                     tableOutput("advoc_table"),
+                     downloadButton("downloadData", "Download"),
+                     downloadButton("downloadAll", "Download All"),
+                     tags$div(class = "table-footnote",
+                              "The number of households appears as 10 when there are 10 or less 
+             households in a given cell."))
+            ),
+        tags$div(class = "bar-graph",
+                 tags$div(class = "div1",
+                            plotlyOutput("prop_census"),
+                     radioGroupButtons("selectedCensusProp", 
+                                       label = "Focusing on families with rent spending:",
+                                       choices = c("30%+ of income" = "30",
+                                                   "50%+ of income" = "50"),
+                                       selected='30')))
+        )
+    
 )

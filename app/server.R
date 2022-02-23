@@ -17,6 +17,7 @@ source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
 source("scripts/county.R")
 source("scripts/plot_prop_counties.R")
+source("scripts/plot_prop_census.R")
 
 
 # Load Data
@@ -213,7 +214,7 @@ shinyServer(function(input, output, session) {
                 leafletProxy("advocmap") %>% addTiles() %>%
                     addPolygons(data=sub,
                                 fillColor = "#bdc9e1",
-                                stroke = TRUE, fillOpacity = 0.2, smoothFactor = 0.5,
+                                stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
                                 color = "#2b8cbe",opacity = 1,weight=2,
                                 highlight=highlightOptions(fillOpacity = 0.8,
                                                            color = "#b30000",
@@ -239,6 +240,15 @@ shinyServer(function(input, output, session) {
                 select('Census Tract',GEOID,'# Receiving assisstance',
                        '# Spending 30%+ of income on rent',
                        '# Spending 50%+ of income on rent') })
+        
+        output$prop_census <- renderPlotly({
+            if(input$selectedCensusProp == "30"){
+                plot_prop_census(30,clicked_ids$Clicks)
+            } 
+            else {
+                plot_prop_census(50,clicked_ids$Clicks)
+            }
+        })
         
     })
     
@@ -276,6 +286,16 @@ shinyServer(function(input, output, session) {
                                  select('Census Tract',GEOID,'# Receiving assisstance',
                                         '# Spending 30%+ of income on rent',
                                         '# Spending 50%+ of income on rent') })
+                         
+                         output$prop_census <- renderPlotly({
+                             if(input$selectedCensusProp == "30"){
+                                 plot_prop_census(30,clicked_ids$Clicks)
+                             } 
+                             else {
+                                 plot_prop_census(50,clicked_ids$Clicks)
+                             }
+                         })
+                         
                      },
                      error = function(cond){
                          found_GEOID$ids <- "No GEOID found"
@@ -283,5 +303,20 @@ shinyServer(function(input, output, session) {
                      }
                  )
                  })
+    output$prop_census <- renderPlotly({
+        if(input$selectedCensusProp == "30"){
+            plot_prop_census(30,clicked_ids$Clicks)
+        } 
+        else {
+            plot_prop_census(50,clicked_ids$Clicks)
+        }
+    })
+    
+    output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+            dplyr::rename('Census Tract'=NAME) %>% 
+            select('Census Tract',GEOID,'# Receiving assisstance',
+                   '# Spending 30%+ of income on rent',
+                   '# Spending 50%+ of income on rent') })
+    
     
 })
