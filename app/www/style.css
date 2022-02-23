@@ -100,7 +100,7 @@
 }
 
 .advoc-table-container {
-    height: 80%;
+    max-width: 70rem;
 }
 
 .bar-graph {
