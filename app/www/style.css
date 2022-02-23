@@ -88,7 +88,6 @@
     display: flex;
     flex-wrap: wrap;
     text-align: center;
-    font-size: 1.1rem;
     justify-content: center;
     flex-grow: 3;
 }
