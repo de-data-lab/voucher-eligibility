@@ -24,7 +24,7 @@ voucher-eligibility/
 ├─ app/ # Shiny app 
 ```
 
-## Environmental Variables
+## Environment Variables
 
 - `CENSUS_API_KEY`: API key to the Census API
 
