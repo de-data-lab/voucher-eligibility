@@ -9,20 +9,6 @@
     padding-left: 10px;
 }
 
-/* Main Message */
-.main-point--container {
-    text-align: center;
-    font-size: 5rem;
-    margin-top: 12rem;
-    margin-bottom: 6rem;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 15em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .main-heading-container {
     background-color: #e1e6ed;
     margin-bottom: 2rem;
