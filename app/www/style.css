@@ -104,9 +104,8 @@
 }
 
 .bar-graph {
-    margin:5px; 
-    flex-grow: 2;
-    max-width: 50rem;
+    margin-left: 2rem;
+    flex-grow: 1;
 }
 
 .table-footnote {
