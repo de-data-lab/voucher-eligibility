@@ -11,23 +11,24 @@ advocates_panel <- tabPanel(
              textOutput("current_GEOID")),
     leafletOutput("advocmap"),
     tags$div(class = "advoc-container",
-        tags$div(class = "advoc-table",
-            tags$div(class = "div1",
-                     tableOutput("advoc_table"),
-                     downloadButton("downloadData", "Download"),
-                     downloadButton("downloadAll", "Download All"),
-                     tags$div(class = "table-footnote",
-                              "The number of households appears as 10 when there are 10 or less 
-             households in a given cell."))
-            ),
-        tags$div(class = "bar-graph",
-                 tags$div(class = "div1",
-                            plotlyOutput("prop_census"),
-                     radioGroupButtons("selectedCensusProp", 
-                                       label = "Focusing on families with rent spending:",
-                                       choices = c("30%+ of income" = "30",
-                                                   "50%+ of income" = "50"),
-                                       selected='30')))
-        )
+             tags$div(class = "advoc-table-container",
+                      tags$div(class = "advoc-table",
+                               tableOutput("advoc_table")
+                               ),
+                      downloadButton("downloadData", "Download"),
+                      downloadButton("downloadAll", "Download All"),
+                      tags$div(class = "table-footnote",
+                               "The number of households appears as 10 when there are 10 or less 
+             households in a given cell.")
+             ),
+             tags$div(class = "bar-graph",
+                      plotlyOutput("prop_census"),
+                      radioGroupButtons("selectedCensusProp", 
+                                        label = "Focusing on families with rent spending:",
+                                        choices = c("30%+ of income" = "30",
+                                                    "50%+ of income" = "50"),
+                                        selected='30')
+             )
+    )
     
 )
