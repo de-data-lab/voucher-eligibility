@@ -18,6 +18,7 @@ source("scripts/advocates.R")
 source("scripts/county.R")
 source("scripts/plot_prop_counties.R")
 source("scripts/plot_prop_census.R")
+source("scripts/update_map.R")
 
 
 # Load Data
@@ -208,37 +209,20 @@ shinyServer(function(input, output, session) {
             remove=TRUE
         }
         clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
-        
-        #clicked_ids$Clicks=!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
-        #print(clicked_ids$Clicks)
-        #print(sub)
-        if(is.null(click))
+
+        if(is.null(clicked_tract))
             return()
         else
-            if(remove==TRUE){
-                sub <- shape %>% filter(NAMELSAD %in% (removePoly))
-                leafletProxy("advocmap") %>% addTiles() %>%
-                    addPolygons(data=sub,
-                                fillColor = "#bdc9e1",
-                                stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
-                                color = "#2b8cbe",opacity = 1,weight=2,
-                                highlight=highlightOptions(fillOpacity = 0.8,
-                                                           color = "#b30000",
-                                                           weight = 2,
-                                                           bringToFront=TRUE),
-                                label= ~NAMELSAD, layerId = ~NAMELSAD)
+            if(remove == TRUE){
+                new_data <- geo_data %>% 
+                    filter(GEOID %in% (removePoly))
+                update_map(new_data, to_state = "deselect")
             }
-        else{
-            sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
-            leafletProxy("advocmap") %>% addTiles() %>%
-                addPolygons(data=sub,
-                            fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
-                            fillOpacity = 0.8, smoothFactor = 0.5,
-                            highlight=highlightOptions(fillOpacity = 0.8,
-                                                       color = "#b30000",
-                                                       weight = 2,
-                                                       bringToFront=TRUE),
-                            label= ~NAMELSAD, layerId = ~NAMELSAD)
+        else {
+            new_data <- geo_data %>% 
+                filter(GEOID %in% (clicked_ids$Clicks))
+            update_map(new_data, to_state = "select")
+            
         }
         if (length(clicked_ids$Clicks)>1){
             agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
