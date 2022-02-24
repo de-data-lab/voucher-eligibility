@@ -3,10 +3,7 @@ library(tidyverse)
 library(plotly)
 library(sf)
 library(leaflet)
-library(tigris)
 
-
-shape <- tracts(state='10') %>% select(GEOID, NAMELSAD, NAME)
 lat <- 39.1824#39.5393
 lng <- -75.2
 
@@ -43,21 +40,15 @@ advoc_table <- geo_data_nogeometry %>%
     '# Spending 50%+ of income on rent'=rent_above50,
   ) 
 
-  
-advoc_table <- inner_join(advoc_table, shape,by='GEOID') %>%   
-  mutate_at(vars(NAME), as.double) %>%
-  arrange(NAME)
-
-
-advoc_map <- shape %>% filter(GEOID %in% advoc_table$GEOID) %>%
-  leaflet(height = "250%", width = "100%") %>%
-  setView(lng, lat, zoom = 8.0) %>%
-  addTiles() %>%   #not including one, sets the general maps version
-  addPolygons(fillColor = "#bdc9e1",
-              stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
-              color = "#2b8cbe",opacity = 1,weight=2,
-              highlight=highlightOptions(fillOpacity = 0.8,
-                                         color = "#b30000",
-                                         weight = 2,
-                                         bringToFront=TRUE),
-              label= ~NAMELSAD, layerId = ~NAMELSAD)
+advoc_map <- geo_data %>%
+    leaflet() %>%
+    setView(lng, lat, zoom = 8.0) %>%
+    addTiles() %>% #not including one, sets the general maps version
+    addPolygons(fillColor = "#bdc9e1",
+                stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
+                color = "#2b8cbe", opacity = 1, weight=2,
+                highlight=highlightOptions(fillOpacity = 0.8,
+                                           color = "#b30000",
+                                           weight = 2,
+                                           bringToFront=TRUE),
+                label = ~census_tract_label, layerId = ~GEOID)
