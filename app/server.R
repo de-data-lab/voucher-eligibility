@@ -199,13 +199,11 @@ shinyServer(function(input, output, session) {
     
     # #if map is clicked, set values
     observeEvent(input$advocmap_shape_click, {
-        click = input$advocmap_shape_click
-        selected_geoid=input$advocmap_shape_click$id
-        clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
-        #print(clicked_ids$Clicks)
-        removePoly=clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
-        remove=FALSE
-        if(length(removePoly)>0){
+        clicked_tract <- input$advocmap_shape_click
+        clicked_ids$Clicks <- c(clicked_ids$Clicks, clicked_tract$id) # name when clicked, id when unclicked
+        removePoly <- clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
+        remove <- FALSE
+        if(length(removePoly) > 0){
             remove=TRUE
         }
         clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
@@ -225,7 +223,8 @@ shinyServer(function(input, output, session) {
             
         }
         if (length(clicked_ids$Clicks)>1){
-            agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
+            agg_selected <- advoc_table %>% 
+                filter(GEOID %in% clicked_ids$Clicks)
             agg_receiving <- round((sum(agg_selected$`# Receiving assisstance`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
             agg_30 <- round((sum(agg_selected$`# Spending 30%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
             agg_50 <- round((sum(agg_selected$`# Spending 50%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
@@ -235,6 +234,7 @@ shinyServer(function(input, output, session) {
                                    of households spending above 50% of income on rent",  sep = " ")})
         }
         else{output$table_desc <- renderText({""})}
+        
         output$prop_census <- renderPlotly({
             if(input$selectedCensusProp == "30"){
                 plot_prop_census(30,clicked_ids$Clicks)
@@ -274,13 +274,8 @@ shinyServer(function(input, output, session) {
                                                                     weight = 2,
                                                                     bringToFront=TRUE),
                                          label= ~NAMELSAD, layerId = ~NAMELSAD)
-                         # output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-                         #         dplyr::rename('Census Tract'=NAME) %>% 
-                         #         select('Census Tract',GEOID,'% Receiving assisstance',
-                         #                '% Spending 30%+ of income on rent',
-                         #                '% Spending 50%+ of income on rent')  }, align='ccccc')
-                         
-                         if (length(clicked_ids$Clicks)>1){
+
+                          if (length(clicked_ids$Clicks)>1){
                              agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
                              agg_receiving<-round((sum(agg_selected$`# Receiving assisstance`)/sum(agg_selected$tot_hh))*100, digits = 2)
                              agg_30<-round((sum(agg_selected$`# Spending 30%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
@@ -320,9 +315,9 @@ shinyServer(function(input, output, session) {
     
     output$advoc_table <- renderTable({
         output_table <- advoc_table %>% 
-            filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-            dplyr::rename('Census Tract'=NAME) %>% 
-            select('Census Tract',GEOID,'% Receiving assisstance',
+            filter(GEOID %in% clicked_ids$Clicks) %>%  
+            dplyr::rename('Census Tract' = tract) %>% 
+            select('Census Tract', GEOID, '% Receiving assisstance',
                    '% Spending 30%+ of income on rent',
                    '% Spending 50%+ of income on rent') 
         return(output_table)
