@@ -9,28 +9,11 @@
     padding-left: 10px;
 }
 
-/* Main Message */
-.main-point--container {
-    text-align: center;
-    font-size: 5rem;
-    margin-top: 12rem;
-    margin-bottom: 6rem;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 15em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.main-heading-container {
-    background-color: #e1e6ed;
-    margin-bottom: 2rem;
-}
 
 .title {
     text-align: center;
-    font-size: 4rem;
+    font-size: 5rem;
+    font-weight: bold;
     max-width: 30em;
 }
 
@@ -51,12 +34,12 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin-top: 12rem;
-    margin-bottom: 12rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 15rem;
+    background-color: #f5f8ff;
+    margin-bottom: 15rem;
+    margin-top: 15rem;
+    padding: 5rem;
 }
+
 
 .main-point {
     text-align: center;
@@ -68,13 +51,16 @@
     max-width: 24em;
 }
 
+.main-heading-container {
+    margin-bottom: 2rem;
+}
+
 .learn-more--container .main-point {
     max-width: 22em;
 }
 
 .main-point--icon {
     font-size: 8rem;
-    margin: 1rem;
 }
 
 .main-point--footnote {
@@ -194,7 +180,6 @@
 .footer {
     background: rgb(248, 248, 248);;
     padding: 0.5rem;
-    margin-top: 10rem;
     min-height: 10rem;
 }
 

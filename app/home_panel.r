@@ -61,26 +61,6 @@ home_panel <- tabPanel(
     tags$div(class = "main-point-container",
              tags$div(class = "main-heading-container", 
                       tags$div(class = "main-point",
-                               "Interested in doing something about the housing crisis in Delaware?"
-                      )
-             ),
-             tags$div(class = "take-action-container",
-                      tags$div(class = "take-action-card",
-                               tags$div(class = "call-to-action-text", 
-                                        "Here are some ways you can take action now"),
-                               tags$ul(class = "follow-campaign-list",
-                                       tags$li("Follow", tags$a("H.O.M.E.S. Campaign", href="https://www.homescampaignde.org/")),
-                                       tags$li("Send a letter to your local representative to support housing reform bills",
-                                               tags$a("(Template by H.O.M.E.S.)", 
-                                                      href = "https://613b7d3b-0baa-4963-a0d2-2c365bc54f9e.filesusr.com/ugd/7148e3_2400e00b6b70477899b65e347060fdd6.docx?dn=Sample%20Letter%20for%20Bill%20of%20Rights%20for%20Individuals%20Experiencing%20Homelessness%20.docx"),
-                                       )
-                               ),
-                      )
-             )
-    ),
-    tags$div(class = "main-point-container",
-             tags$div(class = "main-heading-container", 
-                      tags$div(class = "main-point",
                                "Are you currently paying 30% or more of 
                                your household income on rent?")
              ),
@@ -109,6 +89,26 @@ home_panel <- tabPanel(
                                                tags$a("Delaware State Housing Authority (DSHA)",
                                                       href="http://www.destatehousing.com/Renters/renters.php",
                                                       target="_blank")),
+                               ),
+                      )
+             )
+    ),
+    tags$div(class = "main-point-container",
+             tags$div(class = "main-heading-container", 
+                      tags$div(class = "main-point",
+                               "Interested in doing something about the housing crisis in Delaware?"
+                      )
+             ),
+             tags$div(class = "take-action-container",
+                      tags$div(class = "take-action-card",
+                               tags$div(class = "call-to-action-text", 
+                                        "Here are some ways you can take action now"),
+                               tags$ul(class = "follow-campaign-list",
+                                       tags$li("Follow", tags$a("H.O.M.E.S. Campaign", href="https://www.homescampaignde.org/")),
+                                       tags$li("Send a letter to your local representative to support housing reform bills",
+                                               tags$a("(Template by H.O.M.E.S.)", 
+                                                      href = "https://613b7d3b-0baa-4963-a0d2-2c365bc54f9e.filesusr.com/ugd/7148e3_2400e00b6b70477899b65e347060fdd6.docx?dn=Sample%20Letter%20for%20Bill%20of%20Rights%20for%20Individuals%20Experiencing%20Homelessness%20.docx"),
+                                       )
                                ),
                       )
              )
