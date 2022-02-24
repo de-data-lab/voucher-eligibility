@@ -109,6 +109,11 @@
     margin-top: 2.5rem;
 }
 
+.down-footnote {
+    color: gray;
+    margin-top: 0.5rem;
+}
+
 .comment {
     text-align: center;
     color: gray;
