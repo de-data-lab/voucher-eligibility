@@ -13,19 +13,20 @@ reticulate::use_virtualenv(virtualenv_dir, required = T)
 reticulate::source_python("scripts/geocode.py")
 
 
+
 source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
-source("scripts/county.R")
 source("scripts/plot_prop_counties.R")
 source("scripts/plot_prop_census.R")
 source("scripts/update_map.R")
-
+source("scripts/plot_counts_counties.R")
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
 geo_data <- acs_hud_de_geojoined
 geo_data_nogeometry <- geo_data %>% 
     st_drop_geometry()
+
 
 # Dictionary of counties and keys
 county_list <- c(
@@ -139,10 +140,10 @@ shinyServer(function(input, output, session) {
     
     output$number_county <- renderPlotly({
         if(input$selectedNumber == "30"){
-            current_plot <- number_county_30 
+            current_plot <- plot_counts_counties(geo_data_nogeometry, 30) 
         } 
         else {
-            current_plot <- number_county_50
+            current_plot <- plot_counts_counties(geo_data_nogeometry, 50) 
         }
         current_plot %>% 
             ggplotly(tooltip = "y") %>%
