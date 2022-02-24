@@ -166,7 +166,10 @@ shinyServer(function(input, output, session) {
         content = function(file) {
             write.csv(advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
                           dplyr::rename('Census Tract'=NAME) %>% 
-                          select('Census Tract',GEOID,'# Receiving assisstance',
+                          select('Census Tract',GEOID,'% Receiving assisstance',
+                                 '% Spending 30%+ of income on rent',
+                                 '% Spending 50%+ of income on rent',
+                                 '# Receiving assisstance',
                                  '# Spending 30%+ of income on rent',
                                  '# Spending 50%+ of income on rent'),
                       file, row.names = FALSE,col.names=T)
@@ -180,9 +183,12 @@ shinyServer(function(input, output, session) {
         content = function(file) {
             write.csv(advoc_table %>%
                           dplyr::rename('Census Tract'=NAME) %>% 
-                          select('Census Tract',GEOID,'# Receiving assisstance',
+                          select('Census Tract',GEOID,'% Receiving assisstance',
+                                 '% Spending 30%+ of income on rent',
+                                 '% Spending 50%+ of income on rent',
+                                 '# Receiving assisstance',
                                  '# Spending 30%+ of income on rent',
-                                 '# Spending 50%+ of income on rent'),
+                                 '# Spending 50%+ of income on rent') ,
                       file, row.names = FALSE,col.names=T)
         }
     )
@@ -234,8 +240,17 @@ shinyServer(function(input, output, session) {
                                                        bringToFront=TRUE),
                             label= ~NAMELSAD, layerId = ~NAMELSAD)
         }
-        
-        
+        if (length(clicked_ids$Clicks)>1){
+            agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
+            agg_receiving<-round((sum(agg_selected$`# Receiving assisstance`)/sum(agg_selected$tot_hh))*100, digits = 2)
+            agg_30<-round((sum(agg_selected$`# Spending 30%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
+            agg_50<-round((sum(agg_selected$`# Spending 50%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
+            output$table_desc <- renderText({paste("Currently selected census tracts has in total <br><b>",agg_receiving,"% </b> of
+                             households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
+                             of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
+                                   of households spending above 50% of income on rent",  sep = " ")})
+        }
+        else{output$table_desc <- renderText({""})}
         output$prop_census <- renderPlotly({
             if(input$selectedCensusProp == "30"){
                 plot_prop_census(30,clicked_ids$Clicks)
@@ -275,11 +290,23 @@ shinyServer(function(input, output, session) {
                                                                     weight = 2,
                                                                     bringToFront=TRUE),
                                          label= ~NAMELSAD, layerId = ~NAMELSAD)
-                         output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-                                 dplyr::rename('Census Tract'=NAME) %>% 
-                                 select('Census Tract',GEOID,'# Receiving assisstance',
-                                        '# Spending 30%+ of income on rent',
-                                        '# Spending 50%+ of income on rent') })
+                         # output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+                         #         dplyr::rename('Census Tract'=NAME) %>% 
+                         #         select('Census Tract',GEOID,'% Receiving assisstance',
+                         #                '% Spending 30%+ of income on rent',
+                         #                '% Spending 50%+ of income on rent')  }, align='ccccc')
+                         
+                         if (length(clicked_ids$Clicks)>1){
+                             agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
+                             agg_receiving<-round((sum(agg_selected$`# Receiving assisstance`)/sum(agg_selected$tot_hh))*100, digits = 2)
+                             agg_30<-round((sum(agg_selected$`# Spending 30%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
+                             agg_50<-round((sum(agg_selected$`# Spending 50%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
+                             output$table_desc <- renderText({paste("Currently selected census tracts has in total <br><b>",agg_receiving,"% </b> of
+                             households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
+                             of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
+                                   of households spending above 50% of income on rent",  sep = " ")})
+                         }
+                         else{output$table_desc <- renderText({""})}
                          
                          output$prop_census <- renderPlotly({
                              if(input$selectedCensusProp == "30"){
@@ -311,9 +338,12 @@ shinyServer(function(input, output, session) {
         output_table <- advoc_table %>% 
             filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
             dplyr::rename('Census Tract'=NAME) %>% 
-            select('Census Tract',GEOID,'# Receiving assisstance',
-                   '# Spending 30%+ of income on rent',
-                   '# Spending 50%+ of income on rent') 
+            select('Census Tract',GEOID,'% Receiving assisstance',
+                   '% Spending 30%+ of income on rent',
+                   '% Spending 50%+ of income on rent') 
         return(output_table)
-    })
+    }, align='ccccc')
+    
+    output$table_desc <- renderText({""})
+    
 })
