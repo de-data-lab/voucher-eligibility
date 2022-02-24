@@ -72,6 +72,10 @@ de_summary_table <- geo_data_nogeometry %>%
     group_by(GEOID) %>% 
     mutate(tot = number_reported)
 
+# function to go to the lookup tool
+goto_explore_tab <- function(session){
+    updateNavbarPage(session, inputId = "main_page", selected = "Explore Your Neighborhood")
+}
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -80,7 +84,7 @@ shinyServer(function(input, output, session) {
         query <- parseQueryString(session$clientData$url_search)
         query1 <- paste(names(query), query, sep = "=", collapse=", ")
         if(query1 == "page=advocates"){
-            updateNavbarPage(session, inputId = "main_page", selected = "For Advocates")
+            goto_explore_tab(session)
         }
     })
     
@@ -264,10 +268,10 @@ shinyServer(function(input, output, session) {
     
     # Observe the click to the advocates page
     observeEvent(input$to_advocates_page, {
-        updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
+        goto_explore_tab(session)
     })
     observeEvent(input$to_advocates_page_bottom, {
-        updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
+        goto_explore_tab(session)
     })
     
     # Look for a GEOID for a given address (Python)

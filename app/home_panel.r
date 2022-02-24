@@ -8,7 +8,7 @@ home_panel <- tabPanel(
              tags$div(class = "title",
                       "Housing Choice Voucher in Delaware"),
              actionLink(inputId = "to_advocates_page", 
-                        label = "Check out our Housing Voucher Lookup Tool",
+                        label = "Explore Your Neighborhood",
                         class = "learn-more-button")
     ),
     tags$div(
@@ -120,7 +120,7 @@ home_panel <- tabPanel(
                  "Want to learn more about how your neighborhood is doing?"
         ),
         actionLink(inputId = "to_advocates_page_bottom", 
-                   label = "Check out our Housing Voucher Lookup Tool",
+                   label = "Explore Your Neighborhood",
                    class = "learn-more-button")
     )
 )
