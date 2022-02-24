@@ -1,13 +1,10 @@
 # Add shapes to the joined ACS and HUD dataset
 library(tidyverse)
-library(tigris)
 library(sf)
 library(here)
 source(here("src/get_county.R"))
 de_shape <- read_sf(here("data/raw/cb_2018_10_tract_500k/cb_2018_10_tract_500k.shp"))
 acs_hud_de_joined <- read_rds(here("data/processed/acs_hud_de_joined.rds"))
-
-de_tracts <- tracts(state = "10")
 
 acs_hud_de_geojoined <- de_shape %>%
     left_join(acs_hud_de_joined,
