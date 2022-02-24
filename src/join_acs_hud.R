@@ -1,6 +1,7 @@
 # Join ACS and HUD data 
 
 library(tidyverse)
+library(here)
 hud_de_section8 <- read_rds(here("data/processed/hud_de_section8.rds"))
 acs_rent30plus_wide <- read_rds(here("data/processed/acs_rent30plus_de_wide.rds"))
 
