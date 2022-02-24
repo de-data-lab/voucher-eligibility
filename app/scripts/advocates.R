@@ -18,11 +18,7 @@ geo_data_nogeometry <- geo_data %>%
   st_drop_geometry()
 
 advoc_table <- geo_data_nogeometry %>% 
-  #mutate(reported_labels=ifelse(number_reported==-4,"Less than 10 Households","NA")) %>%
-  #mutate(number_reported =replace(number_reported, number_reported<0, 0) ) %>%
   rowwise() %>%
-  #mutate(above30 = sum(rent_30E, rent_35E, rent_40E,rent_50E),
-  #       above50=rent_50E) %>%
   filter(popTotEE>0) %>%
   mutate(above30 = eligible_renters,
          above50 = sum(rent_50_10kE,rent_50_20kE,rent_50_35kE,rent_50_50kE,rent_50_75kE)) %>%
