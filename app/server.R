@@ -242,9 +242,9 @@ shinyServer(function(input, output, session) {
         }
         if (length(clicked_ids$Clicks)>1){
             agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
-            agg_receiving<-round((sum(agg_selected$`# Receiving assisstance`)/sum(agg_selected$tot_hh))*100, digits = 2)
-            agg_30<-round((sum(agg_selected$`# Spending 30%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
-            agg_50<-round((sum(agg_selected$`# Spending 50%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
+            agg_receiving <- round((sum(agg_selected$`# Receiving assisstance`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
+            agg_30 <- round((sum(agg_selected$`# Spending 30%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
+            agg_50 <- round((sum(agg_selected$`# Spending 50%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
             output$table_desc <- renderText({paste("Currently selected census tracts has in total <br><b>",agg_receiving,"% </b> of
                              households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
                              of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
