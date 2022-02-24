@@ -3,6 +3,18 @@ library(tidyverse)
 library(tidycensus)
 library(here)
 Sys.getenv("CENSUS_API_KEY")
+
+pop_estimates<- c(med_inc='B06011_001',
+                  med_f='B10010_001', 
+                  hh_inc='B19001_001',
+                  tot_hh='B11001_001',
+                  renter_householders='B07013_003',
+                  tot_pop_rent='B25008_003',
+                  tot_hu='B25001_001',
+                  pop_hu='B25008_001',
+                  popTotE='B01003_001')
+                        
+                        
 # Select the columns corresponding to the counts of hte 
 # households who are paying 30 percent or more on rent 
 # https://censusreporter.org/data/table/?table=B25070&geo_ids=140|04000US10&primary_geo_id=04000US10#valueType|estimate
@@ -46,7 +58,8 @@ rent_variables <- c(med_rent = 'B25031_001',
 
 all_census_vars <- c(rent_30plus_vars,
                      rent_10k_vars,
-                     rent_variables)
+                     rent_variables,
+                     pop_estimates)
 
 # Get all ACS data in one query
 acs_data_joined <- get_acs(

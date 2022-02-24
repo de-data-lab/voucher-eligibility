@@ -17,6 +17,7 @@ source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
 source("scripts/county.R")
 source("scripts/plot_prop_counties.R")
+source("scripts/plot_prop_census.R")
 
 
 # Load Data
@@ -165,7 +166,10 @@ shinyServer(function(input, output, session) {
         content = function(file) {
             write.csv(advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
                           dplyr::rename('Census Tract'=NAME) %>% 
-                          select('Census Tract',GEOID,'# Receiving assisstance',
+                          select('Census Tract',GEOID,'% Receiving assisstance',
+                                 '% Spending 30%+ of income on rent',
+                                 '% Spending 50%+ of income on rent',
+                                 '# Receiving assisstance',
                                  '# Spending 30%+ of income on rent',
                                  '# Spending 50%+ of income on rent'),
                       file, row.names = FALSE,col.names=T)
@@ -179,9 +183,12 @@ shinyServer(function(input, output, session) {
         content = function(file) {
             write.csv(advoc_table %>%
                           dplyr::rename('Census Tract'=NAME) %>% 
-                          select('Census Tract',GEOID,'# Receiving assisstance',
+                          select('Census Tract',GEOID,'% Receiving assisstance',
+                                 '% Spending 30%+ of income on rent',
+                                 '% Spending 50%+ of income on rent',
+                                 '# Receiving assisstance',
                                  '# Spending 30%+ of income on rent',
-                                 '# Spending 50%+ of income on rent'),
+                                 '# Spending 50%+ of income on rent') ,
                       file, row.names = FALSE,col.names=T)
         }
     )
@@ -190,7 +197,7 @@ shinyServer(function(input, output, session) {
     clicked_ids <- reactiveValues(Clicks=vector())
     
     # #if map is clicked, set values
-    observeEvent(input$advocmap_shape_click,{
+    observeEvent(input$advocmap_shape_click, {
         click = input$advocmap_shape_click
         selected_geoid=input$advocmap_shape_click$id
         clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
@@ -213,7 +220,7 @@ shinyServer(function(input, output, session) {
                 leafletProxy("advocmap") %>% addTiles() %>%
                     addPolygons(data=sub,
                                 fillColor = "#bdc9e1",
-                                stroke = TRUE, fillOpacity = 0.2, smoothFactor = 0.5,
+                                stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
                                 color = "#2b8cbe",opacity = 1,weight=2,
                                 highlight=highlightOptions(fillOpacity = 0.8,
                                                            color = "#b30000",
@@ -233,12 +240,25 @@ shinyServer(function(input, output, session) {
                                                        bringToFront=TRUE),
                             label= ~NAMELSAD, layerId = ~NAMELSAD)
         }
-        
-        output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-                dplyr::rename('Census Tract'=NAME) %>% 
-                select('Census Tract',GEOID,'# Receiving assisstance',
-                       '# Spending 30%+ of income on rent',
-                       '# Spending 50%+ of income on rent') })
+        if (length(clicked_ids$Clicks)>1){
+            agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
+            agg_receiving<-round((sum(agg_selected$`# Receiving assisstance`)/sum(agg_selected$tot_hh))*100, digits = 2)
+            agg_30<-round((sum(agg_selected$`# Spending 30%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
+            agg_50<-round((sum(agg_selected$`# Spending 50%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
+            output$table_desc <- renderText({paste("Currently selected census tracts has in total <br><b>",agg_receiving,"% </b> of
+                             households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
+                             of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
+                                   of households spending above 50% of income on rent",  sep = " ")})
+        }
+        else{output$table_desc <- renderText({""})}
+        output$prop_census <- renderPlotly({
+            if(input$selectedCensusProp == "30"){
+                plot_prop_census(30,clicked_ids$Clicks)
+            } 
+            else {
+                plot_prop_census(50,clicked_ids$Clicks)
+            }
+        })
         
     })
     
@@ -249,7 +269,6 @@ shinyServer(function(input, output, session) {
     observeEvent(input$to_advocates_page_bottom, {
         updateNavbarPage(session, inputId =  "main_page", selected = "For Advocates")
     })
-    
     
     # Look for a GEOID for a given address (Python)
     found_GEOID <- reactiveValues(ids=vector())
@@ -271,11 +290,33 @@ shinyServer(function(input, output, session) {
                                                                     weight = 2,
                                                                     bringToFront=TRUE),
                                          label= ~NAMELSAD, layerId = ~NAMELSAD)
-                         output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-                                 dplyr::rename('Census Tract'=NAME) %>% 
-                                 select('Census Tract',GEOID,'# Receiving assisstance',
-                                        '# Spending 30%+ of income on rent',
-                                        '# Spending 50%+ of income on rent') })
+                         # output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+                         #         dplyr::rename('Census Tract'=NAME) %>% 
+                         #         select('Census Tract',GEOID,'% Receiving assisstance',
+                         #                '% Spending 30%+ of income on rent',
+                         #                '% Spending 50%+ of income on rent')  }, align='ccccc')
+                         
+                         if (length(clicked_ids$Clicks)>1){
+                             agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
+                             agg_receiving<-round((sum(agg_selected$`# Receiving assisstance`)/sum(agg_selected$tot_hh))*100, digits = 2)
+                             agg_30<-round((sum(agg_selected$`# Spending 30%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
+                             agg_50<-round((sum(agg_selected$`# Spending 50%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
+                             output$table_desc <- renderText({paste("Currently selected census tracts has in total <br><b>",agg_receiving,"% </b> of
+                             households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
+                             of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
+                                   of households spending above 50% of income on rent",  sep = " ")})
+                         }
+                         else{output$table_desc <- renderText({""})}
+                         
+                         output$prop_census <- renderPlotly({
+                             if(input$selectedCensusProp == "30"){
+                                 plot_prop_census(30,clicked_ids$Clicks)
+                             } 
+                             else {
+                                 plot_prop_census(50,clicked_ids$Clicks)
+                             }
+                         })
+                         
                      },
                      error = function(cond){
                          found_GEOID$ids <- "No GEOID found"
@@ -283,5 +324,26 @@ shinyServer(function(input, output, session) {
                      }
                  )
                  })
+    
+    output$prop_census <- renderPlotly({
+        if(input$selectedCensusProp == "30"){
+            plot_prop_census(30,clicked_ids$Clicks)
+        } 
+        else {
+            plot_prop_census(50,clicked_ids$Clicks)
+        }
+    })
+    
+    output$advoc_table <- renderTable({
+        output_table <- advoc_table %>% 
+            filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
+            dplyr::rename('Census Tract'=NAME) %>% 
+            select('Census Tract',GEOID,'% Receiving assisstance',
+                   '% Spending 30%+ of income on rent',
+                   '% Spending 50%+ of income on rent') 
+        return(output_table)
+    }, align='ccccc')
+    
+    output$table_desc <- renderText({""})
     
 })
