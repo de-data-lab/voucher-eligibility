@@ -13,18 +13,20 @@ reticulate::use_virtualenv(virtualenv_dir, required = T)
 reticulate::source_python("scripts/geocode.py")
 
 
+
 source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
-source("scripts/county.R")
 source("scripts/plot_prop_counties.R")
 source("scripts/plot_prop_census.R")
-
+source("scripts/update_map.R")
+source("scripts/plot_counts_counties.R")
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
 geo_data <- acs_hud_de_geojoined
 geo_data_nogeometry <- geo_data %>% 
     st_drop_geometry()
+
 
 # Dictionary of counties and keys
 county_list <- c(
@@ -142,10 +144,10 @@ shinyServer(function(input, output, session) {
     
     output$number_county <- renderPlotly({
         if(input$selectedNumber == "30"){
-            current_plot <- number_county_30 
+            current_plot <- plot_counts_counties(geo_data_nogeometry, 30) 
         } 
         else {
-            current_plot <- number_county_50
+            current_plot <- plot_counts_counties(geo_data_nogeometry, 50) 
         }
         current_plot %>% 
             ggplotly(tooltip = "y") %>%
@@ -202,59 +204,42 @@ shinyServer(function(input, output, session) {
     
     # #if map is clicked, set values
     observeEvent(input$advocmap_shape_click, {
-        click = input$advocmap_shape_click
-        selected_geoid=input$advocmap_shape_click$id
-        clicked_ids$Clicks <- c(clicked_ids$Clicks, click$id) # name when clicked, id when unclicked
-        #print(clicked_ids$Clicks)
-        removePoly=clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
-        remove=FALSE
-        if(length(removePoly)>0){
+        clicked_tract <- input$advocmap_shape_click
+        clicked_ids$Clicks <- c(clicked_ids$Clicks, clicked_tract$id) # name when clicked, id when unclicked
+        removePoly <- clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
+        remove <- FALSE
+        if(length(removePoly) > 0){
             remove=TRUE
         }
         clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
-        
-        #clicked_ids$Clicks=!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
-        #print(clicked_ids$Clicks)
-        #print(sub)
-        if(is.null(click))
+
+        if(is.null(clicked_tract))
             return()
         else
-            if(remove==TRUE){
-                sub <- shape %>% filter(NAMELSAD %in% (removePoly))
-                leafletProxy("advocmap") %>% addTiles() %>%
-                    addPolygons(data=sub,
-                                fillColor = "#bdc9e1",
-                                stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
-                                color = "#2b8cbe",opacity = 1,weight=2,
-                                highlight=highlightOptions(fillOpacity = 0.8,
-                                                           color = "#b30000",
-                                                           weight = 2,
-                                                           bringToFront=TRUE),
-                                label= ~NAMELSAD, layerId = ~NAMELSAD)
+            if(remove == TRUE){
+                new_data <- geo_data %>% 
+                    filter(GEOID %in% (removePoly))
+                update_map(new_data, to_state = "deselect")
             }
-        else{
-            sub <- shape %>% filter(NAMELSAD %in% (clicked_ids$Clicks))
-            leafletProxy("advocmap") %>% addTiles() %>%
-                addPolygons(data=sub,
-                            fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
-                            fillOpacity = 0.8, smoothFactor = 0.5,
-                            highlight=highlightOptions(fillOpacity = 0.8,
-                                                       color = "#b30000",
-                                                       weight = 2,
-                                                       bringToFront=TRUE),
-                            label= ~NAMELSAD, layerId = ~NAMELSAD)
+        else {
+            new_data <- geo_data %>% 
+                filter(GEOID %in% (clicked_ids$Clicks))
+            update_map(new_data, to_state = "select")
+            
         }
         if (length(clicked_ids$Clicks)>1){
-            agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
-            agg_receiving<-round((sum(agg_selected$`# Receiving assisstance`)/sum(agg_selected$tot_hh))*100, digits = 2)
-            agg_30<-round((sum(agg_selected$`# Spending 30%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
-            agg_50<-round((sum(agg_selected$`# Spending 50%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
+            agg_selected <- advoc_table %>% 
+                filter(GEOID %in% clicked_ids$Clicks)
+            agg_receiving <- round((sum(agg_selected$`# Receiving assisstance`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
+            agg_30 <- round((sum(agg_selected$`# Spending 30%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
+            agg_50 <- round((sum(agg_selected$`# Spending 50%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
             output$table_desc <- renderText({paste("Currently selected census tracts has in total <br><b>",agg_receiving,"% </b> of
                              households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
                              of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
                                    of households spending above 50% of income on rent",  sep = " ")})
         }
         else{output$table_desc <- renderText({""})}
+        
         output$prop_census <- renderPlotly({
             if(input$selectedCensusProp == "30"){
                 plot_prop_census(30,clicked_ids$Clicks)
@@ -294,13 +279,8 @@ shinyServer(function(input, output, session) {
                                                                     weight = 2,
                                                                     bringToFront=TRUE),
                                          label= ~NAMELSAD, layerId = ~NAMELSAD)
-                         # output$advoc_table <- renderTable({advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-                         #         dplyr::rename('Census Tract'=NAME) %>% 
-                         #         select('Census Tract',GEOID,'% Receiving assisstance',
-                         #                '% Spending 30%+ of income on rent',
-                         #                '% Spending 50%+ of income on rent')  }, align='ccccc')
-                         
-                         if (length(clicked_ids$Clicks)>1){
+
+                          if (length(clicked_ids$Clicks)>1){
                              agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
                              agg_receiving<-round((sum(agg_selected$`# Receiving assisstance`)/sum(agg_selected$tot_hh))*100, digits = 2)
                              agg_30<-round((sum(agg_selected$`# Spending 30%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
@@ -340,9 +320,9 @@ shinyServer(function(input, output, session) {
     
     output$advoc_table <- renderTable({
         output_table <- advoc_table %>% 
-            filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-            dplyr::rename('Census Tract'=NAME) %>% 
-            select('Census Tract',GEOID,'% Receiving assisstance',
+            filter(GEOID %in% clicked_ids$Clicks) %>%  
+            dplyr::rename('Census Tract' = tract) %>% 
+            select('Census Tract', GEOID, '% Receiving assisstance',
                    '% Spending 30%+ of income on rent',
                    '% Spending 50%+ of income on rent') 
         return(output_table)
