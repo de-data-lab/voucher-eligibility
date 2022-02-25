@@ -205,7 +205,7 @@ shinyServer(function(input, output, session) {
     
     output$advocmap <- renderLeaflet({advoc_map})
     clicked_ids <- reactiveValues(Clicks=vector())
-    
+
     # If the map is clicked, update the reactive value
     observeEvent(input$advocmap_shape_click, {
         clicked_tract <- input$advocmap_shape_click
@@ -219,9 +219,6 @@ shinyServer(function(input, output, session) {
         # Avoid duplicates in GEOIDs
         clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
         
-        if(is.null(clicked_tract))
-            return()
-        else
             if(remove == TRUE){
                 new_data <- geo_data %>% 
                     filter(GEOID %in% (removePoly))
@@ -248,6 +245,8 @@ shinyServer(function(input, output, session) {
             output$table_desc <- renderText({""})
         }
     })
+    
+    
     
     # Observe the click to the advocates page
     observeEvent(input$to_advocates_page, {
@@ -309,10 +308,10 @@ shinyServer(function(input, output, session) {
     
     output$prop_census <- renderPlotly({
         if(input$selectedCensusProp == "30"){
-            plot_prop_census(30,clicked_ids$Clicks)
+            plot_prop_census(30, clicked_ids$Clicks)
         } 
         else {
-            plot_prop_census(50,clicked_ids$Clicks)
+            plot_prop_census(50, clicked_ids$Clicks)
         }
     })
     
