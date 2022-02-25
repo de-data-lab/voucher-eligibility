@@ -202,15 +202,17 @@ shinyServer(function(input, output, session) {
     output$advocmap <- renderLeaflet({advoc_map})
     clicked_ids <- reactiveValues(Clicks=vector())
     
-    # #if map is clicked, set values
+    # If the map is clicked, update the reactive value
     observeEvent(input$advocmap_shape_click, {
         clicked_tract <- input$advocmap_shape_click
-        clicked_ids$Clicks <- c(clicked_ids$Clicks, clicked_tract$id) # name when clicked, id when unclicked
+        # Add a new selected GEOID to the reactive value
+        clicked_ids$Clicks <- c(clicked_ids$Clicks, clicked_tract$id)
         removePoly <- clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
         remove <- FALSE
         if(length(removePoly) > 0){
             remove=TRUE
         }
+        # Avoid duplicates in GEOIDs
         clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
 
         if(is.null(clicked_tract))
