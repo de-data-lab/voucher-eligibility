@@ -81,6 +81,10 @@ goto_explore_tab <- function(session){
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
+    # Reactive value for the message for the address lookup
+    address_message <- reactiveVal("Example: \"411 Legislative Ave, Dover, DE\"")
+    output$address_message <- renderText({ address_message() })
+
     # Observe the URL parameter and route the page to an appropriate tab
     observe({
         query <- parseQueryString(session$clientData$url_search)

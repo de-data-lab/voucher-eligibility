@@ -13,7 +13,9 @@ advocates_panel <- tabPanel(
     tags$div(class = "address-input-container",
              searchInput("address", label = NULL, placeholder = "Enter your address",
                          btnSearch = icon("search")),
-             textOutput("current_GEOID")),
+             tags$div(class = "address-message",
+                      textOutput("address_message"))
+             ),
     leafletOutput("advocmap"),
     tags$div(class = "advoc-container",
              tags$div(class = "advoc-table-container",
