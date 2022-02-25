@@ -81,6 +81,10 @@ goto_explore_tab <- function(session){
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
+    # Reactive value for the message for the address lookup
+    address_message <- reactiveVal("Example: \"411 Legislative Ave, Dover, DE\"")
+    output$address_message <- renderText({ address_message() })
+
     # Observe the URL parameter and route the page to an appropriate tab
     observe({
         query <- parseQueryString(session$clientData$url_search)
@@ -201,21 +205,20 @@ shinyServer(function(input, output, session) {
     
     output$advocmap <- renderLeaflet({advoc_map})
     clicked_ids <- reactiveValues(Clicks=vector())
-    
-    # #if map is clicked, set values
+
+    # If the map is clicked, update the reactive value
     observeEvent(input$advocmap_shape_click, {
         clicked_tract <- input$advocmap_shape_click
-        clicked_ids$Clicks <- c(clicked_ids$Clicks, clicked_tract$id) # name when clicked, id when unclicked
+        # Add a new selected GEOID to the reactive value
+        clicked_ids$Clicks <- c(clicked_ids$Clicks, clicked_tract$id)
         removePoly <- clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
         remove <- FALSE
         if(length(removePoly) > 0){
             remove=TRUE
         }
+        # Avoid duplicates in GEOIDs
         clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
-
-        if(is.null(clicked_tract))
-            return()
-        else
+        
             if(remove == TRUE){
                 new_data <- geo_data %>% 
                     filter(GEOID %in% (removePoly))
@@ -238,18 +241,12 @@ shinyServer(function(input, output, session) {
                              of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
                                    of households spending above 50% of income on rent",  sep = " ")})
         }
-        else{output$table_desc <- renderText({""})}
-        
-        output$prop_census <- renderPlotly({
-            if(input$selectedCensusProp == "30"){
-                plot_prop_census(30,clicked_ids$Clicks)
-            } 
-            else {
-                plot_prop_census(50,clicked_ids$Clicks)
-            }
-        })
-        
+        else { 
+            output$table_desc <- renderText({""})
+        }
     })
+    
+    
     
     # Observe the click to the advocates page
     observeEvent(input$to_advocates_page, {
@@ -259,62 +256,39 @@ shinyServer(function(input, output, session) {
         goto_explore_tab(session)
     })
     
-    # Look for a GEOID for a given address (Python)
+    # Geocode a given address via python when the search is initiated
     found_GEOID <- reactiveValues(ids=vector())
-    observeEvent(input$address_search,
-                 {tryCatch(
-                     {
-                         found_GEOID$ids <- return_geoid(input$address)
-                         output$current_GEOID <-  renderText({found_GEOID$ids})
-                         sub <- shape %>% filter(GEOID %in% (found_GEOID$ids))
-                         #output$result <- renderText({sub$NAMELSAD})
-                         clicked_ids$Clicks <- c(clicked_ids$Clicks, sub$NAMELSAD) # name when clicked, id when unclicked
-                         clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-                         leafletProxy("advocmap") %>% addTiles() %>%
-                             addPolygons(data=sub,
-                                         fillColor = "#b30000",color = "#2b8cbe",opacity = 1,weight=2,
-                                         fillOpacity = 0.8, smoothFactor = 0.5,
-                                         highlight=highlightOptions(fillOpacity = 0.8,
-                                                                    color = "#b30000",
-                                                                    weight = 2,
-                                                                    bringToFront=TRUE),
-                                         label= ~NAMELSAD, layerId = ~NAMELSAD)
-
-                          if (length(clicked_ids$Clicks)>1){
-                             agg_selected <- advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks)
-                             agg_receiving<-round((sum(agg_selected$`# Receiving assisstance`)/sum(agg_selected$tot_hh))*100, digits = 2)
-                             agg_30<-round((sum(agg_selected$`# Spending 30%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
-                             agg_50<-round((sum(agg_selected$`# Spending 50%+ of income on rent`)/sum(agg_selected$tot_hh))*100, digits = 2)
-                             output$table_desc <- renderText({paste("Currently selected census tracts has in total <br><b>",agg_receiving,"% </b> of
-                             households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
-                             of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
-                                   of households spending above 50% of income on rent",  sep = " ")})
-                         }
-                         else{output$table_desc <- renderText({""})}
-                         
-                         output$prop_census <- renderPlotly({
-                             if(input$selectedCensusProp == "30"){
-                                 plot_prop_census(30,clicked_ids$Clicks)
-                             } 
-                             else {
-                                 plot_prop_census(50,clicked_ids$Clicks)
-                             }
-                         })
-                         
-                     },
-                     error = function(cond){
-                         found_GEOID$ids <- "No GEOID found"
-                         output$current_GEOID <-  renderText({found_GEOID$ids})
-                     }
-                 )
-                 })
+    observeEvent(input$address_search, {
+        tryCatch(
+            {
+                found_GEOID$ids <- return_geoid(input$address)
+                
+                current_tract_name <- geo_data %>%
+                    filter(GEOID == found_GEOID$ids) %>%
+                    pull(tract)
+                
+                address_message(paste0("Your census tract is: ", current_tract_name))
+                
+                clicked_ids$Clicks <- c(clicked_ids$Clicks, found_GEOID$ids) # name when clicked, id when unclicked
+                clicked_ids$Clicks <- unique(clicked_ids$Clicks)
+                
+                new_data <- geo_data %>% 
+                    filter(GEOID %in% (clicked_ids$Clicks))
+                update_map(new_data, to_state = "select")
+            },
+            error = function(cond){
+                address_message("No place found. Try formatting your address as: \"411 Legislative Ave, Dover, DE\"")
+            }
+        )
+    }
+    )
     
     output$prop_census <- renderPlotly({
         if(input$selectedCensusProp == "30"){
-            plot_prop_census(30,clicked_ids$Clicks)
+            plot_prop_census(30, clicked_ids$Clicks)
         } 
-        else {
-            plot_prop_census(50,clicked_ids$Clicks)
+        else if(input$selectedCensusProp == "50") {
+            plot_prop_census(50, clicked_ids$Clicks)
         }
     })
     

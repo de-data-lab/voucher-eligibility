@@ -278,7 +278,24 @@
 
 .address-input-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    z-index: 10;
+    margin-left: 4rem;
 }
 
+.address-message {
+    background-color: white;
+    opacity: 0.9;
+    padding: 8px;
+    border-radius: 10px;
+    color: #8a8a8a;
+    margin-left: 1rem;
+}
+
+.form-group {
+    margin-bottom: none;
+    margin: 1rem;
+}
 
