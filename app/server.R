@@ -214,7 +214,7 @@ shinyServer(function(input, output, session) {
         }
         # Avoid duplicates in GEOIDs
         clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
-
+        
         if(is.null(clicked_tract))
             return()
         else
@@ -240,9 +240,9 @@ shinyServer(function(input, output, session) {
                              of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
                                    of households spending above 50% of income on rent",  sep = " ")})
         }
-        else{output$table_desc <- renderText({""})}
-        
-        
+        else { 
+            output$table_desc <- renderText({""})
+        }
     })
     
     # Observe the click to the advocates page
