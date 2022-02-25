@@ -50,6 +50,10 @@ plot_prop_census <- function(perc, ids){
         
     }
     
-    return(ggplotly(prop_census_plot, tooltip="text"))
+    out_plot <- ggplotly(prop_census_plot, tooltip="text") %>%
+        plotly_disable_zoom() %>%
+        plotly_hide_modebar()
+    
+    return(out_plot)
 }
 
