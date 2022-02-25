@@ -242,14 +242,6 @@ shinyServer(function(input, output, session) {
         }
         else{output$table_desc <- renderText({""})}
         
-        output$prop_census <- renderPlotly({
-            if(input$selectedCensusProp == "30"){
-                plot_prop_census(30,clicked_ids$Clicks)
-            } 
-            else {
-                plot_prop_census(50,clicked_ids$Clicks)
-            }
-        })
         
     })
     
