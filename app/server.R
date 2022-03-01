@@ -20,6 +20,7 @@ source("scripts/plot_prop_counties.R")
 source("scripts/plot_prop_census.R")
 source("scripts/update_map.R")
 source("scripts/plot_counts_counties.R")
+source("scripts/plot_table_desc.R")
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
@@ -230,7 +231,7 @@ shinyServer(function(input, output, session) {
             update_map(new_data, to_state = "select")
             
         }
-        if (length(clicked_ids$Clicks)>1){
+        if (length(clicked_ids$Clicks)>0){
             agg_selected <- advoc_table %>% 
                 filter(GEOID %in% clicked_ids$Clicks)
             agg_receiving <- round((sum(agg_selected$`# Receiving assisstance`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
@@ -240,9 +241,12 @@ shinyServer(function(input, output, session) {
                              households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
                              of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
                                    of households spending above 50% of income on rent",  sep = " ")})
+            #plot_table_desc(agg_selected)
+            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,TRUE)})
         }
         else { 
             output$table_desc <- renderText({""})
+            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,FALSE)})
         }
     })
     
@@ -302,6 +306,7 @@ shinyServer(function(input, output, session) {
         return(output_table)
     }, align='ccccc')
     
+    output$table_desc_plot <- renderPlotly({plot_table_desc("",FALSE)})
     output$table_desc <- renderText({""})
     
 })

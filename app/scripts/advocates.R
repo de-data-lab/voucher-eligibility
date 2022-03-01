@@ -4,8 +4,8 @@ library(plotly)
 library(sf)
 library(leaflet)
 
-lat <- 39.1824#39.5393
-lng <- -75.2
+lat <- 39.1824#39.1824#39.5393
+lng <- -75.4#-75.2
 
 
 # Load Data
@@ -46,7 +46,7 @@ advoc_table <- geo_data %>%
 
 advoc_map <- geo_data %>%
     leaflet() %>%
-    setView(lng, lat, zoom = 8.0) %>%
+    setView(lng, lat, zoom = 9.4) %>%
     addTiles() %>% #not including one, sets the general maps version
     addPolygons(fillColor = "#bdc9e1",
                 stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
