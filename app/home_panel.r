@@ -61,8 +61,7 @@ home_panel <- tabPanel(
     tags$div(class = "main-point-container",
              tags$div(class = "main-heading-container", 
                       tags$div(class = "main-point",
-                               "Are you currently paying 30% or more of 
-                               your household income on rent?")
+                               "Are you struggling to pay rent?")
              ),
              tags$div(class = "take-action-container",
                       tags$div(class = "take-action-card-blue",
