@@ -245,7 +245,8 @@
     height: 500px;
     background-origin: border-box;
     background-position: center;
-    background-repeat: repeat-x;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 
