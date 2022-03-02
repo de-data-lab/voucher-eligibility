@@ -25,11 +25,18 @@ jobs:
         run: docker build -t pullrequestimage . 
       # run the image (but supply the TESTNAME in stead of MASTERNAME, so the 
       # app ends up in a different place.   
-      - name: execute
-        run: >
-          docker run 
-          -e SHINY_ACC_NAME=${{secrets.SHINY_ACC_NAME}} 
-          -e TOKEN=${{secrets.TOKEN}} 
-          -e SECRET=${{secrets.SECRET}} 
-          -e MASTERNAME=${{secrets.TEST_NAME}} 
-          pullrequestimage
+      
+      # Execute
+      - name: Execute
+        uses: nick-fields/retry@v2.4.0
+        with:
+          timeout_minutes: 5
+          max_attempts: 3
+          command: >
+            docker run 
+            -e SHINY_ACC_NAME=${{secrets.SHINY_ACC_NAME}} 
+            -e TOKEN=${{secrets.TOKEN}} 
+            -e SECRET=${{secrets.SECRET}} 
+            -e MASTERNAME=${{secrets.TEST_NAME}} 
+            pullrequestimage
+          retry_wait_seconds: 10
