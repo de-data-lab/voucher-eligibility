@@ -3,14 +3,16 @@ library(tidyverse)
 library(plotly)
 library(sf)
 library(leaflet)
+library(leaflet.extras)
 
-lat <- 39.1824#39.5393
-lng <- -75.2
 
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
 geo_data <- acs_hud_de_geojoined 
+
+
+
 
 advoc_table <- geo_data %>% 
     rowwise() %>%
@@ -20,6 +22,7 @@ advoc_table <- geo_data %>%
     transmute(GEOID = GEOID,
               tract,
               census_tract_label,
+              geometry,
               tot_hh = sum(tot_hhE),
               reported_HUD = sum(number_reported),
               rent_above30 = sum(above30),
@@ -44,9 +47,22 @@ advoc_table <- geo_data %>%
     '# Spending 50%+ of income on rent'=rent_above50,
   ) 
 
+
+for (row in 1:nrow(advoc_table)) {
+  #print(row)
+  geo<-unlist(advoc_table[row,"geometry"],use.names = FALSE)
+  advoc_table[row,"latt"]=geo[length(geo)]
+  advoc_table[row,"long"]=geo[1]
+}
+
+lat <- 39.1824#39.1824#39.5393
+lng <- -75.4#-75.2
+
 advoc_map <- geo_data %>%
-    leaflet() %>%
-    setView(lng, lat, zoom = 8.0) %>%
+    leaflet(options = 
+              leafletOptions(zoomControl = F,attributionControl = FALSE, 
+                             scrollWheelZoom = F,gestureHandling = T)) %>%
+    setView(lng, lat, zoom = 9.4) %>%
     addTiles() %>% #not including one, sets the general maps version
     addPolygons(fillColor = "#bdc9e1",
                 stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
@@ -56,3 +72,4 @@ advoc_map <- geo_data %>%
                                            weight = 2,
                                            bringToFront=TRUE),
                 label = ~census_tract_label, layerId = ~GEOID)
+

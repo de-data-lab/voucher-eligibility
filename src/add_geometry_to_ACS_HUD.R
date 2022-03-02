@@ -3,7 +3,8 @@ library(tidyverse)
 library(sf)
 library(here)
 source(here("src/get_county.R"))
-de_shape <- read_sf(here("data/raw/cb_2018_10_tract_500k/cb_2018_10_tract_500k.shp"))
+
+de_shape <- read_sf(here("data/raw/cb_2018_10_tract_500k/cb_2018_10_tract_500k.shp")) 
 acs_hud_de_joined <- read_rds(here("data/processed/acs_hud_de_joined.rds"))
 
 acs_hud_de_geojoined <- de_shape %>%

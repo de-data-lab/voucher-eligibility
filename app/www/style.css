@@ -95,6 +95,12 @@
     text-align:center;
 }
 
+.advoc-map {
+    padding: 1rem;
+    min-height: 35rem;
+    margin-bottom: 1rem;
+}
+
 .advoc-table-container {
     max-width: 70rem;
 }

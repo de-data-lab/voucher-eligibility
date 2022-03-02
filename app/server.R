@@ -20,6 +20,7 @@ source("scripts/plot_prop_counties.R")
 source("scripts/plot_prop_census.R")
 source("scripts/update_map.R")
 source("scripts/plot_counts_counties.R")
+source("scripts/plot_table_desc.R")
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
@@ -222,15 +223,15 @@ shinyServer(function(input, output, session) {
             if(remove == TRUE){
                 new_data <- geo_data %>% 
                     filter(GEOID %in% (removePoly))
-                update_map(new_data, to_state = "deselect")
+                update_map(new_data, to_state = "deselect",addr=FALSE,latt=NA,long=NA)
             }
         else {
             new_data <- geo_data %>% 
                 filter(GEOID %in% (clicked_ids$Clicks))
-            update_map(new_data, to_state = "select")
+            update_map(new_data, to_state = "select",addr=FALSE,latt=NA,long=NA)
             
         }
-        if (length(clicked_ids$Clicks)>1){
+        if (length(clicked_ids$Clicks)>0){
             agg_selected <- advoc_table %>% 
                 filter(GEOID %in% clicked_ids$Clicks)
             agg_receiving <- round((sum(agg_selected$`# Receiving assisstance`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
@@ -240,9 +241,12 @@ shinyServer(function(input, output, session) {
                              households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
                              of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
                                    of households spending above 50% of income on rent",  sep = " ")})
+            #plot_table_desc(agg_selected)
+            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,TRUE)})
         }
         else { 
             output$table_desc <- renderText({""})
+            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,FALSE)})
         }
     })
     
@@ -271,10 +275,27 @@ shinyServer(function(input, output, session) {
                 
                 clicked_ids$Clicks <- c(clicked_ids$Clicks, found_GEOID$ids) # name when clicked, id when unclicked
                 clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-                
+                geo<-advoc_table %>%
+                    filter(GEOID %in% (found_GEOID$ids))
+                print("in address search")
                 new_data <- geo_data %>% 
                     filter(GEOID %in% (clicked_ids$Clicks))
-                update_map(new_data, to_state = "select")
+  
+                update_map(new_data, to_state = "select",addr=TRUE,latt=geo$latt,long=geo$long)
+                
+                if (length(clicked_ids$Clicks)>0){
+                    agg_selected <- advoc_table %>% 
+                        filter(GEOID %in% clicked_ids$Clicks)
+                    agg_receiving <- round((sum(agg_selected$`# Receiving assisstance`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
+                    agg_30 <- round((sum(agg_selected$`# Spending 30%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
+                    agg_50 <- round((sum(agg_selected$`# Spending 50%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
+                    output$table_desc <- renderText({paste("Currently selected census tracts has in total <br><b>",agg_receiving,"% </b> of
+                                 households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
+                                 of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
+                                       of households spending above 50% of income on rent",  sep = " ")})
+                    #plot_table_desc(agg_selected)
+                    output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,TRUE)})
+                }
             },
             error = function(cond){
                 address_message("No place found. Try formatting your address as: \"411 Legislative Ave, Dover, DE\"")
@@ -302,6 +323,7 @@ shinyServer(function(input, output, session) {
         return(output_table)
     }, align='ccccc')
     
+    output$table_desc_plot <- renderPlotly({plot_table_desc("",FALSE)})
     output$table_desc <- renderText({""})
     
 })

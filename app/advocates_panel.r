@@ -10,19 +10,25 @@ advocates_panel <- tabPanel(
              are receiving Housing Choice Voucher and
               what percentage of households are spending
              more than 30% and 50% of their income on rent"),
-    tags$div(class = "address-input-container",
-             searchInput("address", label = NULL, placeholder = "Enter your address",
-                         btnSearch = icon("search")),
-             tags$div(class = "address-message",
-                      textOutput("address_message"))
+    
+    tags$div(class = "advoc-container",
+        
+        tags$div(class = "advoc-table-container",
+                 tags$div(class = "address-input-container",
+                          searchInput("address", label = NULL, placeholder = "Enter your address",
+                                      btnSearch = icon("search")),
+                          tags$div(class = "address-message",
+                                   textOutput("address_message"))),
+                 leafletOutput("advocmap",height="110vh",width="60vh")),
+        tags$div(class = "bar-graph","% of Households receiving vouchers and spending 30%+ income and 50%+ income on rent",
+                 plotlyOutput("table_desc_plot"),tableOutput("table_desc"))
              ),
-    leafletOutput("advocmap"),
     tags$div(class = "advoc-container",
              tags$div(class = "advoc-table-container",
                       tags$div(class = "advoc-table",
                                tableOutput("advoc_table")
                       ),
-                      tableOutput("table_desc"),
+                      #tableOutput("table_desc"),
                       tags$div(class = "table-footnote",
                                downloadButton("downloadData", "Download")),
                       tags$div(class = "down-footnote","(Dowloads data from above table)"),
