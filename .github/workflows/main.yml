@@ -22,17 +22,23 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # build the docker image and give it the name main
+      # Build the docker image and give it the name main
       - name: Build image
         run: docker build -t main . 
-      # run the docker image supply the secrets from the github secrets store.  
-      - name: execute
-        run: >
-          docker run 
-          -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }} 
-          -e TOKEN=${{secrets.TOKEN}} 
-          -e SECRET=${{secrets.SECRET}} 
-          -e MASTERNAME=${{secrets.MASTER_NAME}} 
-          main
+      # Run the docker image supply the secrets from the github secrets store, 
+      # while retrying in failed attempts
+      - name: Execute
+        uses: nick-fields/retry@v2.4.0
+        with:
+          timeout_minutes: 5
+          max_attempts: 3
+          command: >
+            docker run 
+            -e SHINY_ACC_NAME=${{secrets.SHINY_ACC_NAME}} 
+            -e TOKEN=${{secrets.TOKEN}} 
+            -e SECRET=${{secrets.SECRET}} 
+            -e MASTERNAME=${{secrets.TEST_NAME}} 
+            pullrequestimage
+          retry_wait_seconds: 10
 
 
