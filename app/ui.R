@@ -17,6 +17,7 @@ navbarPage(
     advocates_panel,
     methods_panel,
     footer = tags$div(class = "footer",
-                      includeHTML("footer.html"))
+                      includeHTML("footer.html")),
+    tags$script(src = "show_logo.js")
 )
 
