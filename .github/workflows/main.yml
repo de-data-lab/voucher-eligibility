@@ -37,8 +37,8 @@ jobs:
             -e SHINY_ACC_NAME=${{secrets.SHINY_ACC_NAME}} 
             -e TOKEN=${{secrets.TOKEN}} 
             -e SECRET=${{secrets.SECRET}} 
-            -e MASTERNAME=${{secrets.TEST_NAME}} 
-            pullrequestimage
+            -e MASTERNAME=${{secrets.MASTER_NAME}} 
+            main
           retry_wait_seconds: 10
 
 
