@@ -128,7 +128,7 @@ map <- la %>%
               values = la$med_rent_percE,
               position = "bottomright",
               title = paste("Percentage of hh_income on rent (above 30)",sep=" "))
-
+map
 ```
 
 ```{r, echo=FALSE}

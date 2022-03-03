@@ -29,12 +29,15 @@ plot_table_desc <- function(agg_selected,selected){
             ) %>%
             gather(Category, count, -c(info_type)) %>%
             ## na.rm = TRUE ensures all values are NA are taken as 0
-            ggplot(aes(x=info_type,y=count))+
-            geom_bar(aes(fill=Category),   # fill depends on cond2
-                     stat="identity",
+            ggplot(aes(x=info_type,y=count,fill=Category,
+                       label = paste(count,"%")))+
+            geom_bar(stat="identity",
                      colour="black",    # Black outline for all
                      position=position_dodge())+
-            scale_fill_brewer(palette = "Set2", direction = 1, name = "")+
+            #geom_col(position=position_dodge()) +
+            scale_y_continuous(limits = c(0, 15)) +
+            geom_text(position=position_dodge(0.9),size=3)+
+            scale_fill_brewer(palette = "Set2", direction = -1, name = "")+
             ylab("")+
             xlab("")+
             ggtitle("") +
@@ -55,12 +58,15 @@ plot_table_desc <- function(agg_selected,selected){
             ) %>%
             gather(Category, count, -c(info_type)) %>%
             ## na.rm = TRUE ensures all values are NA are taken as 0
-            ggplot(aes(x=info_type,y=count))+
-            geom_bar(aes(fill=Category),   # fill depends on cond2
-                     stat="identity",
+            ggplot(aes(x=info_type,y=count,fill=Category,
+                       label = paste(count,"%")))+
+            geom_bar(stat="identity",
                      colour="black",    # Black outline for all
                      position=position_dodge())+
-            scale_fill_brewer(palette = "Set2", direction = 1, name = "")+
+            #geom_col(position=position_dodge()) +
+            scale_y_continuous(limits = c(0, 15)) +
+            geom_text(position=position_dodge(0.9),size=3)+
+            scale_fill_brewer(palette = "Set2", direction = -1, name = "")+
             ylab("")+
             xlab("")+
             ggtitle("") +
@@ -68,7 +74,7 @@ plot_table_desc <- function(agg_selected,selected){
             theme(panel.background = element_rect(fill = "white"))
     }
     
-    out_plot <- ggplotly(table_plot, tooltip="text") %>%
+    out_plot <- ggplotly(table_plot, tooltip = "") %>%
         plotly_disable_zoom() %>%
         plotly_hide_modebar()
     

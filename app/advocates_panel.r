@@ -12,14 +12,33 @@ advocates_panel <- tabPanel(
              more than 30% and 50% of their income on rent"),
     
     tags$div(class = "advoc-container",
-        
+             
         tags$div(class = "advoc-table-container",
+                 tags$div(class = "clear",actionButton("clear", "Clear All")),
                  tags$div(class = "address-input-container",
                           searchInput("address", label = NULL, placeholder = "Enter your address",
                                       btnSearch = icon("search")),
                           tags$div(class = "address-message",
-                                   textOutput("address_message"))),
-                 leafletOutput("advocmap",height="110vh",width="60vh")),
+                                   textOutput("address_message")
+                                   )
+                          ),
+                 leafletOutput("advocmap",height="110vh",width="60vh"),
+                 tags$script("
+                    $(document).ready(function() {    
+                      setTimeout(function() {
+                
+                        var map = $('#advocmap').data('leaflet-map');            
+                        function disableZoom(e) {map.scrollWheelZoom.disable();}
+                
+                        $(document).on('mousemove', '*', disableZoom);
+                
+                        map.on('click', function() {
+                          $(document).off('mousemove', '*', disableZoom);
+                          map.scrollWheelZoom.enable();
+                        });
+                      }, 100);
+                    })
+                  ")),
         tags$div(class = "bar-graph","% of Households receiving vouchers and spending 30%+ income and 50%+ income on rent",
                  plotlyOutput("table_desc_plot"),tableOutput("table_desc"))
              ),

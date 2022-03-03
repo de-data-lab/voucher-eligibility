@@ -17,10 +17,9 @@ plot_prop_census <- function(perc, ids){
                      stat="identity",
                      position=position_dodge())+
             ylab("% Spending 30%+ of income on rent")+
-            xlab("")+
+            xlab("Census Tract")+
             theme(panel.background = element_rect(fill = "white"),
                   legend.position="none",
-                  axis.title.x=element_blank(),
                   axis.text.x=element_blank(),
                   axis.ticks.x=element_blank())
     }
@@ -41,10 +40,9 @@ plot_prop_census <- function(perc, ids){
                      stat="identity",
                      position=position_dodge())+
             ylab("% Spending 50%+ of income on rent")+
-            xlab("")+
+            xlab("Census Tract")+
             theme(panel.background = element_rect(fill = "white"),
                   legend.position="none",
-                  axis.title.x=element_blank(),
                   axis.text.x=element_blank(),
                   axis.ticks.x=element_blank()) 
         
