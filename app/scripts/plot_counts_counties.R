@@ -31,6 +31,7 @@ plot_counts_counties <- function(.data, cutoff){
         ylab("Number of families"),
         xlab(""),
         theme_minimal(),
+        theme(panel.background = element_rect(fill='transparent')),
         scale_x_discrete(limits = rev(c("New Castle", "Kent", "Sussex"))),
         scale_y_continuous(limits = c(0, 30000)),
         scale_fill_brewer(palette = "Set2", direction = 1, name = ""),

@@ -13,6 +13,7 @@ plot_prop_counties <- function(.data){
                  stat = "identity",
                  width = 0.7) +
         theme_minimal() +
+        theme(panel.background = element_rect(fill='transparent')) +
         geom_text(color = "white") + 
         scale_y_continuous(labels = scales::percent) +
         scale_fill_brewer(palette = "Set2", name = "", direction = -1) + 
