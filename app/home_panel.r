@@ -31,7 +31,7 @@ home_panel <- tabPanel(
         tags$div(class = "main-heading-container",
                  tags$div(class = "main-point",
                           "Housing Choice Voucher (Section 8) provides 
-             housing for families in housing crisis")
+             housing for families in a housing crisis")
         ),
         tags$div(class = "main-point--icon",
                  icon("house-user"))
