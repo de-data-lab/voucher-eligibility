@@ -10,6 +10,13 @@ update_map <- function(new_data, to_state,addr,latt,long){
         fill_color <- "#b30000"
         fillOpacity <- 0.8
     }
+    # popUp <- with(new_data,paste0("<b>Census Tract:</b>",new_data$tract,
+    #                               "<br><b>% Household receiving Vouchers:</b>",new_data$'% Receiving assisstance',
+    #                               "<br><b>% Household spending 30%+ income on rent:</b> ", new_data$'% Spending 30%+ of income on rent',
+    #                               "<br><b>% Household spending 50%+ income on rent:</b> ", new_data$'% Spending 50%+ of income on rent'
+    #                               
+    # ))
+    
     if (addr){
 
         leafletProxy("advocmap") %>%
@@ -22,6 +29,7 @@ update_map <- function(new_data, to_state,addr,latt,long){
                         opacity = 1,
                         fillOpacity = 0.5,
                         smoothFactor = 0.5,
+                        #popup = popUp,
                         stroke = TRUE,
                         highlight = highlightOptions(fillOpacity = 0.8,
                                                      color = "#b30000",
@@ -39,6 +47,7 @@ update_map <- function(new_data, to_state,addr,latt,long){
                         opacity = 1,
                         fillOpacity = 0.5,
                         smoothFactor = 0.5,
+                        #popup = popUp,
                         stroke = TRUE,
                         highlight = highlightOptions(fillOpacity = 0.8,
                                                      color = "#b30000",

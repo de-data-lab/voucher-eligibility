@@ -58,6 +58,22 @@ for (row in 1:nrow(advoc_table)) {
 lat <- 39.1824#39.1824#39.5393
 lng <- -75.4#-75.2
 
+
+
+geo_data <- left_join(geo_data,
+                      advoc_table %>% select('GEOID','% Receiving assisstance',
+                                             '% Spending 30%+ of income on rent',
+                                             '% Spending 50%+ of income on rent'),
+                      by="GEOID"
+                      )
+
+# popUp <- with(geo_data,paste0("<br><b>Census Tract:</b>",geo_data$tract,
+#                               "<br><b>% Household receiving Vouchers:</b>",geo_data$'% Receiving assisstance',
+#                               "<br><b>% Household spending 30%+ income on rent:</b> ", geo_data$'% Spending 30%+ of income on rent',
+#                               "<br><b>% Household spending 50%+ income on rent:</b> ", geo_data$'% Spending 50%+ of income on rent'
+#                               
+# ))
+
 advoc_map <- geo_data %>%
     leaflet(options = 
               leafletOptions(zoomControl = F,attributionControl = FALSE, 
@@ -66,10 +82,15 @@ advoc_map <- geo_data %>%
     addTiles() %>% #not including one, sets the general maps version
     addPolygons(fillColor = "#bdc9e1",
                 stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
+                #popup = popUp,
                 color = "#2b8cbe", opacity = 1, weight=2,
                 highlight=highlightOptions(fillOpacity = 0.8,
                                            color = "#b30000",
                                            weight = 2,
                                            bringToFront=TRUE),
-                label = ~census_tract_label, layerId = ~GEOID)
+                label = ~census_tract_label, layerId = ~GEOID) %>%
+htmlwidgets::onRender("function(el, x) {
+        L.control.zoom({ position: 'topright' }).addTo(this)
+    }")
 
+#label = ~census_tract_label,

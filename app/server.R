@@ -326,4 +326,21 @@ shinyServer(function(input, output, session) {
     output$table_desc_plot <- renderPlotly({plot_table_desc("",FALSE)})
     output$table_desc <- renderText({""})
     
+    observeEvent(input$clear, {
+      removePoly <- clicked_ids$Clicks
+      clicked_ids$Clicks<-vector()
+      print(removePoly)
+      remove <- FALSE
+      if(length(removePoly) > 0){
+        remove=TRUE
+      }
+      if(remove == TRUE){
+        new_data <- geo_data %>% 
+          filter(GEOID %in% (removePoly))
+        update_map(new_data, to_state = "deselect",addr=FALSE,latt=NA,long=NA)
+        output$table_desc <- renderText({""})
+        output$table_desc_plot <- renderPlotly({plot_table_desc("",FALSE)})
+      }
+    })
+    
 })
