@@ -1,8 +1,7 @@
 ---
 title: "Voucher_EDA"
-author: "Mehak Gupta"
+author: "Mehak Gupta & Nami Sunami"
 date: "1/18/2022"
-runtime: shiny
 output: 
   html_document:
     toc: true
@@ -12,8 +11,6 @@ theme: united
 ---
 
 ```{r setup, include=FALSE, echo=FALSE}
-
-
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   here,
@@ -39,6 +36,7 @@ RColorBrewer,peRspective,reshape,plotly)
 
 
 # Load data
+acs_hud_de_geojoined <- read_rds(here("data/processed/acs_hud_de_geojoined.rds"))
 hud_de_section8 <- read_rds(here("data/processed/hud_de_section8.rds"))
 pop <- read_csv(here('data/raw/pop2019.csv'))
 rent <- read_csv(here('data/raw/rent019.csv'))
@@ -53,8 +51,6 @@ hud_de_section8<- hud_de_section8 %>% select("gsl","entities","sumlevel",
 
 de_summary_table <- hud_de_section8 %>% group_by(GEOID) %>% 
     mutate(tot = number_reported)
-
-
 ```
 
 ```{r, echo=FALSE}
@@ -72,7 +68,7 @@ de_h30 <- hud_de_section8 %>% group_by(GEOID) %>%
     mutate(h30 = 100*(rent/inc))
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, include=FALSE}
 shape <- tracts(state='10')
 lat <- 39.1824#39.5393
 lng <- -75.2
@@ -213,7 +209,7 @@ ggplot_cases_time_cont = data %>% group_by(county) %>%
   ggtitle("Number of Eligible household by amount of hh_income with 30% spent on rent category")
 
 ggplotly(ggplot_cases_time_cont) %>%
-    plotly_build()
+    ggplotly()
 ```
 # Number of Eligible household with hh_income less than 75k with 30% spent on rent.
 ```{r, echo=FALSE}
@@ -310,7 +306,8 @@ ggplot_cases_time_cont = data %>%  mutate(rent_above30=(rent_above30-reported_HU
 ggplotly(ggplot_cases_time_cont) %>%
     plotly_build()
 ```
-```{r, echo=FALSE}
+
+```{r eval=FALSE, include=FALSE}
 
 data_table <- inner_join(de_summary_table %>% filter(number_reported>0),
                    eligible %>%
@@ -539,3 +536,78 @@ ggplot_cases_time_cont = data %>%
 ggplotly(ggplot_cases_time_cont) %>%
     plotly_build()
 ```
+
+
+# Exploring the disparity between 30% vs 50%
+```{r}
+acs_hud_de_geojoined_prop <- acs_hud_de_geojoined %>%
+    mutate(diff_30_50 = eligible_renters - eligible_renters_50pct) %>%
+    mutate(eligible_renters_30pct_prop = eligible_renters / renter_householdersE,
+           eligible_renters_50pct_prop = eligible_renters_50pct / renter_householdersE,
+           diff_prop_30_50 = eligible_renters_30pct_prop - eligible_renters_50pct_prop)
+
+```
+
+
+```{r}
+scatter_30_50 <- acs_hud_de_geojoined_prop %>%
+    ggplot(aes(x = eligible_renters, y = eligible_renters_50pct,
+               label = census_tract_label, color = diff_30_50)) +
+        geom_smooth(method = "lm") + 
+    geom_point() +
+    xlab("Households paying 30%+ on rent") +
+    ylab("Households paying 50%+ on rent")
+
+ggplotly(scatter_30_50)
+```
+
+
+```{r}
+barplot_30_50_diff <- acs_hud_de_geojoined_prop %>%
+    ggplot(aes(x = reorder(tract, diff_30_50), y = diff_30_50)) + 
+    geom_bar(stat = "identity") +
+    xlab("Census Tracts") +
+    ylab("Difference between 30% vs 50%")
+barplot_30_50_diff %>% ggplotly()
+```
+
+```{r}
+
+
+scatter_30_50_prop <- acs_hud_de_geojoined_prop %>% 
+    ggplot(aes(x = eligible_renters_30pct_prop, y = eligible_renters_50pct_prop,
+               label = census_tract_label, color = diff_prop_30_50)) +
+        geom_smooth(method = "lm") + 
+    geom_point() +
+    xlab("Proportions of households paying 30%+ on rent") +
+    ylab("Proportions of households paying 50%+ on rent")
+
+ggplotly(scatter_30_50_prop)
+```
+
+
+```{r}
+barplot_30_50_prop_diff <- acs_hud_de_geojoined_prop %>%
+    ggplot(aes(x = reorder(tract, diff_prop_30_50), y = diff_prop_30_50)) + 
+    geom_bar(stat = "identity") +
+    xlab("Census Tracts") +
+    ylab("Difference between 30% vs 50% (proportions)") 
+
+barplot_30_50_prop_diff %>% ggplotly()
+```
+Higher numbers mean that the census tract has higher proportions of renters paying 30% or more income on rent than those paying 50% or more income on rent.
+
+
+## How about for the vouchers?
+```{r}
+scatter_30_50_voucher <- acs_hud_de_geojoined_prop %>% 
+    ggplot(aes(x = prop_serviced, y = diff_prop_30_50, label = tract)) + 
+    geom_point() +
+    xlab("Proportion of eligible renters receiving a voucher") +
+    ylab("Difference between 30% vs 50% (proportions)")
+
+scatter_30_50_voucher %>% ggplotly()
+```
+
+
+
