@@ -64,7 +64,7 @@ home_panel <- tabPanel(
                                "Are you struggling to pay rent?")
              ),
              tags$div(class = "take-action-container",
-                      tags$div(class = "take-action-card-blue",
+                      tags$div(class = "take-action-card blue",
                                tags$div(class = "call-to-action-text", 
                                         "You might qualify for housing assistance"),
                                tags$div(class = "call-to-action-text call-to-action-text-sub",

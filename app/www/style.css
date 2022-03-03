@@ -5,7 +5,7 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.tab-pane .plotly{
+.tab-pane .plotly {
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
@@ -41,18 +41,24 @@
 .main-point-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     text-align: center;
     background-color: #f5f8ff;
     margin-bottom: 15rem;
     margin-top: 15rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 93rem;
+    align-self: center;
     padding: 5rem;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
 }
 
 
 .main-point {
     text-align: center;
     font-size: 3.5rem;
-    margin-top: 5rem;
     margin-bottom: 2rem;
     margin-left: auto;
     margin-right: auto;
@@ -151,28 +157,21 @@
 
 .take-action-container {
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    align-items: center;
 }
 
 .take-action-card {
-    padding: 4rem;
+    padding: 3rem;
     margin: auto;
-    max-width: 100rem;
+    max-width: 63rem;
     display: flex;
     background: #D7F5B5;
-    justify-content: center;
     flex-direction: column;
 }
 
-.take-action-card-blue {
-    padding: 3rem;
-    margin: auto;
-    max-width: 100rem;
-    display: flex;
+.take-action-card.blue {
     background: #CED7F5;
-    justify-content: center;
-    flex-direction: column;
 }
 
 .call-to-action-text {
@@ -192,7 +191,6 @@
 .follow-campaign-list {
     text-align: left;
     font-size: 2rem;
-    max-width: 30em;
     margin-top: 2rem;
     margin-left: auto;
     margin-right: auto;
@@ -204,7 +202,6 @@
 .follow-housing-authorities-list {
     text-align: left;
     font-size: 2rem;
-    max-width: 50rem;
     margin-top: 2rem;
     margin-left: auto;
     margin-right: auto; 
