@@ -133,7 +133,7 @@ shinyServer(function(input, output, session) {
                                 y = 0.95,
                                 yanchor = "top"),
                    margin = list(t = 100)) %>%
-            plotly_hide_modebar()
+            format_plotly()
         
     })
     
@@ -156,9 +156,7 @@ shinyServer(function(input, output, session) {
         }
         current_plot %>% 
             ggplotly(tooltip = "y") %>%
-            plotly_legend_top_right() %>%
-            plotly_disable_zoom() %>%
-            plotly_hide_modebar()
+            format_plotly()
     })
     
     output$prop_counties <- renderPlotly({

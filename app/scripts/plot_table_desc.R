@@ -75,8 +75,7 @@ plot_table_desc <- function(agg_selected,selected){
     }
     
     out_plot <- ggplotly(table_plot, tooltip = "") %>%
-        plotly_disable_zoom() %>%
-        plotly_hide_modebar()
+        format_plotly()
     
     return(out_plot)
 
