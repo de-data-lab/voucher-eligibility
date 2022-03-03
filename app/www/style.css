@@ -251,7 +251,7 @@
 
 
 .learn-more-button {
-    background-color: #F27405;
+    background-color: #ED8B00;
     border-radius: 10px;
     padding: 1rem;
     padding-left: 1.5rem;
@@ -266,12 +266,12 @@
 }
 
 .learn-more-button:hover {
-    background-color: #F27405;
+    background-color: #cb7700;
     color: white;
 }
 
 .learn-more-button:active {
-    background-color: #D96704;
+    background-color: #a96300;
     color: white;
     border: none;
 }
