@@ -27,8 +27,6 @@ home_panel <- tabPanel(
                                "Housing Choice Voucher is an effective way 
              to help families and provide better opportunities")
              ),
-             tags$div(class = "main-point--icon",
-                      icon("hand-holding-heart")),
              tags$div(class = "main-point--footnote",
                       "(Source: ", 
                       tags$a(href = "https://www.cbpp.org/research/housing/housing-choice-voucher-program-oversight-and-review-of-legislative-proposals#_ftn2",
@@ -39,7 +37,9 @@ home_panel <- tabPanel(
                              target = "_blank",
                              "CBPP, 2021"),
                       ")"
-             )
+             ),
+             tags$div(class = "main-point--icon",
+                      icon("hand-holding-heart"))
     ),
     tags$div(class = "main-point-container",
              tags$div(class = "main-heading-container", 
