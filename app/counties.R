@@ -19,7 +19,8 @@ counties_div <- tags$div(
     tags$div(class = "main-point-container",
              tags$div(class = "main-heading-container", 
                       tags$div(class = "main-point",
-                               "New Castle County does the best job serving families—while Sussex County is struggling to do so")
+                               "Sussex County is struggling the most to help
+                                Delaware families")
                       ),
              plotlyOutput("prop_counties"),
              tags$div(class = "select-threshold",
