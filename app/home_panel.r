@@ -15,8 +15,23 @@ home_panel <- tabPanel(
         class = "main-point-container",
         tags$div(class = "main-heading-container",
                  tags$div(class = "main-point",
+                          "Families spending more than 30% of their income on
+                          rent are considered", tags$strong("rent-burdened"),
+                          "and experiencing a housing crisis"),
+                 tags$div(class = "main-point--footnote",
+                          "If they are spending more than 50%, they are considered",
+                          tags$strong("severely rent-burdened")
+                 )
+        ),
+        tags$div(class = "main-point--icon",
+                 icon("heart-broken"))
+    ),
+    tags$div(
+        class = "main-point-container",
+        tags$div(class = "main-heading-container",
+                 tags$div(class = "main-point",
                           "Housing Choice Voucher (Section 8) provides 
-             housing for families in housing crisis")
+             housing for families in a housing crisis")
         ),
         tags$div(class = "main-point--icon",
                  icon("house-user"))
