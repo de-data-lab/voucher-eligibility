@@ -27,5 +27,6 @@ format_plotly <- function(p) {
         plotly_legend_top_right() %>%
         plotly_disable_zoom() %>%
         plotly_hide_modebar() %>%
-        layout(paper_bgcolor = "transparent")
+        layout(plot_bgcolor = "transparent",
+               paper_bgcolor = "transparent")
 }
