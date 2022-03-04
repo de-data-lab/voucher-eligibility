@@ -161,10 +161,10 @@ shinyServer(function(input, output, session) {
     
     output$prop_counties <- renderPlotly({
         if(input$selectedProp == "30"){
-            plot_prop_counties(geo_long)
+            plot_prop_counties(geo_long, input$selectedProp)
         } 
         else {
-            plot_prop_counties(geo_long_50)
+            plot_prop_counties(geo_long_50, input$selectedProp)
         }
     })
     

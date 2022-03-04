@@ -7,7 +7,28 @@ str_wrap_br <- function(string, width = 50){
         collapse = "<br>")
 }
 
-plot_prop_counties <- function(.data){
+plot_prop_counties <- function(.data, threshold = "30"){
+    
+    if(threshold == "30"){
+        family_text <- "rent-burdened famillies"
+    }
+    
+    if(threshold == "50"){
+        family_text <- "severely rent-burdened famillies"
+    }
+    
+    txt_receiving <- str_wrap_br(
+        paste0("In %{y} County, %{x:.1%} of the ", 
+               family_text,
+               " are receiving a voucher <extra></extra>"),
+        width = 30)
+    
+    txt_not_receiving <- str_wrap_br(
+        paste0("In %{y} County, %{x:.1%} of the ", 
+               family_text,
+               " are not receiving a voucher <extra></extra>"),
+        width = 30)
+    
     prop_counties_data <- .data %>%
         group_by(county_name, labels) %>%
         summarise(count = sum(value, na.rm = TRUE)) %>%
@@ -23,9 +44,7 @@ plot_prop_counties <- function(.data){
                  insidetextanchor = "start",
                  textposition = "inside",
                  textangle = 0,
-                 hovertemplate = str_wrap_br(
-                     "In %{y} County, %{x:.1%} of the eligible families are receiving a voucher <extra></extra>",
-                     width = 30)
+                 hovertemplate = txt_receiving
         ) %>%
         add_bars(data = prop_counties_data %>% filter(labels == "Not Receiving Voucher"),
                  x = ~prop, y = ~county_name,
@@ -35,9 +54,7 @@ plot_prop_counties <- function(.data){
                  texttemplate = "%{x:.1%}",
                  insidetextanchor = "end",
                  textposition = "inside",
-                 hovertemplate = str_wrap_br(
-                     "In %{y} County, %{x:.1%} of the eligible families are not receiving a voucher <extra></extra>",
-                     width = 30)
+                 hovertemplate = txt_not_receiving
         ) %>%
         layout(barmode = "stack",
                xaxis = list(title = "",
