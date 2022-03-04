@@ -6,7 +6,7 @@ home_panel <- tabPanel(
     title = "Home",
     tags$div(class = "title-container",
              tags$div(class = "title",
-                      "How is Delaware doing to help families in a housing crisis?"),
+                      "How is Delaware helping families in a housing crisis?"),
              actionLink(inputId = "to_advocates_page", 
                         label = "Explore Your Neighborhood",
                         class = "learn-more-button")
