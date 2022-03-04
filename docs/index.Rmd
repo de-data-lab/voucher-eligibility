@@ -541,7 +541,15 @@ ggplotly(ggplot_cases_time_cont) %>%
 # Exploring the disparity between 30% vs 50%
 ```{r}
 acs_hud_de_geojoined_prop <- acs_hud_de_geojoined %>%
+    # Calculate difference eligible renters 
     mutate(diff_30_50 = eligible_renters - eligible_renters_50pct) %>%
+    rowwise() %>%
+    mutate(rent_30to40 = sum(rent_30E, rent_35E, rent_40E),
+           rent_50 = rent_50E) %>%
+    ungroup %>%
+    # calculate proportions
+    mutate(rent_30to40_prop = rent_30to40 / renter_householdersE,
+           rent_50_prop = rent_50 / renter_householdersE) %>%
     mutate(eligible_renters_30pct_prop = eligible_renters / renter_householdersE,
            eligible_renters_50pct_prop = eligible_renters_50pct / renter_householdersE,
            diff_prop_30_50 = eligible_renters_30pct_prop - eligible_renters_50pct_prop)
@@ -549,6 +557,7 @@ acs_hud_de_geojoined_prop <- acs_hud_de_geojoined %>%
 ```
 
 
+## Counts
 ```{r}
 scatter_30_50 <- acs_hud_de_geojoined_prop %>%
     ggplot(aes(x = eligible_renters, y = eligible_renters_50pct,
@@ -571,10 +580,16 @@ barplot_30_50_diff <- acs_hud_de_geojoined_prop %>%
 barplot_30_50_diff %>% ggplotly()
 ```
 
+
+## Proportions {.tabset}
+
+### 50 ~ 30
 ```{r}
+library(broom)
+acs_hud_de_geojoined_prop <- acs_hud_de_geojoined_prop %>% 
+    mutate(row_number = row_number() %>% as.character())
 
-
-scatter_30_50_prop <- acs_hud_de_geojoined_prop %>% 
+scatter_50_30_prop <- acs_hud_de_geojoined_prop %>% 
     ggplot(aes(x = eligible_renters_30pct_prop, y = eligible_renters_50pct_prop,
                label = census_tract_label, color = diff_prop_30_50)) +
         geom_smooth(method = "lm") + 
@@ -582,13 +597,63 @@ scatter_30_50_prop <- acs_hud_de_geojoined_prop %>%
     xlab("Proportions of households paying 30%+ on rent") +
     ylab("Proportions of households paying 50%+ on rent")
 
-ggplotly(scatter_30_50_prop)
+scatter_50_30_prop %>% ggplotly()
+
+# 50 ~ 30
+lm_50_30 <- acs_hud_de_geojoined_prop %>%
+    lm(data = ., eligible_renters_50pct_prop ~ eligible_renters_30pct_prop)
+
+aug_50_30 <- lm_50_30 %>% 
+    augment()
+
+
+resid_plot_50_30 <- aug_50_30 %>%
+    left_join(acs_hud_de_geojoined_prop %>% select(row_number, tract),
+              by = c(".rownames" = "row_number")) %>% 
+    ggplot(aes(x = eligible_renters_30pct_prop, y = .std.resid, label = tract)) + 
+    geom_point() +
+    geom_hline(yintercept = 0) +
+    ylab("Standardized Residual") +
+    xlab("Proportion of renters paying 30%+ on rent")
+
+resid_plot_50_30 %>%
+    ggplotly()
 ```
+
+### 30 ~ 50
+```{r}
+scatter_30_50_prop <- scatter_50_30_prop +
+    coord_flip()
+
+scatter_30_50_prop %>% ggplotly()
+
+# 30 ~ 50
+lm_30_50 <- acs_hud_de_geojoined_prop %>%
+    lm(data = ., eligible_renters_30pct_prop ~ eligible_renters_50pct_prop)
+
+aug_30_50 <- lm_30_50 %>% 
+    augment()
+
+
+resid_plot_30_50 <- aug_30_50 %>%
+    left_join(acs_hud_de_geojoined_prop %>% select(row_number, tract),
+              by = c(".rownames" = "row_number")) %>% 
+    ggplot(aes(x = eligible_renters_50pct_prop, y = .std.resid, label = tract)) + 
+    geom_point() +
+    geom_hline(yintercept = 0) +
+    ylab("Standardized Residual") +
+    xlab("Proportion of renters paying 50%+ on rent")
+
+resid_plot_30_50 %>%
+    ggplotly()
+```
+
 
 
 ```{r}
 barplot_30_50_prop_diff <- acs_hud_de_geojoined_prop %>%
     ggplot(aes(x = reorder(tract, diff_prop_30_50), y = diff_prop_30_50)) + 
+    geom_hline(yintercept = mean(acs_hud_de_geojoined_prop$diff_prop_30_50, na.rm = TRUE)) +
     geom_bar(stat = "identity") +
     xlab("Census Tracts") +
     ylab("Difference between 30% vs 50% (proportions)") 
@@ -596,6 +661,50 @@ barplot_30_50_prop_diff <- acs_hud_de_geojoined_prop %>%
 barplot_30_50_prop_diff %>% ggplotly()
 ```
 Higher numbers mean that the census tract has higher proportions of renters paying 30% or more income on rent than those paying 50% or more income on rent.
+
+## Separating those paying 30-40% on rent and 50%+ on rent {.tabset}
+
+
+### Interaction (30-40% prop x 50%+ prop) 
+
+I ran a regression predicting the proportion of eligible renters receiving a voucher (voucher serviceability) from the proportion of renters paying 30-40% of rent and the proportion of renters paying 50% or more on rent.
+
+Results showed that:
+
+- Higher proportions of non-severely burdened renters (30-40% on rent) and severely-burdened renters (50%+ on rent) were both associated with lower voucher serviceability
+
+- There was an interaction between the proportions of non-severe burdened renters and severely burdened renters
+
+- Among the census tracts with lower proportion of non-severe burdened renters, higher proportion of severely burdened renters predicted lower proportions of eligible renters receiving a voucher (lower serviceability).
+
+- However, among the census tracts with higher proportions of non-severely burdened renters, higher proportions of severely burdened renters predicted higher voucher serviceability.
+
+```{r}
+model <- acs_hud_de_geojoined_prop %>%
+    lm(data = ., formula = prop_serviced ~ rent_50_prop * rent_30to40_prop)
+summary(model)
+library(sjPlot)
+plot_model(model, type = "int", mdrt.values = "meansd")
+acs_hud_de_geojoined_prop %>%
+    ggplot(aes(x = rent_50_prop, y = prop_serviced)) +
+    geom_point()
+```
+
+### Scatter Plot
+```{r}
+scatter_nonsevere_severe <- acs_hud_de_geojoined_prop %>% 
+    ggplot(aes(x = rent_30to40_prop, y = rent_50_prop, label = census_tract_label)) +
+    geom_point()
+scatter_nonsevere_severe %>% ggplotly()
+
+acs_hud_de_geojoined_prop %>% 
+    ggplot(aes(x = rent_30to40_prop, y = prop_serviced, label = census_tract_label)) +
+    geom_point()
+
+acs_hud_de_geojoined_prop %>% 
+    ggplot(aes(x = rent_50_prop, y = prop_serviced, label = census_tract_label)) +
+    geom_point()
+```
 
 
 ## How about for the vouchers?
