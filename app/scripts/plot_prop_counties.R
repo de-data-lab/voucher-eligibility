@@ -45,7 +45,6 @@ plot_prop_counties <- function(.data){
                             showline = FALSE,
                             showticklabels = FALSE,
                             zeroline = FALSE,
-                            # domain = c(0.15, 1),
                             tickformat = ".2%"),
                yaxis = list(title = "",
                             showgrid = FALSE,
