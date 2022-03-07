@@ -105,11 +105,6 @@ shinyServer(function(input, output, session) {
                 filter(COUNTYFP == input$selectedCounty)
         }
         
-        # Determine the title of the plot
-        mainplot_title <- paste("Renters Potentially Eligible for <br> Housing Choice Voucher",
-                                county_list[[input$selectedCounty]],
-                                sep = "<br>")
-        
         mainplot_data <- mainplot_data %>%
             group_by(labels) %>%
             summarise(counts = sum(value, na.rm = T))
@@ -128,11 +123,7 @@ shinyServer(function(input, output, session) {
                         colors = c("#FC8D62", # Brewer Set 2 orange
                                    "#66C2A5") # Brewer Set 2 green
                     )) %>%
-            layout(title = list(text = mainplot_title,
-                                pad = list(b = 20),
-                                y = 0.95,
-                                yanchor = "top"),
-                   margin = list(t = 100)) %>%
+            layout(margin = list(t = 50)) %>%
             format_plotly()
         
     })
