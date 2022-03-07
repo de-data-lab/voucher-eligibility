@@ -28,10 +28,11 @@ plot_counts_counties <- function(.data, cutoff){
         geom_bar(aes(fill = Category),
                  stat = "identity",
                  position = position_dodge()),
-        ylab("Number of families"),
+        ylab(""),
         xlab(""),
         theme_minimal(),
-        theme(panel.background = element_rect(fill='transparent')),
+        theme(panel.background = element_rect(fill='transparent'),
+              panel.grid.major.y = element_blank()),
         scale_x_discrete(limits = rev(c("New Castle", "Kent", "Sussex"))),
         scale_y_continuous(limits = c(0, 30000)),
         scale_fill_brewer(palette = "Set2", direction = 1, name = ""),
@@ -48,8 +49,7 @@ plot_counts_counties <- function(.data, cutoff){
         number_county_30 <- number_county_30_data %>%
             mutate("Eligible Families" = count) %>%
             ggplot(aes(x = county, y = `Eligible Families`)) + 
-            number_county_common_layers +
-            ggtitle("Families Spending 30%+ Income on Rent")
+            number_county_common_layers
         return(number_county_30)
     }
     
@@ -64,8 +64,7 @@ plot_counts_counties <- function(.data, cutoff){
         number_county_50 <- number_county_50_data %>%
             mutate("Eligible Families" = count) %>%
             ggplot(aes(x = county, y = `Eligible Families`)) +
-            number_county_common_layers +
-            ggtitle("Families Spending 50%+ Income on Rent")
+            number_county_common_layers
         return(number_county_50)
     }
 }

@@ -63,9 +63,8 @@ home_panel <- tabPanel(
                       ),
              tags$div(class = "select-county plot-title",
                       tags$div("Rent-burdened families in "),
-                      # Sidebar with a slider input for number of bins
                       selectInput("selectedCounty", 
-                                  label = "",
+                                  label = NULL,
                                   choices = c("Delaware" = "all",
                                               "New Castle County" = "003",
                                               "Kent County" = "001",
