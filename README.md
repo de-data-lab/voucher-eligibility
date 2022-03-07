@@ -4,12 +4,12 @@ This repo contains all scripts and documentation related to out exploratory work
 ## App
 
 - The main branch is deploeyed at https://nami-techimpact.shinyapps.io/housing-voucher/ 
-- The lookup tool is directly accessible with this URL: https://nami-techimpact.shinyapps.io/housing-voucher/?page=advocates
+- The lookup tool is directly accessible with this URL: https://nami-techimpact.shinyapps.io/housing-voucher/?page=explore
 
 
 ### Development/Testing
 - Each pull request is deployed at https://nami-techimpact.shinyapps.io/housing-voucher-test
-- The lookup tool: https://nami-techimpact.shinyapps.io/housing-voucher-test/?page=advocates
+- The lookup tool: https://nami-techimpact.shinyapps.io/housing-voucher-test/?page=explore
 
 
 ## Project Structure
