@@ -64,7 +64,7 @@ home_panel <- tabPanel(
              tags$div(class = "select-county plot-title",
                       tags$div("Rent-burdened families in "),
                       selectInput("selectedCounty", 
-                                  label = "",
+                                  label = NULL,
                                   choices = c("Delaware" = "all",
                                               "New Castle County" = "003",
                                               "Kent County" = "001",
