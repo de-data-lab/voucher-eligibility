@@ -31,7 +31,7 @@ plotly_hide_modebar <- function(p) {
 
 format_plotly <- function(p) {
     p %>%
-        plotly_legend_top_right() %>%
+        plotly_legend_bottom_center() %>%
         plotly_disable_zoom() %>%
         plotly_hide_modebar() %>%
         layout(plot_bgcolor = "transparent",
