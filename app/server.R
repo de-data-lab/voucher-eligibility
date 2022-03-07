@@ -12,80 +12,81 @@ reticulate::virtualenv_install(virtualenv_dir, packages = PYTHON_DEPENDENCIES, i
 reticulate::use_virtualenv(virtualenv_dir, required = T)
 reticulate::source_python("scripts/geocode.py")
 
-
-
-source("scripts/plotly_settings.R")
-source("scripts/advocates.R")
-source("scripts/plot_prop_counties.R")
-source("scripts/plot_prop_census.R")
-source("scripts/update_map.R")
-source("scripts/plot_counts_counties.R")
-source("scripts/plot_table_desc.R")
-
-# Load Data
-acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
-geo_data <- acs_hud_de_geojoined
-geo_data_nogeometry <- geo_data %>% 
-    st_drop_geometry()
-
-
-# Dictionary of counties and keys
-county_list <- c(
-    "all" = "All Delaware",
-    "001" = "Kent County",
-    "003" = "New Castle County",
-    "005" = "Sussex County")
-
-# Update the county names
-geo_data_nogeometry <- geo_data_nogeometry %>%
-    mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
-                                    " County"))
-
-# Reshape the dataset into the long format for summarizing 
-geo_long <- geo_data_nogeometry %>%
-    mutate(number_not_using = eligible_renters - number_reported) %>%
-    select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
-    pivot_longer(cols = c("number_not_using", "number_reported")) %>%
-    mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
-                              name == "number_reported" ~ "Receiving Voucher"))
-
-geo_long_50 <- geo_data_nogeometry %>%
-    mutate(number_not_using = eligible_renters_50pct - number_reported) %>%
-    select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
-    pivot_longer(cols = c("number_not_using", "number_reported")) %>%
-    mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
-                              name == "number_reported" ~ "Receiving Voucher"))
-
-# Get the summarized data for rendering percentages
-de_summary <- geo_long %>% 
-    group_by(labels) %>%
-    summarise(counts = sum(value, na.rm = T)) %>%
-    mutate(percent = 100 * counts / sum(counts))
-
-# Get the vector of percentages of people receiving vs not receiving voucher
-de_summary_percent_str <- de_summary %>% 
-    select(labels, percent) %>% deframe()
-
-# Load data for advocates and county tabs
-de_summary_table <- geo_data_nogeometry %>% 
-    select("gsl", "entities", "sumlevel",
-           "program_label", "program", "sub_program", "name", "GEOID",
-           "rent_per_month", "hh_income", "person_income", 
-           "spending_per_month","number_reported") %>%
-    group_by(GEOID) %>% 
-    mutate(tot = number_reported)
-
-# function to go to the lookup tool
-goto_explore_tab <- function(session){
-    updateNavbarPage(session, inputId = "main_page", selected = "Explore Your Neighborhood")
-}
-
-# Define server logic required to draw a histogram
+# Define server logic
 shinyServer(function(input, output, session) {
+    
+    # Modules are loaded here 
+    # Use options(shiny.autoreload = TRUE) for development
+    source("scripts/plotly_settings.R", local = TRUE)
+    source("scripts/advocates.R", local = TRUE)
+    source("scripts/plot_prop_counties.R", local = TRUE)
+    source("scripts/plot_prop_census.R", local = TRUE)
+    source("scripts/update_map.R", local = TRUE)
+    source("scripts/plot_counts_counties.R", local = TRUE)
+    source("scripts/plot_table_desc.R", local = TRUE)
+    
+    # Load Data
+    acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
+    geo_data <- acs_hud_de_geojoined
+    geo_data_nogeometry <- geo_data %>% 
+        st_drop_geometry()
+    
+    
+    # Dictionary of counties and keys
+    county_list <- c(
+        "all" = "All Delaware",
+        "001" = "Kent County",
+        "003" = "New Castle County",
+        "005" = "Sussex County")
+    
+    # Update the county names
+    geo_data_nogeometry <- geo_data_nogeometry %>%
+        mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
+                                        " County"))
+    
+    # Reshape the dataset into the long format for summarizing 
+    geo_long <- geo_data_nogeometry %>%
+        mutate(number_not_using = eligible_renters - number_reported) %>%
+        select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
+        pivot_longer(cols = c("number_not_using", "number_reported")) %>%
+        mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
+                                  name == "number_reported" ~ "Receiving Voucher"))
+    
+    geo_long_50 <- geo_data_nogeometry %>%
+        mutate(number_not_using = eligible_renters_50pct - number_reported) %>%
+        select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
+        pivot_longer(cols = c("number_not_using", "number_reported")) %>%
+        mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
+                                  name == "number_reported" ~ "Receiving Voucher"))
+    
+    # Get the summarized data for rendering percentages
+    de_summary <- geo_long %>% 
+        group_by(labels) %>%
+        summarise(counts = sum(value, na.rm = T)) %>%
+        mutate(percent = 100 * counts / sum(counts))
+    
+    # Get the vector of percentages of people receiving vs not receiving voucher
+    de_summary_percent_str <- de_summary %>% 
+        select(labels, percent) %>% deframe()
+    
+    # Load data for advocates and county tabs
+    de_summary_table <- geo_data_nogeometry %>% 
+        select("gsl", "entities", "sumlevel",
+               "program_label", "program", "sub_program", "name", "GEOID",
+               "rent_per_month", "hh_income", "person_income", 
+               "spending_per_month","number_reported") %>%
+        group_by(GEOID) %>% 
+        mutate(tot = number_reported)
+    
+    # function to go to the lookup tool
+    goto_explore_tab <- function(session){
+        updateNavbarPage(session, inputId = "main_page", selected = "Explore Your Neighborhood")
+    }
+    
     # Reactive value for the message for the address lookup
     address_message <- reactiveVal("Example: \"411 Legislative Ave, Dover, DE\"")
     output$address_message <- renderText({ address_message() })
-
+    
     # Observe the URL parameter and route the page to an appropriate tab
     observe({
         query <- parseQueryString(session$clientData$url_search)
