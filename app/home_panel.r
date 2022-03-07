@@ -61,16 +61,18 @@ home_panel <- tabPanel(
                       tags$div(class = "main-point",
                                textOutput("main_text"))
                       ),
-             plotlyOutput("mainplot"),
-             tags$div(class = "select-county",
+             tags$div(class = "select-county plot-title",
+                      tags$div("Rent-burdened families in "),
                       # Sidebar with a slider input for number of bins
-                      radioGroupButtons("selectedCounty", 
-                                        label = "Explore more by selecting a county:",
-                                        choices = c("(All Delaware)" = "all",
-                                                    "New Castle" = "003",
-                                                    "Kent" = "001",
-                                                    "Sussex" = "005"))
-             )
+                      selectInput("selectedCounty", 
+                                  label = "",
+                                  choices = c("Delaware" = "all",
+                                              "New Castle County" = "003",
+                                              "Kent County" = "001",
+                                              "Sussex County" = "005"),
+                                  width = "230px")
+             ),
+             plotlyOutput("mainplot")
     ),
     counties_div, 
     tags$div(class = "main-point-container",
