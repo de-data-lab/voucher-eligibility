@@ -9,6 +9,13 @@ plotly_legend_top_right <- function(p) {
                             x = 1))
 }
 
+plotly_legend_bottom_center <- function(p) {
+    layout(p, legend = list(orientation = 'h',
+                            xanchor = "center",
+                            x = 0.5,
+                            yanchor = "bottom",
+                            y = -0.2))
+}
 
 plotly_disable_zoom <- function(p) {
     p %>%
