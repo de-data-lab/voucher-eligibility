@@ -327,6 +327,10 @@
     text-align: left;
 }
 
+.form-group {
+    margin-bottom: 0!important;
+}
+
 .selectize-dropdown {
     text-align: left;
 }
