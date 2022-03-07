@@ -90,7 +90,7 @@ shinyServer(function(input, output, session) {
     observe({
         query <- parseQueryString(session$clientData$url_search)
         query1 <- paste(names(query), query, sep = "=", collapse=", ")
-        if(query1 == "page=advocates"){
+        if(query1 == "page=explore"){
             goto_explore_tab(session)
         }
     })
