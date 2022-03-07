@@ -13,7 +13,8 @@ counties_div <- tags$div(
                                             label = NULL,
                                             choices = c("rent-burdened" = "30",
                                                         "severely rent-burdened" = "50"),
-                                            selected = "30"),
+                                            selected = "30",
+                                            width = 250),
                                 tags$div("families")
              ),
              plotlyOutput("number_county")
