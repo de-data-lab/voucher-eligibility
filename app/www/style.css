@@ -316,17 +316,15 @@
 
 
 /* Change the select input look */
-.select-county > .form-group.shiny-input-container > div .selectize-input.full {
+.select-county > .form-group.shiny-input-container > div .selectize-input.full, 
+.select-threshold > .form-group.shiny-input-container > div .selectize-input.full {
     border: none;
     background-color: transparent;
     border-bottom-style: solid ;
     border-bottom-width: 1px;
+    border-color: grey;
     border-radius: 0;
     text-align: left;
-}
-
-.selectize-control {
-    margin-bottom: 0;
 }
 
 .selectize-dropdown {
@@ -337,10 +335,12 @@
     font-size: 2rem;
 }
 
-.select-county > .form-group {
+.select-county > .form-group,
+.select-threshold > .form-group {
     margin-left: 1rem;
 }
 
 .bold {
     font-weight: bold;
 }
+
