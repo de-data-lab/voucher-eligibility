@@ -25,15 +25,15 @@ counties_div <- tags$div(
                                "Sussex County is struggling the most to help
                                 Delaware families")
                       ),
-             tags$div("Renters Potentially Eligible for Voucher"),
-             plotlyOutput("prop_counties"),
-             tags$div(class = "select-threshold",
-                      radioGroupButtons("selectedProp", 
-                                        label = "Focusing on families with rent spending:",
-                                        choices = c("30%+ of income" = "30",
-                                                    "50%+ of income" = "50"),
-                                        selected='30')
-                      
-             )
+             tags$div(class = "select-threshold plot-title",
+                      selectInput("selectedProp", 
+                                  label = NULL,
+                                  choices = c("Rent-burdened" = "30",
+                                              "Severely rent-burdened" = "50"),
+                                  selected = "30",
+                                  width = 250),
+                      tags$div("families")
+             ),
+             plotlyOutput("prop_counties")
     )
 )
