@@ -340,3 +340,7 @@
 .select-county > .form-group {
     margin-left: 1rem;
 }
+
+.bold {
+    font-weight: bold;
+}

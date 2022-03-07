@@ -4,8 +4,8 @@ library(shinyWidgets)
 advocates_panel <- tabPanel(
     title = "Explore Your Neighborhood",
     tags$div(class = "explore-title-container",
-             tags$div(class = "main-point",
-                      "Find Out How Your Neighborhood is Doing"),
+             tags$div(class = "main-point bold",
+                      "How is your neighborhood doing?"),
              tags$div(class = "sub-point",
                       "Find out what percentage of households in your neighbourhood
              are receiving Housing Choice Voucher and
