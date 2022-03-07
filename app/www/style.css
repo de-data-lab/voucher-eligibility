@@ -224,7 +224,7 @@
 .select-threshold {
     text-align: center;
     display: flex;
-    justify-content: center;
+    align-items: center;
 }
 
 #prop_county {
@@ -325,10 +325,15 @@
     border-color: grey;
     border-radius: 0;
     text-align: left;
+    margin-top: 5px;
 }
 
 .form-group {
     margin-bottom: 0!important;
+}
+
+.selectize-control {
+    margin: 0;
 }
 
 .selectize-dropdown {
