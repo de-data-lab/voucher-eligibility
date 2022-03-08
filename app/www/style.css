@@ -289,25 +289,36 @@
     text-decoration-line: none;
 }
 
+.map-header-container {
+    position: absolute;
+    margin-top: 10px;
+    z-index: 20;
+    display: flex;
+    flex-direction: row;
+}
+
+
 .address-input-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    position: absolute;
     z-index: 10;
-    margin-left: 4rem;
-}
-.clear {
-    margin-left: 40rem;
+    margin-left: 10px;
 }
 
 .address-message {
     background-color: white;
     opacity: 0.9;
     padding: 8px;
-    border-radius: 10px;
+    border-radius: 0 0 10px 10px;
     color: #8a8a8a;
-    margin-left: 1rem;
+    background-color: #ededed;
+    width: 100%;
+}
+
+.clear-all-button {
+    z-index: 20;
+    margin-left: 14rem;
 }
 
 .explore-title-container {
@@ -352,4 +363,6 @@
 .bold {
     font-weight: bold;
 }
+
+
 

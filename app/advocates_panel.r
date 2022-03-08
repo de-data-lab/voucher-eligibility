@@ -13,16 +13,20 @@ advocates_panel <- tabPanel(
              more than 30% and 50% of their income on rent")
              ),
     tags$div(class = "advoc-container",
-             
         tags$div(class = "advoc-table-container",
-                 tags$div(class = "clear",actionButton("clear", "Clear All")),
-                 tags$div(class = "address-input-container",
-                          searchInput("address", label = NULL, placeholder = "Enter your address",
-                                      btnSearch = icon("search")),
-                          tags$div(class = "address-message",
-                                   textOutput("address_message")
+                 tags$div(
+                     class = "map-header-container",
+                          tags$div(class = "address-input-container",
+                                   searchInput("address", label = NULL, placeholder = "Enter your address",
+                                               btnSearch = icon("search")),
+                                   tags$div(class = "address-message",
+                                            textOutput("address_message")
                                    )
                           ),
+                     tags$div(
+                         class = "clear-all-button", 
+                         actionButton("clear", "Clear All"))
+                 ),
                  leafletOutput("advocmap",height="110vh",width="60vh"),
                  tags$script("
                     $(document).ready(function() {    
