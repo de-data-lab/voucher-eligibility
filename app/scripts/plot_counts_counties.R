@@ -28,7 +28,7 @@ plot_counts_counties <- function(.data, cutoff){
         geom_bar(aes(fill = Category),
                  stat = "identity",
                  position = position_dodge()),
-        ylab("Number of families"),
+        ylab(""),
         xlab(""),
         theme_minimal(),
         theme(panel.background = element_rect(fill='transparent')),

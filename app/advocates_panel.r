@@ -58,7 +58,7 @@ advocates_panel <- tabPanel(
                                tags$br(),
                                downloadLink("downloadAll", "Download All Data"))
              ),
-             tags$div(class = "bar-graph",
+             tags$div(class = "bar-graph",textOutput("bar_title"),
                       plotlyOutput("prop_census"),
                       radioGroupButtons("selectedCensusProp", 
                                         label = "Focusing on families with rent spending:",
