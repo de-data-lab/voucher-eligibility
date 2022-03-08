@@ -121,7 +121,7 @@ shinyServer(function(input, output, session) {
                     hoverinfo = "text",
                     hovertemplate = str_wrap_br(
                         paste0("In ", cur_county_name,
-                               ", %{percent:.1%} of eligible families are %{customdata} (%{value:,}  families)",
+                               ", %{percent:.1%} of eligible families are %{customdata}",
                                "<extra></extra>"),
                         width = 60
                     ),
