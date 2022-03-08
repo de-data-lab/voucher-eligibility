@@ -35,5 +35,5 @@ if (Sys.info()[['user']] == 'shiny'){
         print("Neither `python3` or `python` is not in PATH. Make sure that you have Python installed.")
     } 
     Sys.setenv(VIRTUALENV_NAME = VIRTUALENV_NAME) # exclude '/' => installs into ~/.virtualenvs/
-    # RETICULATE_PYTHON is not required locally, RStudio infers it based on the ~/.virtualenvs path
+    Sys.setenv(RETICULATE_PYTHON = paste0('~/.virtualenvs/', VIRTUALENV_NAME, '/bin/python'))
 }
