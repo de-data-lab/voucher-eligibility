@@ -298,10 +298,21 @@ shinyServer(function(input, output, session) {
     output$prop_census <- renderPlotly({
         if(input$selectedCensusProp == "30"){
             plot_prop_census(30, clicked_ids$Clicks)
+            
         } 
         else if(input$selectedCensusProp == "50") {
             plot_prop_census(50, clicked_ids$Clicks)
         }
+    })
+    
+    output$bar_title <- 
+      renderText({
+        if(input$selectedCensusProp == "30"){
+            "% Household Spending 30%+ of income on rent (for All Census Tracts)"
+      }
+      if(input$selectedCensusProp == "50"){
+          "% Household Spending 50%+ of income on rent (for All Census Tracts)"
+      }
     })
     
     output$advoc_table <- renderTable({
@@ -316,6 +327,7 @@ shinyServer(function(input, output, session) {
     
     output$table_desc_plot <- renderPlotly({plot_table_desc("",FALSE)})
     output$table_desc <- renderText({""})
+    output$bar_title <- renderText({"% Household Spending 30%+ of income on rent (for All Census Tracts)"})
     
     observeEvent(input$clear, {
       removePoly <- clicked_ids$Clicks

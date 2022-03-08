@@ -16,8 +16,8 @@ plot_prop_census <- function(perc, ids){
             geom_bar(aes(fill=selected),   # fill depends on cond2
                      stat="identity",
                      position=position_dodge())+
-            ylab("% Spending 30%+ of income on rent")+
-            xlab("Census Tract")+
+            ylab("")+
+            xlab("")+
             theme(panel.background = element_rect(fill = "white"),
                   legend.position="none",
                   axis.text.x=element_blank(),
@@ -39,8 +39,8 @@ plot_prop_census <- function(perc, ids){
             geom_bar(aes(fill=selected),   # fill depends on cond2
                      stat="identity",
                      position=position_dodge())+
-            ylab("% Spending 50%+ of income on rent")+
-            xlab("Census Tract")+
+            ylab("")+
+            xlab("")+
             theme(panel.background = element_rect(fill = "white"),
                   legend.position="none",
                   axis.text.x=element_blank(),
