@@ -31,7 +31,7 @@ geo_data_nogeometry <- geo_data %>%
 
 # Dictionary of counties and keys
 county_list <- c(
-    "all" = "All Delaware",
+    "all" = "Delaware",
     "001" = "Kent County",
     "003" = "New Castle County",
     "005" = "Sussex County")
@@ -105,6 +105,8 @@ shinyServer(function(input, output, session) {
                 filter(COUNTYFP == input$selectedCounty)
         }
         
+        cur_county_name <- county_list[[input$selectedCounty]]
+        
         mainplot_data <- mainplot_data %>%
             group_by(labels) %>%
             summarise(counts = sum(value, na.rm = T))
@@ -113,12 +115,16 @@ shinyServer(function(input, output, session) {
             plot_ly(labels = ~labels, values = ~counts,
                     type = 'pie',
                     textinfo = 'label+percent',
+                    customdata = c("not receiving voucher", "receiving voucher"),
                     textfont = list(size = 15),
                     texttemplate = "%{label} <br> %{percent:.1%}",
                     hoverinfo = "text",
-                    hovertemplate = paste("%{value:,} Eligible Families %{label}",
-                                          "<extra></extra>",
-                                          sep = "<br>"),
+                    hovertemplate = str_wrap_br(
+                        paste0("In ", cur_county_name,
+                               ", %{percent:.1%} of eligible families are %{customdata} (%{value:,}  families)",
+                               "<extra></extra>"),
+                        width = 60
+                    ),
                     insidetextorientation = 'horizontal',
                     showlegend = FALSE,
                     marker = list(
