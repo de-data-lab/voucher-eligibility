@@ -153,9 +153,7 @@ shinyServer(function(input, output, session) {
         else {
             current_plot <- plot_counts_counties(geo_data_nogeometry, 50) 
         }
-        current_plot %>% 
-            ggplotly(tooltip = "y") %>%
-            format_plotly()
+        return(current_plot)
     })
     
     output$prop_counties <- renderPlotly({
