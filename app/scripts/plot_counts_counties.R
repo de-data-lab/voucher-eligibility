@@ -59,6 +59,7 @@ plot_counts_counties <- function(.data, cutoff){
                      width = 30)) %>%
         add_bars(data = plot_data %>% filter(Category == category_label),
                  x = ~count, y = ~county,
+                 marker = list(color = "#FC8D62"),
                  name = str_to_title(family_text),
                  hovertemplate = str_wrap_br(
                      paste0("%{y} County has %{x:,} ", 
