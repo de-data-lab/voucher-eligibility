@@ -24,7 +24,7 @@ This repo contains all scripts and documentation related to out exploratory work
 
 ## Environment Variables
 
-## .Renviron
+### .Renviron
 
 -   `CENSUS_API_KEY`: API key to the Census API
 
