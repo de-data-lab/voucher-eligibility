@@ -170,15 +170,15 @@ shinyServer(function(input, output, session) {
             paste("voucher_data.csv")
         },
         content = function(file) {
-            write.csv(advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-                          dplyr::rename('Census Tract'=NAME) %>% 
-                          select('Census Tract',GEOID,'% Receiving assisstance',
+            write.csv(advoc_table %>% filter(GEOID %in% clicked_ids$Clicks) %>%  
+                          dplyr::rename('Census Tract' = tract) %>% 
+                          select('Census Tract', GEOID, '% Receiving assisstance',
                                  '% Spending 30%+ of income on rent',
                                  '% Spending 50%+ of income on rent',
                                  '# Receiving assisstance',
                                  '# Spending 30%+ of income on rent',
                                  '# Spending 50%+ of income on rent'),
-                      file, row.names = FALSE,col.names=T)
+                      file, row.names = FALSE, col.names=T)
         }
     )
     
@@ -188,14 +188,14 @@ shinyServer(function(input, output, session) {
         },
         content = function(file) {
             write.csv(advoc_table %>%
-                          dplyr::rename('Census Tract'=NAME) %>% 
-                          select('Census Tract',GEOID,'% Receiving assisstance',
+                          dplyr::rename('Census Tract' = tract) %>% 
+                          select('Census Tract', GEOID, '% Receiving assisstance',
                                  '% Spending 30%+ of income on rent',
                                  '% Spending 50%+ of income on rent',
                                  '# Receiving assisstance',
                                  '# Spending 30%+ of income on rent',
                                  '# Spending 50%+ of income on rent') ,
-                      file, row.names = FALSE,col.names=T)
+                      file, row.names = FALSE, col.names=T)
         }
     )
     
