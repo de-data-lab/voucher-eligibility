@@ -330,7 +330,7 @@ shinyServer(function(input, output, session) {
     }, align='ccccc')
     
     output$table_desc_plot <- renderPlotly({plot_table_desc("",FALSE)})
-    output$table_desc <- renderText({""})
+    output$table_desc <- renderText({"Select census tracts"})
     output$bar_title <- renderText({"% Household Spending 30%+ of income on rent (for All Census Tracts)"})
     
     observeEvent(input$clear, {
