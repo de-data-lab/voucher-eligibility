@@ -45,7 +45,8 @@ advocates_panel <- tabPanel(
                     })
                   ")),
         tags$div(class = "bar-graph","% of Households receiving vouchers and spending 30%+ income and 50%+ income on rent",
-                 plotlyOutput("table_desc_plot"),tableOutput("table_desc"))
+                 plotlyOutput("table_desc_plot")#,tableOutput("table_desc")
+                 )
              ),
     tags$div(class = "advoc-container",
              tags$div(class = "advoc-table-container",
@@ -62,13 +63,16 @@ advocates_panel <- tabPanel(
                                tags$br(),
                                downloadLink("downloadAll", "Download All Data"))
              ),
-             tags$div(class = "bar-graph",textOutput("bar_title"),
-                      plotlyOutput("prop_census"),
-                      radioGroupButtons("selectedCensusProp", 
-                                        label = "Focusing on families with rent spending:",
-                                        choices = c("30%+ of income" = "30",
-                                                    "50%+ of income" = "50"),
-                                        selected='30')
+             tags$div(class = "bar-graph",#textOutput("bar_title"),
+                      tags$div(class = "select-threshold plot-title",
+                               selectInput("selectedCensusProp", 
+                                           label = NULL,
+                                           choices = c("Rent burdened - % Household spending 30%+ income on rent" = "30",
+                                                       "Severely rent-burdened % Household spending 50%+ income on rent" = "50"),
+                                           selected = "30",
+                                           width = 800)
+                      ),
+                      plotlyOutput("prop_census")
              )
     )
     

@@ -83,9 +83,9 @@ advoc_map <- geo_data %>%
     addPolygons(fillColor = "#bdc9e1",
                 stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
                 #popup = popUp,
-                color = "#2b8cbe", opacity = 1, weight=2,
+                color = "#66C2A5", opacity = 1, weight=2,
                 highlight=highlightOptions(fillOpacity = 0.8,
-                                           color = "#b30000",
+                                           color = "#FC8D62",
                                            weight = 2,
                                            bringToFront=TRUE),
                 label = ~census_tract_label, layerId = ~GEOID) %>%

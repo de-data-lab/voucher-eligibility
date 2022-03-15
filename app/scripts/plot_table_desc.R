@@ -44,7 +44,7 @@ plot_table_desc <- function(agg_selected,selected){
                      text = ~count,
                      texttemplate = "%{x}%",
                      insidetextanchor = "end",
-                     textposition = "inside",
+                     textposition = "outside",
                      textangle = 0,
                      hovertemplate = txt_all
             ) %>%
@@ -55,7 +55,7 @@ plot_table_desc <- function(agg_selected,selected){
                      text = ~count,
                      texttemplate = "%{x}%",
                      insidetextanchor = "end",
-                     textposition = "inside",
+                     textposition = "outside",
                      textangle = 0,
                      hovertemplate = txt_selected
             ) %>%
@@ -70,9 +70,9 @@ plot_table_desc <- function(agg_selected,selected){
                                 showline = FALSE,
                                 zeroline = FALSE,
                                 categoryorder = "array",
-                                categoryarray = rev(c("Receiving Vouchers","Spending 30%+ income on rent","Spending 50%+ income on rent"))),
+                                categoryarray = rev(c("Spending 30%+ income on rent","Spending 50%+ income on rent","Receiving Vouchers"))),
                    legend = list(traceorder = "normal"),
-                   margin = list(pad = 15),
+                   margin = list(pad = 20),
                    paper_bgcolor = "transparent") %>% 
             format_plotly()
             # ## na.rm = TRUE ensures all values are NA are taken as 0
@@ -117,7 +117,7 @@ plot_table_desc <- function(agg_selected,selected){
                      text = ~count,
                      texttemplate = "%{x}%",
                      insidetextanchor = "end",
-                     textposition = "inside",
+                     textposition = "outside",
                      textangle = 0,
                      hovertemplate = txt_all
             ) %>%
@@ -132,9 +132,9 @@ plot_table_desc <- function(agg_selected,selected){
                                 showline = FALSE,
                                 zeroline = FALSE,
                                 categoryorder = "array",
-                                categoryarray = rev(c("Receiving Vouchers","Spending 30%+ income on rent","Spending 50%+ income on rent"))),
+                                categoryarray = rev(c("Spending 30%+ income on rent","Spending 50%+ income on rent","Receiving Vouchers"))),
                    legend = list(traceorder = "normal"),
-                   margin = list(pad = 15),
+                   margin = list(pad = 20),
                    paper_bgcolor = "transparent") %>% 
             format_plotly()
             # ## na.rm = TRUE ensures all values are NA are taken as 0

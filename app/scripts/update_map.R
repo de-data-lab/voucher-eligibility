@@ -7,7 +7,7 @@ update_map <- function(new_data, to_state,addr,latt,long){
         fillOpacity <- 0.5
     }
     if(to_state == "select"){
-        fill_color <- "#b30000"
+        fill_color <- "#FC8D62"
         fillOpacity <- 0.8
     }
     # popUp <- with(new_data,paste0("<b>Census Tract:</b>",new_data$tract,
@@ -24,7 +24,7 @@ update_map <- function(new_data, to_state,addr,latt,long){
             setView(lng=long, lat=latt, zoom = 10) %>%
             addPolygons(data = new_data,
                         fillColor = fill_color,
-                        color = "#2b8cbe",
+                        color = "#66C2A5",
                         weight = 2,
                         opacity = 1,
                         fillOpacity = 0.5,
@@ -32,7 +32,7 @@ update_map <- function(new_data, to_state,addr,latt,long){
                         #popup = popUp,
                         stroke = TRUE,
                         highlight = highlightOptions(fillOpacity = 0.8,
-                                                     color = "#b30000",
+                                                     color = "#FC8D62",
                                                      weight = 2,
                                                      bringToFront=TRUE),
                         label = ~census_tract_label, layerId = ~GEOID)
@@ -42,7 +42,7 @@ update_map <- function(new_data, to_state,addr,latt,long){
             addTiles() %>%
             addPolygons(data = new_data,
                         fillColor = fill_color,
-                        color = "#2b8cbe",
+                        color = "#66C2A5",
                         weight = 2,
                         opacity = 1,
                         fillOpacity = 0.5,
@@ -50,7 +50,7 @@ update_map <- function(new_data, to_state,addr,latt,long){
                         #popup = popUp,
                         stroke = TRUE,
                         highlight = highlightOptions(fillOpacity = 0.8,
-                                                     color = "#b30000",
+                                                     color = "#FC8D62",
                                                      weight = 2,
                                                      bringToFront=TRUE),
                         label = ~census_tract_label, layerId = ~GEOID)
