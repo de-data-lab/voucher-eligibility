@@ -11,8 +11,8 @@ counties_div <- tags$div(
                                 tags$div("Number of "),
                                 selectInput("selectedNumber", 
                                             label = NULL,
-                                            choices = c("rent-burdened" = "30",
-                                                        "severely rent-burdened" = "50"),
+                                            choices = c("Rent-burdened" = "30",
+                                                        "Severely rent-burdened" = "50"),
                                             selected = "30",
                                             width = 250),
                                 tags$div("families")

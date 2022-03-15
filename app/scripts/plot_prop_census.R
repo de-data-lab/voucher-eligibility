@@ -15,7 +15,8 @@ plot_prop_census <- function(perc, ids){
                                   )))+
             geom_bar(aes(fill=selected),   # fill depends on cond2
                      stat="identity",
-                     position=position_dodge())+
+                     position=position_dodge())+ 
+            scale_fill_manual("legend", values = c("1" = "#FC8D62", "0" = "#66C2A5")) +
             ylab("")+
             xlab("")+
             theme(panel.background = element_rect(fill = "white"),
@@ -39,6 +40,7 @@ plot_prop_census <- function(perc, ids){
             geom_bar(aes(fill=selected),   # fill depends on cond2
                      stat="identity",
                      position=position_dodge())+
+            scale_fill_manual("legend", values = c("1" = "#FC8D62", "0" = "#66C2A5")) +
             ylab("")+
             xlab("")+
             theme(panel.background = element_rect(fill = "white"),
