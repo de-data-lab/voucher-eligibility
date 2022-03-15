@@ -31,7 +31,7 @@ geo_data_nogeometry <- geo_data %>%
 
 # Dictionary of counties and keys
 county_list <- c(
-    "all" = "All Delaware",
+    "all" = "Delaware",
     "001" = "Kent County",
     "003" = "New Castle County",
     "005" = "Sussex County")
@@ -105,6 +105,8 @@ shinyServer(function(input, output, session) {
                 filter(COUNTYFP == input$selectedCounty)
         }
         
+        cur_county_name <- county_list[[input$selectedCounty]]
+        
         mainplot_data <- mainplot_data %>%
             group_by(labels) %>%
             summarise(counts = sum(value, na.rm = T))
@@ -113,12 +115,16 @@ shinyServer(function(input, output, session) {
             plot_ly(labels = ~labels, values = ~counts,
                     type = 'pie',
                     textinfo = 'label+percent',
+                    customdata = c("not receiving voucher", "receiving voucher"),
                     textfont = list(size = 15),
                     texttemplate = "%{label} <br> %{percent:.1%}",
                     hoverinfo = "text",
-                    hovertemplate = paste("%{value:,} Eligible Families %{label}",
-                                          "<extra></extra>",
-                                          sep = "<br>"),
+                    hovertemplate = str_wrap_br(
+                        paste0("In ", cur_county_name,
+                               ", %{percent:.1%} of eligible families are %{customdata}",
+                               "<extra></extra>"),
+                        width = 60
+                    ),
                     insidetextorientation = 'horizontal',
                     showlegend = FALSE,
                     marker = list(
@@ -147,9 +153,7 @@ shinyServer(function(input, output, session) {
         else {
             current_plot <- plot_counts_counties(geo_data_nogeometry, 50) 
         }
-        current_plot %>% 
-            ggplotly(tooltip = "y") %>%
-            format_plotly()
+        return(current_plot)
     })
     
     output$prop_counties <- renderPlotly({
@@ -166,15 +170,15 @@ shinyServer(function(input, output, session) {
             paste("voucher_data.csv")
         },
         content = function(file) {
-            write.csv(advoc_table %>% filter(NAMELSAD %in% clicked_ids$Clicks) %>%  
-                          dplyr::rename('Census Tract'=NAME) %>% 
-                          select('Census Tract',GEOID,'% Receiving assisstance',
+            write.csv(advoc_table %>% filter(GEOID %in% clicked_ids$Clicks) %>%  
+                          dplyr::rename('Census Tract' = tract) %>% 
+                          select('Census Tract', GEOID, '% Receiving assisstance',
                                  '% Spending 30%+ of income on rent',
                                  '% Spending 50%+ of income on rent',
                                  '# Receiving assisstance',
                                  '# Spending 30%+ of income on rent',
                                  '# Spending 50%+ of income on rent'),
-                      file, row.names = FALSE,col.names=T)
+                      file, row.names = FALSE, col.names=T)
         }
     )
     
@@ -184,14 +188,14 @@ shinyServer(function(input, output, session) {
         },
         content = function(file) {
             write.csv(advoc_table %>%
-                          dplyr::rename('Census Tract'=NAME) %>% 
-                          select('Census Tract',GEOID,'% Receiving assisstance',
+                          dplyr::rename('Census Tract' = tract) %>% 
+                          select('Census Tract', GEOID, '% Receiving assisstance',
                                  '% Spending 30%+ of income on rent',
                                  '% Spending 50%+ of income on rent',
                                  '# Receiving assisstance',
                                  '# Spending 30%+ of income on rent',
                                  '# Spending 50%+ of income on rent') ,
-                      file, row.names = FALSE,col.names=T)
+                      file, row.names = FALSE, col.names=T)
         }
     )
     
