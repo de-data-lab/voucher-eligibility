@@ -52,8 +52,8 @@ advocates_panel <- tabPanel(
                           tags$div(class = "bar-graph",
                                    "% of Households receiving vouchers and spending 30%+ income and 50%+ income on rent",
                                    plotlyOutput("table_desc_plot")
-                          )#,
-                          #tableOutput("table_desc")
+                          ),
+                          textOutput("table_desc")
                  ),
                  tags$div(class = "bar-graph",
                           textOutput("bar_title"),
