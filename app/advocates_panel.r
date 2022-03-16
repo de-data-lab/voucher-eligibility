@@ -55,7 +55,8 @@ advocates_panel <- tabPanel(
                           )#,
                           #tableOutput("table_desc")
                  ),
-                 tags$div(class = "bar-graph",#textOutput("bar_title"),
+                 tags$div(class = "bar-graph",
+                          textOutput("bar_title"),
                           plotlyOutput("prop_census"),
                           selectInput("selectedCensusProp", 
                                            label = NULL,
