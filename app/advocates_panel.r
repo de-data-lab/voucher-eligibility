@@ -42,9 +42,9 @@ advocates_panel <- tabPanel(
                                    "or",
                                    tags$br(),
                                    icon("edit"),
-                                   "Search your address"),
+                                   "Look up a census tract using your address"),
                           tags$div(class = "address-input-container",
-                                   searchInput("address", label = NULL, placeholder = "Address",
+                                   searchInput("address", label = NULL, placeholder = "Street Address",
                                                btnSearch = icon("search")),
                                    tags$div(class = "address-message",
                                             textOutput("address_message")
