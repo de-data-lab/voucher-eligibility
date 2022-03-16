@@ -134,6 +134,9 @@
 .explore-contents-container {
     flex: 3;
     margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .advoc-map {
