@@ -64,14 +64,10 @@
     margin-right: auto;
     max-width: 24em;
 }
-.sub-point {
+
+.explore-subtitle {
     text-align: center;
     font-size: 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 5rem;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 27em;
 }
 
 .main-heading-container {
@@ -138,6 +134,9 @@
 .explore-contents-container {
     flex: 3;
     margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .advoc-map {
@@ -336,7 +335,7 @@
     z-index: 20;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: end;
     width: 90%;
 }
 
@@ -345,7 +344,11 @@
     flex-direction: column;
     align-items: flex-start;
     z-index: 10;
-    margin-left: 10px;
+    margin: 2rem;
+}
+
+.form-group.shiny-input-container {
+    width: 100%;
 }
 
 .address-message {
