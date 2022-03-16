@@ -8,13 +8,6 @@ advocates_panel <- tabPanel(
         tags$div(class = "map-container",
                  tags$div(
                      class = "map-header-container",
-                     tags$div(class = "address-input-container",
-                              searchInput("address", label = NULL, placeholder = "Enter your address",
-                                          btnSearch = icon("search")),
-                              tags$div(class = "address-message",
-                                       textOutput("address_message")
-                              )
-                     ),
                      tags$div(
                          class = "clear-all-button", 
                          actionButton("clear", "Clear All"))
@@ -47,6 +40,13 @@ advocates_panel <- tabPanel(
              are receiving Housing Choice Voucher and
               what percentage of households are spending
              more than 30% and 50% of their income on rent")
+                          tags$div(class = "address-input-container",
+                                   searchInput("address", label = NULL, placeholder = "Enter your address",
+                                               btnSearch = icon("search")),
+                                   tags$div(class = "address-message",
+                                            textOutput("address_message")
+                                   )
+                          )
                  ),
                  tags$div(class = "explore-bar-container",
                           tags$div(class = "bar-graph",
