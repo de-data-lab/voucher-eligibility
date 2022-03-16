@@ -119,6 +119,7 @@
     position: sticky;
     top: 0;
     align-self: flex-start;
+    min-width: 30rem;
     /* Special thanks: https://stackoverflow.com/a/44446672/6205282 */
 }
 
@@ -127,10 +128,11 @@
   .explore-page-container {
       flex-direction: column; 
   }
-  .map-container { 
-    flex: 2;
-    position: static;
-    align-self: none!important
+  
+  .map-container {
+      flex: 2;
+      position: static;
+      align-self: auto!important
   }
 }
 
