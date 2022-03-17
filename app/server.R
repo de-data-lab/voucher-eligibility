@@ -235,11 +235,11 @@ shinyServer(function(input, output, session) {
                              of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
                                    of households spending above 50% of income on rent",  sep = " ")})
             #plot_table_desc(agg_selected)
-            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,TRUE)})
+            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected, TRUE)})
         }
         else { 
             output$table_desc <- renderText({""})
-            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,FALSE)})
+            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected, FALSE)})
         }
     })
     

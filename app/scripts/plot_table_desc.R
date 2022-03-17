@@ -22,8 +22,8 @@ plot_table_desc <- function(agg_selected,selected){
         
         table_plot_data <- table_df %>% 
             dplyr::rename(
-                'All Census Tracts'=tot,
-                'Selected Census Tracts'=selected
+                'All Census Tracts' = tot,
+                'Selected Census Tracts' = selected
             ) %>%
             gather(Category, count, -c(info_type))
         
@@ -124,4 +124,3 @@ plot_table_desc <- function(agg_selected,selected){
 
     return(table_plot)
 }
-
