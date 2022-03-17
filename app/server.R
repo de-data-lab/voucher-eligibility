@@ -12,8 +12,6 @@ reticulate::virtualenv_install(virtualenv_dir, packages = PYTHON_DEPENDENCIES, i
 reticulate::use_virtualenv(virtualenv_dir, required = T)
 reticulate::source_python("scripts/geocode.py")
 
-
-
 source("scripts/plotly_settings.R")
 source("scripts/advocates.R")
 source("scripts/plot_prop_counties.R")
