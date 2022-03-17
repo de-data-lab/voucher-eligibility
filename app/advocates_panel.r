@@ -8,13 +8,6 @@ advocates_panel <- tabPanel(
         tags$div(class = "map-container",
                  tags$div(
                      class = "map-header-container",
-                     tags$div(class = "address-input-container",
-                              searchInput("address", label = NULL, placeholder = "Enter your address",
-                                          btnSearch = icon("search")),
-                              tags$div(class = "address-message",
-                                       textOutput("address_message")
-                              )
-                     ),
                      tags$div(
                          class = "clear-all-button", 
                          actionButton("clear", "Clear All"))
@@ -42,20 +35,31 @@ advocates_panel <- tabPanel(
                  tags$div(class = "explore-title-container",
                           tags$div(class = "main-point bold",
                                    "How is your neighborhood doing?"),
-                          tags$div(class = "sub-point",
-                                   "Find out what percentage of households in your neighbourhood
-             are receiving Housing Choice Voucher and
-              what percentage of households are spending
-             more than 30% and 50% of their income on rent")
+                          tags$div(class = "explore-subtitle",
+                                   icon("mouse-pointer"),
+                                   "Select census tracts on the map",
+                                   tags$br(),
+                                   "or",
+                                   tags$br(),
+                                   icon("edit"),
+                                   "Look up a census tract using your address"),
+                          tags$div(class = "address-input-container",
+                                   searchInput("address", label = NULL, placeholder = "Street Address",
+                                               btnSearch = icon("search")),
+                                   tags$div(class = "address-message",
+                                            textOutput("address_message")
+                                   )
+                          )
                  ),
                  tags$div(class = "explore-bar-container",
                           tags$div(class = "bar-graph",
                                    "% of Households receiving vouchers and spending 30%+ income and 50%+ income on rent",
                                    plotlyOutput("table_desc_plot")
-                          )#,
-                          #tableOutput("table_desc")
+                          ),
+                          htmlOutput("table_desc")
                  ),
-                 tags$div(class = "bar-graph",#textOutput("bar_title"),
+                 tags$div(class = "bar-graph",
+                          textOutput("bar_title"),
                           plotlyOutput("prop_census"),
                           selectInput("selectedCensusProp", 
                                            label = NULL,

@@ -234,12 +234,11 @@ shinyServer(function(input, output, session) {
                              households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
                              of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
                                    of households spending above 50% of income on rent",  sep = " ")})
-            #plot_table_desc(agg_selected)
-            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected, TRUE)})
+            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,TRUE)})
         }
         else { 
-            output$table_desc <- renderText({""})
-            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected, FALSE)})
+            output$table_desc <- renderText({"Select census tracts"})
+            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,FALSE)})
         }
     })
     
@@ -270,7 +269,7 @@ shinyServer(function(input, output, session) {
                 clicked_ids$Clicks <- unique(clicked_ids$Clicks)
                 geo<-advoc_table %>%
                     filter(GEOID %in% (found_GEOID$ids))
-                print("in address search")
+                
                 new_data <- geo_data %>% 
                     filter(GEOID %in% (clicked_ids$Clicks))
   
@@ -286,7 +285,6 @@ shinyServer(function(input, output, session) {
                                  households receiving Housing Choice Voucher, <br><b>",agg_30,"% </b>
                                  of households spending above 30% of income on rent and <br><b>",agg_50,"% </b> 
                                        of households spending above 50% of income on rent",  sep = " ")})
-                    #plot_table_desc(agg_selected)
                     output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,TRUE)})
                 }
             },
@@ -343,7 +341,7 @@ shinyServer(function(input, output, session) {
         new_data <- geo_data %>% 
           filter(GEOID %in% (removePoly))
         update_map(new_data, to_state = "deselect",addr=FALSE,latt=NA,long=NA)
-        output$table_desc <- renderText({""})
+        output$table_desc <- renderText({"Select census tracts"})
         output$table_desc_plot <- renderPlotly({plot_table_desc("",FALSE)})
       }
     })
