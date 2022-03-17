@@ -12,7 +12,6 @@ plot_table_desc <- function(agg_selected, is_selected){
                    "Spending 50%+ income on rent")
     # Create table
     tot <- c(0,0,0)
-    tot <- c(0,0,0)
     selected <- c(0,0,0)
     table_df <- data.frame(info_type, tot, selected)
     
@@ -32,9 +31,6 @@ plot_table_desc <- function(agg_selected, is_selected){
         table_df[2,2] <- round((sum(advoc_table$`# Spending 30%+ of income on rent`) / sum(advoc_table$tot_hh)) * 100, digits = 2)
         table_df[3,2] <- round((sum(advoc_table$`# Spending 50%+ of income on rent`) / sum(advoc_table$tot_hh)) * 100, digits = 2)
         
-        # Get the maximum value of x, used for calculating x range
-        xmax <- max(table_df$tot) + max(table_df$tot) * 0.50
-        
         table_plot_data <- table_df %>% 
             dplyr::rename(
                 'All Census Tracts'= tot
@@ -50,9 +46,6 @@ plot_table_desc <- function(agg_selected, is_selected){
         table_df[1,2] <- round((sum(advoc_table$`# Receiving assisstance`) / sum(advoc_table$tot_hh)) * 100, digits = 2)
         table_df[2,2] <- round((sum(advoc_table$`# Spending 30%+ of income on rent`) / sum(advoc_table$tot_hh)) * 100, digits = 2)
         table_df[3,2] <- round((sum(advoc_table$`# Spending 50%+ of income on rent`) / sum(advoc_table$tot_hh)) * 100, digits = 2)
-        
-        # Get the maximum value of x, used for calculating x range
-        xmax <- max(table_df$tot) + max(table_df$tot) * 0.50
         
         table_plot_data <- table_df %>% 
             dplyr::rename(
@@ -90,6 +83,9 @@ plot_table_desc <- function(agg_selected, is_selected){
                      hovertemplate = txt_selected
             )
     }
+    
+    # Calculate the maximum value of x axis, used for calculating x range
+    xmax <- max(table_df$tot) * 1.50
     
     # Update layouting
     table_plot <- table_plot %>%
