@@ -59,14 +59,15 @@ advocates_panel <- tabPanel(
                           htmlOutput("table_desc")
                  ),
                  tags$div(class = "bar-graph",
-                          textOutput("bar_title"),
-                          plotlyOutput("prop_census"),
+                          #textOutput("bar_title"),             
                           selectInput("selectedCensusProp", 
                                            label = NULL,
                                            choices = c("Rent burdened - % Household spending 30%+ income on rent" = "30",
                                                        "Severely rent-burdened % Household spending 50%+ income on rent" = "50"),
                                            selected = "30",
-                                           width = 800)
+                                           width = 800),
+                          "The plot below shows % Households for all Census Tract",
+                          plotlyOutput("prop_census")
                  ),
                  tags$div(class = "advoc-table-container",
                           tags$div(class = "advoc-table",
