@@ -17,7 +17,7 @@ plot_prop_census <- function(perc, ids){
                      stat="identity",
                      position=position_dodge())+ 
             scale_fill_manual("legend", values = c("1" = "#FC8D62", "0" = "#66C2A5")) +
-            ylab("")+
+            ylab("% Spending 30%+ of income on rent")+
             xlab("")+
             theme(panel.background = element_rect(fill = "white"),
                   legend.position="none",
@@ -41,7 +41,7 @@ plot_prop_census <- function(perc, ids){
                      stat="identity",
                      position=position_dodge())+
             scale_fill_manual("legend", values = c("1" = "#FC8D62", "0" = "#66C2A5")) +
-            ylab("")+
+            ylab("% Spending 50%+ of income on rent")+
             xlab("")+
             theme(panel.background = element_rect(fill = "white"),
                   legend.position="none",
