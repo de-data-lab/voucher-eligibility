@@ -40,12 +40,6 @@ recode_scheme <- c("receiving" = "Receiving Voucher",
                    "spending_50" = "Spending 50%+ of income on rent")
 
 plot_table_desc <- function(agg_selected, is_selected){
-    # Label for all census tracts
-    txt_all <- paste0("For all Delaware census tracts, %{x}% of the households %{y}")
-    
-    # Label for selected census tracts
-    txt_selected <- paste0("For all selected census tracts, %{x}% of the households %{y}")
-    
     # Prepare a table for All Delaware
     # If no tracts are selected, return all Delaware 
     all_delaware_data <- to_plotly_data(advoc_table)
