@@ -52,7 +52,7 @@ plot_table_desc <- function(agg_selected, is_selected){
     all_delaware_data <- all_delaware_data %>% 
         mutate(info_type_label = recode(info_type, !!!recode_scheme)) %>%
         mutate(plotly_label = str_glue(
-            "In all Delaware, {pct}% of the households
+            "In all Delaware, {pct}% of the families
                 are {str_to_lower(info_type_label)} "))
     
     # If no plot is selected, get the all Delaware
@@ -68,7 +68,7 @@ plot_table_desc <- function(agg_selected, is_selected){
         selected_data <- selected_data %>% 
             mutate(info_type_label = recode(info_type, !!!recode_scheme)) %>%
             mutate(plotly_label = str_glue(
-                "In the selected census tracts, {pct}% of the households
+                "In the selected census tracts, {pct}% of the families
                 are {str_to_lower(info_type_label)} "))
         
         table_plot_data <- all_delaware_data %>% 
