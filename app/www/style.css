@@ -160,6 +160,11 @@
     width: 100%;
 }
 
+.explore-bar-title {
+    align-self: start;
+    font-weight: bold;
+}
+
 .bar-graph {
     margin: 4rem;
 }
