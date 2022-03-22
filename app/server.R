@@ -271,6 +271,7 @@ shinyServer(function(input, output, session) {
     # Geocode a given address via python when the search is initiated
     found_GEOID <- reactiveValues(ids=vector())
     observeEvent(input$address_search, {
+        # Try getting the GEOID based on a string, when fails, show an error
         tryCatch(
             {
                 found_GEOID$ids <- return_geoid(input$address)
@@ -278,50 +279,61 @@ shinyServer(function(input, output, session) {
                 current_tract_name <- geo_data %>%
                     filter(GEOID == found_GEOID$ids) %>%
                     pull(tract)
-                
+
                 address_message(paste0("Your census tract is: ", current_tract_name))
                 
-                clicked_ids$Clicks <- c(clicked_ids$Clicks, found_GEOID$ids) # name when clicked, id when unclicked
+                clicked_ids$Clicks <- c(clicked_ids$Clicks, found_GEOID$ids)
+                
                 clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-                geo<-advoc_table %>%
+                
+                geo <- advoc_table %>%
                     filter(GEOID %in% (found_GEOID$ids))
                 
                 new_data <- geo_data %>% 
                     filter(GEOID %in% (clicked_ids$Clicks))
   
-                update_map(new_data, to_state = "select",addr=TRUE,latt=geo$latt,long=geo$long)
-                
-                if (length(clicked_ids$Clicks)>0){
-                  agg_notselected <- advoc_table %>% 
-                    filter(!(GEOID %in% clicked_ids$Clicks))
-                  #print(length(agg_selected$GEOID))
-                  #print(length(agg_notselected$GEOID))
-                  agg_receiving <- round((sum(agg_selected$`# Receiving assisstance`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
-                  agg_30 <- round((sum(agg_selected$`# Spending 30%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
-                  agg_50 <- round((sum(agg_selected$`# Spending 50%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
-                  n_above_receving<- agg_notselected %>% filter(`# Receiving assisstance`>agg_receiving) %>% nrow
-                  n_above_30<- agg_notselected %>% filter(`# Spending 30%+ of income on rent`>agg_30) %>% nrow
-                  n_above_50<- agg_notselected %>% filter(`# Spending 50%+ of income on rent`>agg_50) %>% nrow
-                  n_below_receving<- agg_notselected %>% filter(`# Receiving assisstance`<agg_receiving) %>% nrow
-                  n_below_30<- agg_notselected %>% filter(`# Spending 30%+ of income on rent`<agg_30) %>% nrow
-                  n_below_50<- agg_notselected %>% filter(`# Spending 50%+ of income on rent`<agg_50) %>% nrow
-                  output$table_desc <- renderText({paste("Currently selected census tracts has in total: <br><br><b>",agg_30,"% </b>
-                             of households spending above 30% of income on rent <br><font color=\"#43a2ca\"><i>(<b>",n_above_30," 
-                             </b>census tracts are spending above 30% of income on rent and <br><b>",n_below_30,
-                                                         " </b>census tracts are spending above 30% of income on rent)</i></font>, <br><br><b>",agg_50,"% </b> 
-                                   of households spending above 50% of income on rent <br><font color=\"#43a2ca\"><i>(<b>",n_above_50," 
-                             </b>census tracts are spending above 50% of income on rent and <br><b>",n_below_50,
-                                                         " </b>census tracts are spending above 50% of income on rent)</i></font>,<br><br>",agg_receiving,"% </b> of
-                             households receiving Housing Choice Voucher <br><font color=\"#43a2ca\"><i>(<b>",n_above_receving," 
-                             </b>census tracts are receving higher number of vouchers and <br><b>",n_below_receving,
-                                                         " </b>census tracts are receving lower number of vouchers)</i></font><br><b>",  sep = " ")})
-                    output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,TRUE)})
-                }
+                update_map(new_data, to_state = "select",
+                           addr = TRUE,
+                           latt = geo$latt,
+                           long = geo$long)
             },
+            # Show the error message
             error = function(cond){
                 address_message("No place found. Try formatting your address as: \"411 Legislative Ave, Dover, DE\"")
             }
         )
+        
+        # Generate the description string
+        if (length(clicked_ids$Clicks)>0){
+            agg_selected <- advoc_table %>%
+                filter(GEOID %in% clicked_ids$Clicks)
+            
+            agg_notselected <- advoc_table %>% 
+                filter(!(GEOID %in% clicked_ids$Clicks))
+            
+            agg_receiving <- round((sum(agg_selected$`# Receiving assisstance`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
+            agg_30 <- round((sum(agg_selected$`# Spending 30%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
+            agg_50 <- round((sum(agg_selected$`# Spending 50%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
+            
+            n_above_receving <- agg_notselected %>% filter(`# Receiving assisstance`>agg_receiving) %>% nrow
+            n_above_30 <- agg_notselected %>% filter(`# Spending 30%+ of income on rent`>agg_30) %>% nrow
+            n_above_50<- agg_notselected %>% filter(`# Spending 50%+ of income on rent`>agg_50) %>% nrow
+            n_below_receving <- agg_notselected %>% filter(`# Receiving assisstance`<agg_receiving) %>% nrow
+            n_below_30 <- agg_notselected %>% filter(`# Spending 30%+ of income on rent`<agg_30) %>% nrow
+            n_below_50 <- agg_notselected %>% filter(`# Spending 50%+ of income on rent`<agg_50) %>% nrow
+            output$table_desc <- renderText({paste("Currently selected census tracts has in total: <br><br><b>",agg_30,"% </b>
+                             of households spending above 30% of income on rent <br><font color=\"#43a2ca\"><i>(<b>",n_above_30," 
+                             </b>census tracts are spending above 30% of income on rent and <br><b>",n_below_30,
+                                                   " </b>census tracts are spending above 30% of income on rent)</i></font>, <br><br><b>",agg_50,"% </b> 
+                                   of households spending above 50% of income on rent <br><font color=\"#43a2ca\"><i>(<b>",n_above_50," 
+                             </b>census tracts are spending above 50% of income on rent and <br><b>",n_below_50,
+                                                   " </b>census tracts are spending above 50% of income on rent)</i></font>,<br><br>",agg_receiving,"% </b> of
+                             households receiving Housing Choice Voucher <br><font color=\"#43a2ca\"><i>(<b>",n_above_receving," 
+                             </b>census tracts are receving higher number of vouchers and <br><b>",n_below_receving,
+                                                   " </b>census tracts are receving lower number of vouchers)</i></font><br><b>",  sep = " ")})
+            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,TRUE)})
+        }
+        
     }
     )
     
