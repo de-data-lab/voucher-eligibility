@@ -53,13 +53,13 @@ advocates_panel <- tabPanel(
                  ),
                  tags$div(class = "explore-bar-container",
                           tags$div(class = "bar-graph",
-                                   "% of Households receiving vouchers and spending 30%+ income and 50%+ income on rent",
+                                   tags$div(class = "explore-bar-title",
+                                            "Percent of families that are:"),
                                    plotlyOutput("table_desc_plot")
                           ),
                           htmlOutput("table_desc")
                  ),
                  tags$div(class = "bar-graph",
-                          #textOutput("bar_title"),             
                           selectInput("selectedCensusProp", 
                                            label = NULL,
                                            choices = c("Rent burdened - % Household spending 30%+ income on rent" = "30",
