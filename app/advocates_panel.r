@@ -59,7 +59,6 @@ advocates_panel <- tabPanel(
                           htmlOutput("table_desc")
                  ),
                  tags$div(class = "bar-graph",
-                          #textOutput("bar_title"),             
                           selectInput("selectedCensusProp", 
                                            label = NULL,
                                            choices = c("Rent burdened - % Household spending 30%+ income on rent" = "30",
