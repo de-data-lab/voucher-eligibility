@@ -24,7 +24,7 @@ plot_prop_census <- function(perc, ids){
                    group = 1,
                    text = paste("GEOID: ", GEOID,
                                 "<br>Census Tract: ", tract,
-                                "<br>% Spending 30%+ of income on rent: ",
+                                "<br>", as.character(target_var),": ",
                                 !!target_var
                    ))) +
         geom_bar(aes(fill = selected),
