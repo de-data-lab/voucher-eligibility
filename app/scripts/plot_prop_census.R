@@ -1,7 +1,7 @@
 # Plot proportions across counties
 
 plot_prop_census <- function(perc, ids){
-    if (perc==30){
+    if (perc == 30){
         selected_table <- advoc_table %>% 
             mutate_at(vars(GEOID), as.character) %>%
             mutate(selected=ifelse(GEOID %in% ids,"1","0"))%>%
@@ -24,7 +24,7 @@ plot_prop_census <- function(perc, ids){
                   axis.text.x=element_blank(),
                   axis.ticks.x=element_blank())
     }
-    else{
+    else if (perc == 50){
         selected_table<-advoc_table %>% 
             mutate_at(vars(GEOID),as.character) %>%
             mutate(selected=ifelse(GEOID %in% ids,"1","0")) %>%
