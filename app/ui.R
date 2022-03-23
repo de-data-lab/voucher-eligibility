@@ -19,6 +19,7 @@ navbarPage(
     methods_panel,
     footer = tags$div(class = "footer",
                       includeHTML("footer.html"),
-                      tags$script(src = "show_logo.js"))
+                      tags$script(src = "show_logo.js"),
+                      tags$script(src = "add_favicon.js"))
 )
 
