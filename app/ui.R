@@ -11,7 +11,8 @@ navbarPage(
     id = "main_page",
     title = "Housing Choice Voucher in Delaware",
     header = tags$head(
-        tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
+        tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
+        includeHTML("favicon.html")
     ),
     home_panel, # Add a tab panel for home
     advocates_panel,
