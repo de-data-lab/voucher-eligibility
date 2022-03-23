@@ -4,4 +4,3 @@ WORKDIR /home/shinyusr
 COPY app/ /home/shinyusr/app/
 COPY deploy.R deploy.R
 CMD Rscript deploy.R
-
