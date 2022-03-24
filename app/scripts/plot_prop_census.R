@@ -71,7 +71,7 @@ plot_prop_census <- function(perc, ids){
             annotate("text",
                      label = selected_label,
                      x = selected_average_rank,
-                     y = 30,
+                     y = selected_label_position,
                      vjust = "inward", hjust = "inward")
         )
     }
@@ -98,7 +98,7 @@ plot_prop_census <- function(perc, ids){
                               families are {burden_label}"),
                      width = 20),
                  x = average_rank,
-                 y = labl_position) +
+                 y = overall_label_position) +
         scale_fill_manual("legend", values = c("1" = hex_selected,
                                                "0" = hex_default)) +
         scale_x_discrete(expand = expansion(mult = .1)) +
