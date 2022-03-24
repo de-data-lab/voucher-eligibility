@@ -71,8 +71,7 @@ plot_prop_census <- function(perc, ids){
             annotate("text",
                      label = selected_label,
                      x = selected_average_rank,
-                     y = selected_label_position,
-                     vjust = "inward", hjust = "inward")
+                     y = selected_label_position)
         )
     }
     
