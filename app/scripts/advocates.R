@@ -28,25 +28,25 @@ advoc_table <- geo_data %>%
               rent_above30 = sum(above30),
               rent_above50 = sum(above50)) %>%
     mutate(prop_above30 = (rent_above30/tot_hh)*100,
-         prop_above50 = (rent_above50/tot_hh)*100,
-         prop_reported_HUD = (reported_HUD/tot_hh)*100) %>%
-  mutate_at(vars(prop_above30, 
-                 prop_above50,
-                 prop_reported_HUD,
-                 reported_HUD),~ round(., 2)) %>%
-  mutate_at(vars(reported_HUD,
-                 rent_above30,
-                 rent_above50), as.integer) %>%
-  replace(is.na(.), 0) %>%
-  dplyr::rename(
-    '% Receiving assisstance'=prop_reported_HUD,
-    '% Spending 30%+ of income on rent'=prop_above30,
-    '% Spending 50%+ of income on rent'=prop_above50,
-    '# Receiving assisstance'=reported_HUD,
-    '# Spending 30%+ of income on rent'=rent_above30,
-    '# Spending 50%+ of income on rent'=rent_above50,
-  ) 
-
+           prop_above50 = (rent_above50/tot_hh)*100,
+           prop_reported_HUD = (reported_HUD/tot_hh)*100) %>%
+    mutate_at(vars(prop_above30, 
+                   prop_above50,
+                   prop_reported_HUD,
+                   reported_HUD),~ round(., 2)) %>%
+    mutate_at(vars(reported_HUD,
+                   rent_above30,
+                   rent_above50), as.integer) %>%
+    replace(is.na(.), 0) %>%
+    dplyr::rename(
+        '% Receiving assisstance'=prop_reported_HUD,
+        '% Spending 30%+ of income on rent'=prop_above30,
+        '% Spending 50%+ of income on rent'=prop_above50,
+        '# Receiving assisstance'=reported_HUD,
+        '# Spending 30%+ of income on rent'=rent_above30,
+        '# Spending 50%+ of income on rent'=rent_above50,
+    )  %>%
+    ungroup()
 
 for (row in 1:nrow(advoc_table)) {
   #print(row)
