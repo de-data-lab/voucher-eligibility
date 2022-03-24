@@ -39,6 +39,11 @@ plot_prop_census <- function(perc, ids){
         filter(row_number() == average_rank) %>%
         pull(GEOID)
     
+    # Get the max y position 
+    max_y <- selected_table[[target_var]] %>% max()
+    overall_label_position <- max_y - max_y/4
+    selected_label_position <- max_y - max_y/1.5
+    
     # Prepare a list of additional geoms for the selected tracts (if none, blank)
     selected_geoms <- list()
     if(length(ids) > 0){
@@ -71,9 +76,6 @@ plot_prop_census <- function(perc, ids){
         )
     }
     
-    # Get the max y position 
-    max_y <- selected_table[[target_var]] %>% max()
-    labl_position <- max_y - max_y/4
     
     prop_census_plot <- selected_table %>%
         ggplot(aes(x = GEOID,
