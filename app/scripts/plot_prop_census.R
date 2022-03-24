@@ -2,6 +2,7 @@
 
 plot_prop_census <- function(perc, ids){
     
+    # Set colors
     hex_default <- "#66C2A5"
     hex_selected <- "#FC8D62"
     
@@ -38,6 +39,11 @@ plot_prop_census <- function(perc, ids){
         filter(row_number() == average_rank) %>%
         pull(GEOID)
     
+    # Get the max y position 
+    max_y <- selected_table[[target_var]] %>% max()
+    overall_label_position <- max_y - max_y/4
+    selected_label_position <- max_y - max_y/1.5
+    
     # Prepare a list of additional geoms for the selected tracts (if none, blank)
     selected_geoms <- list()
     if(length(ids) > 0){
@@ -65,14 +71,10 @@ plot_prop_census <- function(perc, ids){
             annotate("text",
                      label = selected_label,
                      x = selected_average_rank,
-                     y = 30,
-                     vjust = "inward", hjust = "inward")
+                     y = selected_label_position)
         )
     }
     
-    # Get the max y position 
-    max_y <- selected_table[[target_var]] %>% max()
-    labl_position <- max_y - max_y/4
     
     prop_census_plot <- selected_table %>%
         ggplot(aes(x = GEOID,
@@ -95,7 +97,7 @@ plot_prop_census <- function(perc, ids){
                               families are {burden_label}"),
                      width = 20),
                  x = average_rank,
-                 y = labl_position) +
+                 y = overall_label_position) +
         scale_fill_manual("legend", values = c("1" = hex_selected,
                                                "0" = hex_default)) +
         scale_x_discrete(expand = expansion(mult = .1)) +
