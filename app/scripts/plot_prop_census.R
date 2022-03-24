@@ -2,6 +2,7 @@
 
 plot_prop_census <- function(perc, ids){
     
+    # Set colors
     hex_default <- "#66C2A5"
     hex_selected <- "#FC8D62"
     
