@@ -70,7 +70,6 @@ de_summary_table <- geo_data_nogeometry %>%
            "program_label", "program", "sub_program", "name", "GEOID",
            "rent_per_month", "hh_income", "person_income", 
            "spending_per_month","number_reported") %>%
-    group_by(GEOID) %>% 
     mutate(tot = number_reported)
 
 # function to go to the lookup tool
