@@ -107,6 +107,7 @@
     padding: 1rem;
     min-height: 35rem;
     margin-bottom: 1rem;
+    margin-top: 10rem;
     text-align: center;
 }
 
@@ -158,8 +159,14 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    margin-bottom: 4rem;
 }
 
+.explore-description-container {
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+    font-size: large;
+}
 .explore-bar-title {
     align-self: start;
     font-weight: bold;
@@ -390,6 +397,24 @@
     margin-top: 5px;
 }
 
+/* Inline select iput for the explore page*/
+.explore-select-input .selectize-input.full {
+    border: none;
+    background-color: transparent;
+    border-bottom-style: solid ;
+    border-bottom-width: 1px;
+    border-color: grey;
+    border-radius: 0;
+    text-align: left;
+    margin-top: 5px;
+    
+}
+
+.hbar-description-container {
+    align-items: center;
+    display: flex;
+}
+
 .form-group {
     margin-bottom: 0!important;
 }
@@ -417,10 +442,5 @@
 
 .methods-container {
     max-width: 70rem;
-    margin: auto;
-}
-
-#table_desc {
-    min-height: 10rem;
     margin: auto;
 }
