@@ -239,7 +239,6 @@ shinyServer(function(input, output, session) {
         if (length(clicked_ids$Clicks)>0){
             agg_selected <- advoc_table %>% 
                 filter(GEOID %in% clicked_ids$Clicks)
-            glimpse(agg_selected)
             agg_notselected <- advoc_table %>% 
                 filter(!(GEOID %in% clicked_ids$Clicks))
             #print(length(agg_selected$GEOID))
