@@ -72,6 +72,15 @@ de_summary_table <- geo_data_nogeometry %>%
            "spending_per_month","number_reported") %>%
     mutate(tot = number_reported)
 
+# Summary table for 30 and 50 
+DE_pct <- advoc_table %>% 
+    group_by() %>%
+    summarise(across(c(receiving_assistance = `% Receiving assisstance`,
+                       rent_30 = `% Spending 30%+ of income on rent`,
+                       rent_50 = `% Spending 50%+ of income on rent`),
+                     ~round(mean(.), 1))) %>% 
+    as.list()
+
 # function to go to the lookup tool
 goto_explore_tab <- function(session){
     updateNavbarPage(session, inputId = "main_page", selected = "Explore Your Neighborhood")
