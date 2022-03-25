@@ -267,7 +267,6 @@ shinyServer(function(input, output, session) {
     })
     
     
-    
     # Observe the click to the advocates page
     observeEvent(input$to_advocates_page, {
         goto_explore_tab(session)
@@ -385,7 +384,7 @@ shinyServer(function(input, output, session) {
       print(removePoly)
       remove <- FALSE
       if(length(removePoly) > 0){
-        remove=TRUE
+        remove <- TRUE
       }
       if(remove == TRUE){
         new_data <- geo_data %>% 
@@ -395,5 +394,4 @@ shinyServer(function(input, output, session) {
         output$table_desc_plot <- renderPlotly({plot_table_desc("",FALSE)})
       }
     })
-    
 })
