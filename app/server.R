@@ -322,16 +322,6 @@ shinyServer(function(input, output, session) {
         }
     })
     
-    output$bar_title <- 
-      renderText({
-        if(input$selectedCensusProp == "30"){
-            "% Household Spending 30%+ of income on rent (for All Census Tracts)"
-      }
-      if(input$selectedCensusProp == "50"){
-          "% Household Spending 50%+ of income on rent (for All Census Tracts)"
-      }
-    })
-    
     output$advoc_table <- renderTable({
         output_table <- advoc_table %>% 
             filter(GEOID %in% clicked_ids$Clicks) %>%  
