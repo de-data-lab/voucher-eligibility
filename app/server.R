@@ -346,6 +346,7 @@ shinyServer(function(input, output, session) {
     output$table_desc <- renderText({"Select census tracts"})
     output$bar_title <- renderText({"% Household Spending 30%+ of income on rent (for All Census Tracts)"})
     
+    # Observe for the clicking the "Clear All" button
     observeEvent(input$clear, {
       removePoly <- clicked_ids$Clicks
       clicked_ids$Clicks<-vector()
