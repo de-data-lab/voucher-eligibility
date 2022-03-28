@@ -59,7 +59,7 @@ plot_prop_census <- function(perc, ids){
         selected_average_rank <- which.min(abs(selected_table[[target_var]] - selected_average))
 
         # Set the label for the selected tracts
-        selected_label <- str_glue("In the selected tracts, {selected_average_rounded}% 
+        selected_label <- str_glue("In the selected communities, {selected_average_rounded}% 
                                    of families are {burden_label}") %>% 
             str_wrap(width = 20)
         

@@ -56,18 +56,27 @@ advocates_panel <- tabPanel(
                                    tags$div(class = "explore-bar-title",
                                             "Percent of families that are:"),
                                    plotlyOutput("table_desc_plot")
-                          ),
-                          htmlOutput("table_desc")
+                          )
+
                  ),
+                 tags$div(class = "explore-description-container",
+                          tags$div(class = "hbar-description-container",
+                                   textOutput("h_bar_description"),
+                                   tags$span(class = "explore-select-input",
+                                             selectInput("selectedCensusProp", 
+                                                         label = NULL,
+                                                         choices = c("30% of their income on rent" = "30",
+                                                                     "50% of their income on rent" = "50"),
+                                                         selected = "30", 
+                                                         width = 260))
+                          ),
+                          textOutput("h_bar_last_sentence"),
+                          ),
                  tags$div(class = "bar-graph",
-                          selectInput("selectedCensusProp", 
-                                           label = NULL,
-                                           choices = c("Rent burdened - % Household spending 30%+ income on rent" = "30",
-                                                       "Severely rent-burdened % Household spending 50%+ income on rent" = "50"),
-                                           selected = "30",
-                                           width = 800),
-                          "The plot below shows % Households for all Census Tract",
                           plotlyOutput("prop_census")
+                 ),
+                 tags$div(class = "hbar-description-container",
+                          htmlOutput("table_desc")
                  ),
                  tags$div(class = "advoc-table-container",
                           tags$div(class = "advoc-table",
