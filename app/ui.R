@@ -4,7 +4,7 @@ library(plotly)
 
 # Load tab-panels
 source("home_panel.r")
-source("advocates_panel.r")
+source("explore_panel.R")
 source("methods_panel.R")
 
 navbarPage(
@@ -14,7 +14,7 @@ navbarPage(
         tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
     ),
     home_panel, # Add a tab panel for home
-    advocates_panel,
+    explore_panel,
     methods_panel,
     footer = tags$div(class = "footer",
                       includeHTML("footer.html"),
