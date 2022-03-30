@@ -90,7 +90,8 @@ explore_panel <- tabPanel(
              households in a given cell.",
                                    tags$br(),
                                    downloadLink("downloadAll", "Download All Data"))
-                 )
+                 ),
+                 includeHTML("CTA.html")
         )
     )
 )
