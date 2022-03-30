@@ -7,7 +7,7 @@ home_panel <- tabPanel(
     tags$div(class = "title-container",
              tags$div(class = "title",
                       "How is Delaware helping families in a housing crisis?"),
-             actionLink(inputId = "to_advocates_page", 
+             actionLink(inputId = "to_explore_page", 
                         label = "Explore Your Neighborhood",
                         class = "learn-more-button")
     ),
@@ -134,7 +134,7 @@ home_panel <- tabPanel(
         tags$div(class = "main-point",
                  "Want to learn more about how your neighborhood is doing?"
         ),
-        actionLink(inputId = "to_advocates_page_bottom", 
+        actionLink(inputId = "to_explore_page_bottom", 
                    label = "Explore Your Neighborhood",
                    class = "learn-more-button")
     )

@@ -13,7 +13,7 @@ reticulate::use_virtualenv(virtualenv_dir, required = T)
 reticulate::source_python("scripts/geocode.py")
 
 source("scripts/plotly_settings.R")
-source("scripts/advocates.R")
+source("scripts/explore.R")
 source("scripts/plot_prop_counties.R")
 source("scripts/plot_prop_census.R")
 source("scripts/update_map.R")
@@ -64,7 +64,7 @@ de_summary <- geo_long %>%
 de_summary_percent_str <- de_summary %>% 
     select(labels, percent) %>% deframe()
 
-# Load data for advocates and county tabs
+# Load data for explore and county tabs
 de_summary_table <- geo_data_nogeometry %>% 
     select("gsl", "entities", "sumlevel",
            "program_label", "program", "sub_program", "name", "GEOID",
@@ -315,11 +315,11 @@ shinyServer(function(input, output, session) {
     })
     
     
-    # Observe the click to the advocates page
-    observeEvent(input$to_advocates_page, {
+    # Observe the click to the explore page
+    observeEvent(input$to_explore_page, {
         goto_explore_tab(session)
     })
-    observeEvent(input$to_advocates_page_bottom, {
+    observeEvent(input$to_explore_page_bottom, {
         goto_explore_tab(session)
     })
     

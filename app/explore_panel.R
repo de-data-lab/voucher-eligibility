@@ -1,7 +1,7 @@
-# Advocates Tab Panel
+# Explore Tab Panel
 library(shinyWidgets)
 
-advocates_panel <- tabPanel(
+explore_panel <- tabPanel(
     title = "Explore Your Neighborhood",
     tags$div(
         class = "explore-page-container",
