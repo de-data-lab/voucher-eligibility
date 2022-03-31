@@ -267,7 +267,8 @@ shinyServer(function(input, output, session) {
             # Update descriptions
             n_selected <- clicked_ids$Clicks %>% length()
             output$h_bar_region <- renderText({str_glue("the selected {n_selected} tracts")})
-            # Show percent for the selected trats
+            
+            # Show percent for the selected tracts
             if(input$selectedCensusProp == "30"){
                 h_bar_pct <- DE_pct$rent_30
                 target_var <- sym("% Spending 30%+ of income on rent")
@@ -275,7 +276,12 @@ shinyServer(function(input, output, session) {
             if(input$selectedCensusProp == "50"){
                 h_bar_pct <- DE_pct$rent_50
                 target_var <- sym("% Spending 50%+ of income on rent")
-            } 
+            }
+            if(input$selectedCensusProp == "receiving_voucher"){
+                h_bar_pct <- DE_pct$receiving_assistance
+                target_var <- sym("% Receiving assisstance")
+            }
+            
             h_bar_region <- str_glue("the selected communities")
             selected_pct_avg <- agg_selected %>%
                 group_by() %>%
@@ -298,6 +304,9 @@ shinyServer(function(input, output, session) {
             } 
             if(input$selectedCensusProp == "50"){
                 h_bar_pct <- DE_pct$rent_50
+            }
+            if(input$selectedCensusProp == "receiving_voucher"){
+                h_bar_pct <- DE_pct$receiving_assistance
             } 
             # Set the label for the region
             h_bar_region <- "Delaware"
@@ -309,8 +318,7 @@ shinyServer(function(input, output, session) {
         h_bar_pct_rounded <- h_bar_pct %>% round(1)
         # Render the description text 
         output$h_bar_description <- renderText({
-            str_glue("{h_bar_pct_rounded}% of families in {h_bar_region} spent at 
-                         least ")
+            str_glue("{h_bar_pct_rounded}% of families in {h_bar_region} ")
         })
     })
     
@@ -367,6 +375,8 @@ shinyServer(function(input, output, session) {
         } 
         else if(input$selectedCensusProp == "50") {
             plot_prop_census(50, clicked_ids$Clicks)
+        } else if(input$selectedCensusProp == "receiving_voucher"){
+            plot_prop_census("receiving_voucher", clicked_ids$Clicks)
         }
     })
     
