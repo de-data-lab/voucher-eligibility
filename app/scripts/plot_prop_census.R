@@ -12,6 +12,9 @@ plot_prop_census <- function(perc, ids){
     } else if (perc == 50){
         target_var <- sym("% Spending 50%+ of income on rent")
         burden_label <- "severely rent-burdened"
+    } else if (perc == "receiving_voucher"){
+        target_var <- sym("% Receiving assisstance")
+        burden_label <- "receiving voucher"
     }
     
     selected_table <- advoc_table %>% 

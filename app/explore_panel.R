@@ -65,10 +65,11 @@ explore_panel <- tabPanel(
                                    tags$span(class = "explore-select-input",
                                              selectInput("selectedCensusProp", 
                                                          label = NULL,
-                                                         choices = c("30% of their income on rent" = "30",
-                                                                     "50% of their income on rent" = "50"),
-                                                         selected = "30", 
-                                                         width = 260))
+                                                         choices = c("are spending 30% of their income on rent" = "30",
+                                                                     "are spending 50% of their income on rent" = "50",
+                                                                     "are receiving voucher" = "receiving_voucher"),
+                                                         selected = "30",
+                                                         width = 360))
                           ),
                           textOutput("h_bar_last_sentence"),
                           ),
