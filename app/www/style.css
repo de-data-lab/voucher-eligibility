@@ -159,7 +159,6 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-bottom: 4rem;
 }
 
 .explore-description-container {
@@ -407,6 +406,8 @@
     border-radius: 0;
     text-align: left;
     margin-top: 5px;
+    padding-right: 38px;
+    white-space: nowrap;
     
 }
 
