@@ -159,7 +159,6 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-bottom: 4rem;
 }
 
 .explore-description-container {
@@ -407,6 +406,8 @@
     border-radius: 0;
     text-align: left;
     margin-top: 5px;
+    padding-right: 38px;
+    white-space: nowrap;
     
 }
 
@@ -445,3 +446,37 @@
     max-width: 70rem;
     margin: auto;
 }
+
+.bar-footnote-container {
+    align-self: end;
+    color: grey;
+}
+
+
+/* Tooltips */
+
+.tooltip-span {
+  position: relative;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip-span .tooltip-text {
+    visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 5px 5px;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 10%;
+  margin-left: -60px;
+}
+
+.tooltip-span:hover .tooltip-text {
+  visibility: visible;
+}
+

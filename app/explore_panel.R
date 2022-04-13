@@ -59,17 +59,26 @@ explore_panel <- tabPanel(
                           )
 
                  ),
+                 tags$div(class = "bar-footnote-container",
+                          tags$span(class = "tooltip-span",
+                                    icon(name = "question-circle"), "What do \"rent-burdnened\" and \"severely rent-burdened\" mean?",
+                                    tags$span(class = "tooltip-text",
+                                              "Families spending more than 30% of their income on
+                                              rent are considered \"rent-burdened\". 
+                                              If they are spending more than 50%, they are considered
+                                              \"severely rent-burdened\"."))
+                 ),
                  tags$div(class = "explore-description-container",
                           tags$div(class = "hbar-description-container",
                                    textOutput("h_bar_description"),
                                    tags$span(class = "explore-select-input",
                                              selectInput("selectedCensusProp", 
                                                          label = NULL,
-                                                         choices = c("are spending 30% of their income on rent" = "30",
-                                                                     "are spending 50% of their income on rent" = "50",
-                                                                     "are receiving voucher" = "receiving_voucher"),
+                                                         choices = c("rent-burdened" = "30",
+                                                                     "severely rent-burdened" = "50",
+                                                                     "receiving voucher" = "receiving_voucher"),
                                                          selected = "30",
-                                                         width = 360))
+                                                         width = 250))
                           ),
                           textOutput("h_bar_last_sentence"),
                           ),

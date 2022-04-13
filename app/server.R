@@ -318,7 +318,7 @@ shinyServer(function(input, output, session) {
         h_bar_pct_rounded <- h_bar_pct %>% round(1)
         # Render the description text 
         output$h_bar_description <- renderText({
-            str_glue("{h_bar_pct_rounded}% of families in {h_bar_region} ")
+            str_glue("{h_bar_pct_rounded}% of families in {h_bar_region} are ")
         })
     })
     

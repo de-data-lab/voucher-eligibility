@@ -35,9 +35,9 @@ to_plotly_data <- function(.data){
     return(.data)
 }
 
-recode_scheme <- c("receiving" = "Receiving Voucher",
-                   "spending_30" = "Spending 30%+ of income on rent",
-                   "spending_50" = "Spending 50%+ of income on rent")
+recode_scheme <- c("spending_30" = "Rent-burdened",
+                   "spending_50" = "Severely rent-burdened",
+                   "receiving" = "Receiving voucher")
 
 plot_table_desc <- function(agg_selected, is_selected){
     # Prepare a table for All Delaware
@@ -128,9 +128,7 @@ plot_table_desc <- function(agg_selected, is_selected){
                                 showline = FALSE,
                                 zeroline = FALSE,
                                 categoryorder = "array",
-                                categoryarray = rev(c("Spending 30%+ income on rent",
-                                                      "Spending 50%+ income on rent",
-                                                      "Receiving Vouchers"))),
+                                categoryarray = rev(c(recode_scheme))),
                    legend = list(traceorder = "reversed",
                                  orientation = 'h'),
                    margin = list(pad = 20)) %>% 
