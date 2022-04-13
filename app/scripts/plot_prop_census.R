@@ -104,7 +104,8 @@ plot_prop_census <- function(perc, ids){
         scale_fill_manual("legend", values = c("1" = hex_selected,
                                                "0" = hex_default)) +
         scale_x_discrete(expand = expansion(mult = .1)) +
-        ylab(as.character(target_var))+
+        scale_y_continuous(labels = function(x) paste0(x, "%")) + 
+        ylab(str_to_title(burden_label))+
         xlab("")+
         theme(panel.background = element_rect(fill = "white"),
               legend.position = "none",
