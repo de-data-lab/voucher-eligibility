@@ -61,7 +61,7 @@ explore_panel <- tabPanel(
                  ),
                  tags$div(class = "bar-footnote-container",
                           tags$span(class = "tooltip-span",
-                                    "What do \"rent-burdnened\" and \"severely rent-burdened\" mean?",
+                                    icon(name = "question-circle"), "What do \"rent-burdnened\" and \"severely rent-burdened\" mean?",
                                     tags$span(class = "tooltip-text",
                                               "Families spending more than 30% of their income on
                                               rent are considered \"rent-burdened\". 
