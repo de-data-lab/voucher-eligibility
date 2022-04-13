@@ -65,7 +65,7 @@ explore_panel <- tabPanel(
                                     tags$span(class = "tooltip-text",
                                               "Families spending more than 30% of their income on
                                               rent are considered \"rent-burdened\". 
-                                              If they are spending more than 50%, they are considered as
+                                              If they are spending more than 50%, they are considered
                                               \"severely rent-burdened\"."))
                  ),
                  tags$div(class = "explore-description-container",
