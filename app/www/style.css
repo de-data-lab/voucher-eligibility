@@ -416,3 +416,15 @@
     min-height: 10rem;
     margin: auto;
 }
+
+
+/* Avoid wrapping the logo in the navbar */
+.logo-container {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.logo-image {
+    width: 9em;
+}
