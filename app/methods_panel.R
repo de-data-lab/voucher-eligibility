@@ -21,7 +21,12 @@ methods_panel <- tabPanel(
              ),
              "We defined households potentially eligible for housing vouchers by 
              calculating renter households paying 30% or more income on rent. We
-             also excluded households with gross income exceeding $100,000.")
-    )
+             also excluded households with gross income exceeding $100,000.",
+             tags$p(
+             "When calculating aggregates across census tracts, 
+             we average the numbers across census tracts. ")
+             ),
+    
+    ),
 )
 

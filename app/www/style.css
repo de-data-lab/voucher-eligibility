@@ -64,14 +64,10 @@
     margin-right: auto;
     max-width: 24em;
 }
-.sub-point {
+
+.explore-subtitle {
     text-align: center;
     font-size: 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 5rem;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 27em;
 }
 
 .main-heading-container {
@@ -111,6 +107,7 @@
     padding: 1rem;
     min-height: 35rem;
     margin-bottom: 1rem;
+    margin-top: 10rem;
     text-align: center;
 }
 
@@ -119,6 +116,7 @@
     position: sticky;
     top: 0;
     align-self: flex-start;
+    min-width: 30rem;
     /* Special thanks: https://stackoverflow.com/a/44446672/6205282 */
 }
 
@@ -127,10 +125,11 @@
   .explore-page-container {
       flex-direction: column; 
   }
-  .map-container { 
-    flex: 2;
-    position: static;
-    align-self: none!important
+  
+  .map-container {
+      flex: 2;
+      position: static;
+      align-self: auto!important
   }
 }
 
@@ -138,6 +137,9 @@
 .explore-contents-container {
     flex: 3;
     margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .advoc-map {
@@ -156,13 +158,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+}
+
+.explore-description-container {
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+    font-size: large;
+}
+.explore-bar-title {
+    align-self: start;
+    font-weight: bold;
 }
 
 .bar-graph {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 5rem;
+    width: 90%;
 }
 
 .table-footnote {
@@ -336,7 +346,7 @@
     z-index: 20;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: end;
     width: 90%;
 }
 
@@ -345,7 +355,11 @@
     flex-direction: column;
     align-items: flex-start;
     z-index: 10;
-    margin-left: 10px;
+    margin: 2rem;
+}
+
+.form-group.shiny-input-container {
+    width: 100%;
 }
 
 .address-message {
@@ -382,6 +396,27 @@
     margin-top: 5px;
 }
 
+/* Inline select iput for the explore page*/
+.explore-select-input .selectize-input.full {
+    border: none;
+    background-color: transparent;
+    border-bottom-style: solid ;
+    border-bottom-width: 1px;
+    border-color: grey;
+    border-radius: 0;
+    text-align: left;
+    margin-top: 5px;
+    padding-right: 38px;
+    white-space: nowrap;
+    
+}
+
+.hbar-description-container {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .form-group {
     margin-bottom: 0!important;
 }
@@ -412,11 +447,38 @@
     margin: auto;
 }
 
-#table_desc {
-    min-height: 10rem;
-    margin: auto;
+.bar-footnote-container {
+    align-self: end;
+    color: grey;
 }
 
+
+/* Tooltips */
+
+.tooltip-span {
+  position: relative;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip-span .tooltip-text {
+    visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 5px 5px;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 10%;
+  margin-left: -60px;
+}
+
+.tooltip-span:hover .tooltip-text {
+  visibility: visible;
+}
 
 /* Avoid wrapping the logo in the navbar */
 .logo-container {
@@ -433,3 +495,6 @@
 .navbar-padding {
     width: 9em;
 }
+
+
+
