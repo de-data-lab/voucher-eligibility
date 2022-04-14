@@ -2,6 +2,14 @@
 
 This repo contains all scripts and documentation related to out exploratory work on Housing Choice Voucher (Section 8) assistance eligibility across Delaware.
 
+## Overview
+[Housing Choice Voucher (Section 8)](https://www.hud.gov/topics/housing_choice_voucher_program_section_8) provides housing for families in a housing crisis in the US. However, the program struggles to provide vouchers to most qualified families. We built this app to help people learn how well the program is doing in Delaware.
+
+We draw data from [HUD](https://www.huduser.gov/portal/datasets/assthsg.html) and [ACS](https://www.census.gov/programs-surveys/acs).
+
+We make the source code of this app publicly available, so that we can allow anyone to see how we source data and report findings. Please feel free to submit an issue. 
+
+
 ## App
 
 -   The main branch is deployed at <https://techimpact.shinyapps.io/housing-voucher>
