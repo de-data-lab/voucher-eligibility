@@ -428,3 +428,8 @@
 .logo-image {
     width: 9em;
 }
+
+/* Add a hidden element with the same width as the logo to avoid overlapping */
+.navbar-padding {
+    width: 9em;
+}
