@@ -7,7 +7,7 @@ This repo contains all scripts and documentation related to out exploratory work
 
 We draw data from [HUD](https://www.huduser.gov/portal/datasets/assthsg.html) and [ACS](https://www.census.gov/programs-surveys/acs).
 
-We make the source code of this app publicly available, so that we can allow anyone to see how we source data and report findings. Please feel free to submit an issue. 
+We make the source code of this app publicly available so that anyone can see how we combine data and report findings. Please feel free to submit an issue if you notice any errors or have suggestions.
 
 
 ## App
