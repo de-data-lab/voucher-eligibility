@@ -495,14 +495,3 @@
 .navbar-padding {
     width: 9em;
 }
-
-
-/* Remove the x-paddings to show the hero image without borders */
-.container-fluid {
-    padding-right: 0;
-    padding-left: 0;
-    overflow: hidden;
-}
-
-
-
