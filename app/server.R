@@ -2,15 +2,7 @@ library(shiny)
 library(tidyverse)
 library(plotly)
 library(sf)
-
-PYTHON_DEPENDENCIES = c('pip', 'censusgeocode')
-virtualenv_dir = Sys.getenv('VIRTUALENV_NAME')
-python_path = Sys.getenv('PYTHON_PATH')
-# Create virtual env and install dependencies
-reticulate::virtualenv_create(envname = virtualenv_dir, python = python_path)
-reticulate::virtualenv_install(virtualenv_dir, packages = PYTHON_DEPENDENCIES, ignore_installed=TRUE)
-reticulate::use_virtualenv(virtualenv_dir, required = T)
-reticulate::source_python("scripts/geocode.py")
+library(censusxy)
 
 source("scripts/plotly_settings.R")
 source("scripts/explore.R")
@@ -337,13 +329,18 @@ shinyServer(function(input, output, session) {
         # Try getting the GEOID based on a string, when fails, show an error
         tryCatch(
             {
-                found_GEOID$ids <- return_geoid(input$address)
+                # Use censusxy to geocode one address 
+                matched_address <- cxy_oneline(input$address,
+                                               return = 'geographies',
+                                               vintage = 'ACS2018_Current')
+                # Get the matched GEOID
+                matched_GEOID <- matched_address$geographies.Census.Tracts.GEOID
+                # Add the matched GEOID to the reactive value
+                found_GEOID$ids <- matched_GEOID
                 
-                current_tract_name <- geo_data %>%
-                    filter(GEOID == found_GEOID$ids) %>%
-                    pull(tract)
-
-                address_message(paste0("Your census tract is: ", current_tract_name))
+                # Get the census tract name and show it
+                matched_tract_name <- matched_address$geographies.Census.Tracts.BASENAME
+                address_message(paste0("Your census tract is: ", matched_tract_name))
                 
                 clicked_ids$Clicks <- c(clicked_ids$Clicks, found_GEOID$ids)
                 
