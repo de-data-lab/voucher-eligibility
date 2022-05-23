@@ -4,7 +4,7 @@ source("counties.R")
 home_panel <- tabPanel(
     id = "home",
     title = "Home",
-    tags$div(class = "title-container",
+    fluidRow(class = "title-container",
              tags$div(class = "title",
                       "How is Delaware helping families in a housing crisis?"),
              actionLink(inputId = "to_explore_page", 
@@ -109,7 +109,7 @@ home_panel <- tabPanel(
              )
     ),
     includeHTML("CTA.html"), # Call-to-action section
-    tags$div(
+    fluidRow(
         id = "learn-more-container",
         class = "learn-more--container",
         tags$div(class = "main-point",
