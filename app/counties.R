@@ -1,4 +1,4 @@
-# Counties Panel
+# Counties Plot
 
 counties_div <- tags$div(
     tags$div(class = "main-point-container",  
