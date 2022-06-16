@@ -13,7 +13,7 @@ navbarPage(
     header = tags$head(
         tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
     ),
-    home_panel, # Add a tab panel for home
+    home_panel(), # Add a tab panel for home
     explore_panel,
     methods_panel,
     footer = div(class = "footer",
