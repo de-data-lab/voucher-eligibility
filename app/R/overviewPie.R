@@ -1,5 +1,5 @@
 overviewPieUI <- function(id){
-    plotCard(main_text = list(textOutput(NS(id, "pie_main_text"))), 
+    plotCard(main_text = textOutput(NS(id, "pie_main_text")), 
              secondary_text = list(div("Rent-burdened families in "),
                                    selectInput(NS(id, "selected_county"), 
                                                label = NULL,
