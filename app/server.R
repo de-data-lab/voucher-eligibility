@@ -4,13 +4,13 @@ library(plotly)
 library(sf)
 library(censusxy)
 
-source("scripts/plotly_settings.R")
-source("scripts/explore.R")
-source("scripts/plot_prop_counties.R")
-source("scripts/plot_prop_census.R")
-source("scripts/update_map.R")
-source("scripts/plot_counts_counties.R")
-source("scripts/plot_table_desc.R")
+source("R/plotly_settings.R")
+source("R/explore.R")
+source("R/plot_prop_counties.R")
+source("R/plot_prop_census.R")
+source("R/update_map.R")
+source("R/plot_counts_counties.R")
+source("R/plot_table_desc.R")
 
 # Load Data
 acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
@@ -30,39 +30,6 @@ county_list <- c(
 geo_data_nogeometry <- geo_data_nogeometry %>%
     mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
                                     " County"))
-
-# Reshape the dataset into the long format for summarizing 
-geo_long <- geo_data_nogeometry %>%
-    mutate(number_not_using = eligible_renters - number_reported) %>%
-    select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
-    pivot_longer(cols = c("number_not_using", "number_reported")) %>%
-    mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
-                              name == "number_reported" ~ "Receiving Voucher"))
-
-geo_long_50 <- geo_data_nogeometry %>%
-    mutate(number_not_using = eligible_renters_50pct - number_reported) %>%
-    select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
-    pivot_longer(cols = c("number_not_using", "number_reported")) %>%
-    mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
-                              name == "number_reported" ~ "Receiving Voucher"))
-
-# Get the summarized data for rendering percentages
-de_summary <- geo_long %>% 
-    group_by(labels) %>%
-    summarise(counts = sum(value, na.rm = T)) %>%
-    mutate(percent = 100 * counts / sum(counts))
-
-# Get the vector of percentages of people receiving vs not receiving voucher
-de_summary_percent_str <- de_summary %>% 
-    select(labels, percent) %>% deframe()
-
-# Load data for explore and county tabs
-de_summary_table <- geo_data_nogeometry %>% 
-    select("gsl", "entities", "sumlevel",
-           "program_label", "program", "sub_program", "name", "GEOID",
-           "rent_per_month", "hh_income", "person_income", 
-           "spending_per_month","number_reported") %>%
-    mutate(tot = number_reported)
 
 # Summary table for 30 and 50 
 DE_pct <- advoc_table %>% 
@@ -93,76 +60,18 @@ shinyServer(function(input, output, session) {
         }
     })
     
-    output$mainplot <- renderPlotly({
-        
-        # If the county is not selected, show the Delaware overall
-        if(input$selectedCounty == "all"){
-            mainplot_data <- geo_long 
-        } else {
-            mainplot_data <- geo_long %>%
-                filter(COUNTYFP == input$selectedCounty)
-        }
-        
-        cur_county_name <- county_list[[input$selectedCounty]]
-        
-        mainplot_data <- mainplot_data %>%
-            group_by(labels) %>%
-            summarise(counts = sum(value, na.rm = T))
-        
-        mainplot_data %>%
-            plot_ly(labels = ~labels, values = ~counts,
-                    type = 'pie',
-                    textinfo = 'label+percent',
-                    customdata = c("not receiving voucher", "receiving voucher"),
-                    textfont = list(size = 15),
-                    texttemplate = "%{label} <br> %{percent:.1%}",
-                    hoverinfo = "text",
-                    hovertemplate = str_wrap_br(
-                        paste0("In ", cur_county_name,
-                               ", %{percent:.1%} of eligible families are %{customdata}",
-                               "<extra></extra>"),
-                        width = 60
-                    ),
-                    insidetextorientation = 'horizontal',
-                    showlegend = FALSE,
-                    marker = list(
-                        colors = c("#FC8D62", # Brewer Set 2 orange
-                                   "#66C2A5") # Brewer Set 2 green
-                    )) %>%
-            layout(margin = list(t = 50)) %>%
-            format_plotly()
-        
-    })
-    
-    output$main_text <- renderText(
-        paste0("However, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
-               "% of the Delaware families needing a voucher are receiving it")
-    )
-    
+    # Server function to draw the pie chart
+    overview_pie_server("overview_pie", geo_data_nogeometry)
+    # Server function for the families count plot 
+    families_count_plot_server("familiesCountPlot", geo_data_nogeometry)
+    # Server function for the families prop plot
+    familiesPropPlotServer("familiesPropPlot", geo_data_nogeometry)
+
     output$GEOID_selector <- renderUI({
         multiInput("GEOID_selector", "Choose Census Tract",
                    choices = advoc_table$NAMELSAD)
     })
-    
-    output$number_county <- renderPlotly({
-        if(input$selectedNumber == "30"){
-            current_plot <- plot_counts_counties(geo_data_nogeometry, 30) 
-        } 
-        else {
-            current_plot <- plot_counts_counties(geo_data_nogeometry, 50) 
-        }
-        return(current_plot)
-    })
-    
-    output$prop_counties <- renderPlotly({
-        if(input$selectedProp == "30"){
-            plot_prop_counties(geo_long, input$selectedProp)
-        } 
-        else {
-            plot_prop_counties(geo_long_50, input$selectedProp)
-        }
-    })
-    
+
     output$downloadData <- downloadHandler(
         filename = function() {
             paste("voucher_data.csv")
