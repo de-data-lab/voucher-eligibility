@@ -31,31 +31,6 @@ geo_data_nogeometry <- geo_data_nogeometry %>%
     mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
                                     " County"))
 
-# Reshape the dataset into the long format for summarizing 
-geo_long <- geo_data_nogeometry %>%
-    mutate(number_not_using = eligible_renters - number_reported) %>%
-    select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
-    pivot_longer(cols = c("number_not_using", "number_reported")) %>%
-    mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
-                              name == "number_reported" ~ "Receiving Voucher"))
-
-geo_long_50 <- geo_data_nogeometry %>%
-    mutate(number_not_using = eligible_renters_50pct - number_reported) %>%
-    select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
-    pivot_longer(cols = c("number_not_using", "number_reported")) %>%
-    mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
-                              name == "number_reported" ~ "Receiving Voucher"))
-
-# Get the summarized data for rendering percentages
-de_summary <- geo_long %>% 
-    group_by(labels) %>%
-    summarise(counts = sum(value, na.rm = T)) %>%
-    mutate(percent = 100 * counts / sum(counts))
-
-# Get the vector of percentages of people receiving vs not receiving voucher
-de_summary_percent_str <- de_summary %>% 
-    select(labels, percent) %>% deframe()
-
 # Load data for explore and county tabs
 de_summary_table <- geo_data_nogeometry %>% 
     select("gsl", "entities", "sumlevel",
@@ -94,7 +69,7 @@ shinyServer(function(input, output, session) {
     })
     
     # Server function to draw the pie chart
-    overviewPieServer("overviewPie", geo_long)
+    overviewPieServer("overviewPie", geo_data_nogeometry)
     # Server function for the families count plot 
     familiesCountPlotServer("familiesCountPlot", geo_data_nogeometry)
     

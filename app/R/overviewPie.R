@@ -1,3 +1,6 @@
+# A Shiny module for the pie chart showing an overview of the 
+# proportion of voucher participants among eligible families
+
 overviewPieUI <- function(id){
     plotCard(main_text = textOutput(NS(id, "pie_main_text")), 
              secondary_text = list(div("Rent-burdened families in "),
@@ -11,7 +14,16 @@ overviewPieUI <- function(id){
              plot_content = plotlyOutput(NS(id, "overview_pie_plot")))
 }
 
-overviewPieServer <- function(id, geo_long){
+overviewPieServer <- function(id, geo_data_nogeometry){
+    
+    # Reshape the dataset into the long format for summarizing 
+    geo_long <- geo_data_nogeometry %>%
+        mutate(number_not_using = eligible_renters - number_reported) %>%
+        select(GEOID, COUNTYFP, county_name, number_not_using, number_reported) %>%
+        pivot_longer(cols = c("number_not_using", "number_reported")) %>%
+        mutate(labels = case_when(name == "number_not_using" ~ "Not Receiving Voucher",
+                                  name == "number_reported" ~ "Receiving Voucher"))
+    
     moduleServer(id, function(input, output, session) {
         # County List 
         county_list <- c(
