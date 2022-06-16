@@ -3,9 +3,9 @@ library(leaflet)
 library(plotly)
 
 # Load tab-panels
-source("home_panel.r")
-source("explore_panel.R")
-source("methods_panel.R")
+source("R/home_panel.r")
+source("R/explore_panel.R")
+source("R/methods_panel.R")
 
 navbarPage(
     id = "main_page",
