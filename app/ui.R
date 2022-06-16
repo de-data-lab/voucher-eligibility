@@ -16,8 +16,8 @@ navbarPage(
     home_panel, # Add a tab panel for home
     explore_panel,
     methods_panel,
-    footer = tags$div(class = "footer",
-                      includeHTML("footer.html"),
-                      tags$script(src = "show_logo.js"))
+    footer = div(class = "footer",
+                 includeHTML("footer.html"),
+                 tags$script(src = "show_logo.js"))
 )
 
