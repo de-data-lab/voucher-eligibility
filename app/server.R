@@ -95,6 +95,9 @@ shinyServer(function(input, output, session) {
     
     # Server function to draw the pie chart
     overviewPieServer("overviewPie", geo_long)
+    # Server function for the families count plot 
+    familiesCountPlotServer("familiesCountPlot", geo_data_nogeometry)
+    
     
     output$main_text <- renderText(
         paste0("However, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
@@ -104,16 +107,6 @@ shinyServer(function(input, output, session) {
     output$GEOID_selector <- renderUI({
         multiInput("GEOID_selector", "Choose Census Tract",
                    choices = advoc_table$NAMELSAD)
-    })
-    
-    output$number_county <- renderPlotly({
-        if(input$selectedNumber == "30"){
-            current_plot <- plot_counts_counties(geo_data_nogeometry, 30) 
-        } 
-        else {
-            current_plot <- plot_counts_counties(geo_data_nogeometry, 50) 
-        }
-        return(current_plot)
     })
     
     output$prop_counties <- renderPlotly({

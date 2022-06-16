@@ -4,6 +4,7 @@ source("counties.R")
 source("R/mainPoint.R")
 source("R/plotCard.R")
 source("R/overviewPie.R")
+source("R/familiesCountPlot.R")
 
 home_panel <- function(){
     tabPanel(
@@ -37,6 +38,7 @@ home_panel <- function(){
                   icon = icon("hand-holding-heart")),
         # Render the pie chart showing the proportion of renters receiving voucher
         overviewPieUI("overviewPie"),
+        familiesCountPlotUI("familiesCountPlot"),
         # Render the horizontal bar chart showing the number of families across counties
         counties_div, 
         includeHTML("CTA.html"), # Call-to-action section
