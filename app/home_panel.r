@@ -2,6 +2,8 @@
 library(shinyWidgets)
 source("counties.R")
 source("R/mainPoint.R")
+source("R/plotCard.R")
+source("R/overviewPie.R")
 
 home_panel <- function(){
     tabPanel(
@@ -33,23 +35,9 @@ home_panel <- function(){
                                     "CBPP, 2021"),
                                   ")"),
                   icon = icon("hand-holding-heart")),
-        tags$div(class = "main-point-container",
-                 tags$div(class = "main-heading-container", 
-                          tags$div(class = "main-point",
-                                   textOutput("main_text"))
-                 ),
-                 tags$div(class = "select-county plot-title",
-                          tags$div("Rent-burdened families in "),
-                          selectInput("selectedCounty", 
-                                      label = NULL,
-                                      choices = c("Delaware" = "all",
-                                                  "New Castle County" = "003",
-                                                  "Kent County" = "001",
-                                                  "Sussex County" = "005"),
-                                      width = "230px")
-                 ),
-                 plotlyOutput("mainplot")
-        ),
+        # Render the pie chart showing the proportion of renters receiving voucher
+        overviewPieUI("overviewPie"),
+        # Render the horizntal bar chart showing the number of families across counties
         counties_div, 
         includeHTML("CTA.html"), # Call-to-action section
         fluidRow(

@@ -93,46 +93,8 @@ shinyServer(function(input, output, session) {
         }
     })
     
-    output$mainplot <- renderPlotly({
-        
-        # If the county is not selected, show the Delaware overall
-        if(input$selectedCounty == "all"){
-            mainplot_data <- geo_long 
-        } else {
-            mainplot_data <- geo_long %>%
-                filter(COUNTYFP == input$selectedCounty)
-        }
-        
-        cur_county_name <- county_list[[input$selectedCounty]]
-        
-        mainplot_data <- mainplot_data %>%
-            group_by(labels) %>%
-            summarise(counts = sum(value, na.rm = T))
-        
-        mainplot_data %>%
-            plot_ly(labels = ~labels, values = ~counts,
-                    type = 'pie',
-                    textinfo = 'label+percent',
-                    customdata = c("not receiving voucher", "receiving voucher"),
-                    textfont = list(size = 15),
-                    texttemplate = "%{label} <br> %{percent:.1%}",
-                    hoverinfo = "text",
-                    hovertemplate = str_wrap_br(
-                        paste0("In ", cur_county_name,
-                               ", %{percent:.1%} of eligible families are %{customdata}",
-                               "<extra></extra>"),
-                        width = 60
-                    ),
-                    insidetextorientation = 'horizontal',
-                    showlegend = FALSE,
-                    marker = list(
-                        colors = c("#FC8D62", # Brewer Set 2 orange
-                                   "#66C2A5") # Brewer Set 2 green
-                    )) %>%
-            layout(margin = list(t = 50)) %>%
-            format_plotly()
-        
-    })
+    # Server function to draw the pie chart
+    overviewPieServer("overviewPie", geo_long)
     
     output$main_text <- renderText(
         paste0("However, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
