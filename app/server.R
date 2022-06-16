@@ -72,27 +72,14 @@ shinyServer(function(input, output, session) {
     overviewPieServer("overviewPie", geo_data_nogeometry)
     # Server function for the families count plot 
     familiesCountPlotServer("familiesCountPlot", geo_data_nogeometry)
-    
-    
-    output$main_text <- renderText(
-        paste0("However, only ", round(de_summary_percent_str[["Receiving Voucher"]]),
-               "% of the Delaware families needing a voucher are receiving it")
-    )
-    
+    # Server function for the families prop plot
+    familiesPropPlotServer("familiesPropPlot", geo_data_nogeometry)
+
     output$GEOID_selector <- renderUI({
         multiInput("GEOID_selector", "Choose Census Tract",
                    choices = advoc_table$NAMELSAD)
     })
-    
-    output$prop_counties <- renderPlotly({
-        if(input$selectedProp == "30"){
-            plot_prop_counties(geo_long, input$selectedProp)
-        } 
-        else {
-            plot_prop_counties(geo_long_50, input$selectedProp)
-        }
-    })
-    
+
     output$downloadData <- downloadHandler(
         filename = function() {
             paste("voucher_data.csv")
