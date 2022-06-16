@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-mainPoint <- function(main_text = list(), footnote = list(), icon = NULL){
+main_point <- function(main_text = list(), footnote = list(), icon = NULL){
     fluidRow(
         class = "main-point-container",
         div(class = "main-heading-container",

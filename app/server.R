@@ -31,14 +31,6 @@ geo_data_nogeometry <- geo_data_nogeometry %>%
     mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
                                     " County"))
 
-# Load data for explore and county tabs
-de_summary_table <- geo_data_nogeometry %>% 
-    select("gsl", "entities", "sumlevel",
-           "program_label", "program", "sub_program", "name", "GEOID",
-           "rent_per_month", "hh_income", "person_income", 
-           "spending_per_month","number_reported") %>%
-    mutate(tot = number_reported)
-
 # Summary table for 30 and 50 
 DE_pct <- advoc_table %>% 
     group_by() %>%
@@ -69,9 +61,9 @@ shinyServer(function(input, output, session) {
     })
     
     # Server function to draw the pie chart
-    overviewPieServer("overviewPie", geo_data_nogeometry)
+    overview_pie_server("overview_pie", geo_data_nogeometry)
     # Server function for the families count plot 
-    familiesCountPlotServer("familiesCountPlot", geo_data_nogeometry)
+    families_count_plot_server("familiesCountPlot", geo_data_nogeometry)
     # Server function for the families prop plot
     familiesPropPlotServer("familiesPropPlot", geo_data_nogeometry)
 

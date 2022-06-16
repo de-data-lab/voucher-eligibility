@@ -1,4 +1,4 @@
-selectRentBurden <- function(id,
+select_rent_burden <- function(id,
                              selectInputId = "threshold",
                              prefix = div("Number of "),
                              suffix = div("families")){

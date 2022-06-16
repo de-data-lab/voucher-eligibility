@@ -1,10 +1,10 @@
 # Home Panel
 library(shinyWidgets)
-source("R/mainPoint.R")
-source("R/plotCard.R")
-source("R/overviewPie.R")
-source("R/familiesCountPlot.R")
-source("R/familiesPropPlot.R")
+source("R/main_point.R")
+source("R/plot_card.R")
+source("R/overview_pie.R")
+source("R/families_count_plot.R")
+source("R/families_prop_plot.R")
 
 home_panel <- function(){
     tabPanel(
@@ -17,15 +17,15 @@ home_panel <- function(){
                             label = "Explore Your Neighborhood",
                             class = "learn-more-button")
         ),
-        mainPoint(main_text = list("Families spending more than 30% of their income on rent are considered",
+        main_point(main_text = list("Families spending more than 30% of their income on rent are considered",
                                    tags$strong("rent-burdened"),
                                    "and experiencing a housing crisis"),
                   footnote = list("If they are spending more than 50%, they are considered",
                                   tags$strong("severely rent-burdened")),
                   icon = icon("heart-broken")),
-        mainPoint(main_text = "Housing Choice Voucher (Section 8) provides housing for families in a housing crisis",
+        main_point(main_text = "Housing Choice Voucher (Section 8) provides housing for families in a housing crisis",
                   icon = icon("house-user")),
-        mainPoint(main_text = "Housing Choice Voucher is an effective way to help families and provide better opportunities",
+        main_point(main_text = "Housing Choice Voucher is an effective way to help families and provide better opportunities",
                   footnote = list("(Source: ", 
                                   a(href = "https://www.cbpp.org/research/housing/housing-choice-voucher-program-oversight-and-review-of-legislative-proposals#_ftn2",
                                     target = "_blank",
@@ -37,10 +37,10 @@ home_panel <- function(){
                                   ")"),
                   icon = icon("hand-holding-heart")),
         # Render the pie chart showing the proportion of renters receiving voucher
-        overviewPieUI("overviewPie"),
-        familiesCountPlotUI("familiesCountPlot"),
+        overview_pie_UI("overview_pie"),
+        families_count_plot_UI("familiesCountPlot"),
         # Render the horizontal bar chart showing the number of families across counties
-        familiesPropPlotUI("familiesPropPlot"), 
+        families_prop_plot_UI("familiesPropPlot"), 
         # Call to action section
         includeHTML("CTA.html"), 
         # Link to the explore tab

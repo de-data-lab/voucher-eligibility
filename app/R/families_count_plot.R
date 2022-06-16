@@ -1,14 +1,14 @@
 # A Shiny module for showing the number of rent-burdened & voucher-participating 
 # families across counties
-source("R/selectRentBurden.R")
+source("R/select_rent_burden.R")
 
-familiesCountPlotUI <- function(id) {
-    plotCard(main_text = "New Castle County has the largest number of potentially-eligible families", 
-             secondary_text = selectRentBurden(id),
+families_count_plot_UI <- function(id) {
+    plot_card(main_text = "New Castle County has the largest number of potentially-eligible families", 
+             secondary_text = select_rent_burden(id),
              plot_content = plotlyOutput(NS(id, "number_county")))
 }
 
-familiesCountPlotServer <- function(id, geo_data_nogeometry) {
+families_count_plot_server <- function(id, geo_data_nogeometry) {
     
     # Reshape the dataset into the long format for summarizing 
     geo_long <- geo_data_nogeometry %>%
