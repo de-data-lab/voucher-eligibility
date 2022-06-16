@@ -37,7 +37,7 @@ home_panel <- function(){
                   icon = icon("hand-holding-heart")),
         # Render the pie chart showing the proportion of renters receiving voucher
         overviewPieUI("overviewPie"),
-        # Render the horizntal bar chart showing the number of families across counties
+        # Render the horizontal bar chart showing the number of families across counties
         counties_div, 
         includeHTML("CTA.html"), # Call-to-action section
         fluidRow(
