@@ -1,10 +1,10 @@
 # Home Panel
 library(shinyWidgets)
-source("counties.R")
 source("R/mainPoint.R")
 source("R/plotCard.R")
 source("R/overviewPie.R")
 source("R/familiesCountPlot.R")
+source("R/familiesPropPlot.R")
 
 home_panel <- function(){
     tabPanel(
@@ -40,8 +40,10 @@ home_panel <- function(){
         overviewPieUI("overviewPie"),
         familiesCountPlotUI("familiesCountPlot"),
         # Render the horizontal bar chart showing the number of families across counties
-        counties_div, 
-        includeHTML("CTA.html"), # Call-to-action section
+        familiesPropPlotUI("familiesPropPlot"), 
+        # Call to action section
+        includeHTML("CTA.html"), 
+        # Link to the explore tab
         fluidRow(
             id = "learn-more-container",
             class = "learn-more--container",
