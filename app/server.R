@@ -5,7 +5,6 @@ library(sf)
 library(censusxy)
 
 source("R/plotly_settings.R")
-source("R/explore.R")
 source("R/plot_prop_counties.R")
 source("R/plot_prop_census.R")
 source("R/plot_counts_counties.R")
