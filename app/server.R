@@ -8,7 +8,6 @@ source("R/plotly_settings.R")
 source("R/explore.R")
 source("R/plot_prop_counties.R")
 source("R/plot_prop_census.R")
-source("R/update_map.R")
 source("R/plot_counts_counties.R")
 source("R/plot_table_desc.R")
 
@@ -47,6 +46,10 @@ goto_explore_tab <- function(session){
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
+    # Reactive values
+    # Vector of selected GEOIDs
+    selected_GEOIDs <- reactiveVal()
+    
     # Reactive value for the message for the address lookup
     address_message <- reactiveVal("Example: \"411 Legislative Ave, Dover, DE\"")
     output$address_message <- renderText({ address_message() })
@@ -66,6 +69,9 @@ shinyServer(function(input, output, session) {
     families_count_plot_server("familiesCountPlot", geo_data_nogeometry)
     # Server function for the families prop plot
     familiesPropPlotServer("familiesPropPlot", geo_data_nogeometry)
+    
+    # Server function for the explore map
+    map_server("explore", selected_GEOIDs, geo_data)
 
     output$GEOID_selector <- renderUI({
         multiInput("GEOID_selector", "Choose Census Tract",
@@ -106,34 +112,6 @@ shinyServer(function(input, output, session) {
         }
     )
     
-    output$advocmap <- renderLeaflet({advoc_map})
-    clicked_ids <- reactiveValues(Clicks=vector())
-
-    # If the map is clicked, update the reactive value
-    observeEvent(input$advocmap_shape_click, {
-        clicked_tract <- input$advocmap_shape_click
-        # Add a new selected GEOID to the reactive value
-        clicked_ids$Clicks <- c(clicked_ids$Clicks, clicked_tract$id)
-        removePoly <- clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]
-        remove <- FALSE
-        if(length(removePoly) > 0){
-            remove=TRUE
-        }
-        # Avoid duplicates in GEOIDs
-        clicked_ids$Clicks <- clicked_ids$Clicks[!clicked_ids$Clicks %in% clicked_ids$Clicks[duplicated(clicked_ids$Clicks)]]
-        
-            if(remove == TRUE){
-                new_data <- geo_data %>% 
-                    filter(GEOID %in% (removePoly))
-                update_map(new_data, to_state = "deselect",addr=FALSE,latt=NA,long=NA)
-            }
-        else {
-            new_data <- geo_data %>% 
-                filter(GEOID %in% (clicked_ids$Clicks))
-            update_map(new_data, to_state = "select",addr=FALSE,latt=NA,long=NA)
-            
-        }
-    })
     
     # Observe the selected census tracts
     observe({
