@@ -1,5 +1,6 @@
 # A Shiny module for the pie chart showing an overview of the 
 # proportion of voucher participants among eligible families
+source("R/get_voucher_summary.R")
 
 # County List 
 county_list <- c("all" = "Delaware",
@@ -9,14 +10,6 @@ county_list <- c("all" = "Delaware",
 # County list but names and values reversed
 county_keys <- setNames(names(county_list), county_list)
 
-# Function to calculate a summary table 
-get_voucher_summary <- function(.data, group = "number_not_using_30"){
-    .data %>%
-        filter(name %in% c("number_not_using_30", "number_reported")) %>%
-        group_by(labels) %>%
-        summarise(counts = sum(count, na.rm = T)) %>%
-        mutate(percent = 100 * counts / sum(counts))
-}
 
 overview_pie_UI <- function(id){
     plot_card(main_text = textOutput(NS(id, "pie_main_text")), 
