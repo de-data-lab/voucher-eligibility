@@ -16,6 +16,8 @@ geo_data <- acs_hud_de_geojoined
 geo_data_nogeometry <- geo_data %>% 
     st_drop_geometry()
 
+## Count long data
+acs_hud_de_geojoined_count_long <- read_rds("data/acs_hud_de_geojoined_count_long.rds")
 
 # Dictionary of counties and keys
 county_list <- c(
@@ -63,7 +65,7 @@ shinyServer(function(input, output, session) {
     })
     
     # Server function to draw the pie chart
-    overview_pie_server("overview_pie", geo_data_nogeometry)
+    overview_pie_server("overview_pie", acs_hud_de_geojoined_count_long)
     # Server function for the families count plot 
     families_count_plot_server("familiesCountPlot", geo_data_nogeometry)
     # Server function for the families prop plot
