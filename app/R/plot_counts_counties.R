@@ -13,15 +13,15 @@ plot_counts_counties <- function(.data, cutoff){
         summarize(number_reported = sum(number_reported),
                   rent_above30 = sum(rent_above30),
                   rent_above50 = sum(rent_above50)) 
-
+    
     # Determine the labels depending on the 30/50 cutoff values
     if(cutoff == 30){
         family_text <- "rent-burdened famillies"
-        category_label <- "Spending 30%+ income on rent"
+        selected_category <- "Spending 30%+ income on rent"
     }
     if(cutoff == 50){
         family_text <- "severely rent-burdened famillies"
-        category_label <- "Spending 50%+ income on rent"
+        selected_category <- "Spending 50%+ income on rent"
     }
     
     # Construct a long-format data for the plot
@@ -36,7 +36,7 @@ plot_counts_counties <- function(.data, cutoff){
                                        "number_reported" = "Receiving Voucher",
                                        "rent_above50" = "Spending 50%+ income on rent",
                                        "rent_above30" = "Spending 30%+ income on rent"))
-
+    
     # Create the output Plotly plot
     plot_ly() %>%
         add_bars(data = plot_data %>% filter(category_label == "Receiving Voucher"),
@@ -46,7 +46,7 @@ plot_counts_counties <- function(.data, cutoff){
                  hovertemplate = str_wrap_br(
                      paste0("In %{y} County, %{x:,} families are receiving a voucher <extra></extra>"),
                      width = 30)) %>%
-        add_bars(data = plot_data %>% filter(category_label == category_label),
+        add_bars(data = plot_data %>% filter(category_label == selected_category),
                  x = ~count, y = ~county_name,
                  marker = list(color = "#FC8D62"),
                  name = str_to_title(family_text),
