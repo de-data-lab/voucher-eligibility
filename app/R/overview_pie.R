@@ -13,12 +13,12 @@ county_keys <- setNames(names(county_list), county_list)
 
 overview_pie_UI <- function(id){
     plot_card(main_text = textOutput(NS(id, "pie_main_text")), 
-             secondary_text = list(div("Rent-burdened families in "),
-                                   selectInput(NS(id, "selected_county"), 
-                                               label = NULL,
-                                               choices = county_keys,
-                                               width = "230px")),
-             plot_content = plotlyOutput(NS(id, "overview_pie_plot")))
+              secondary_text = list(div("Rent-burdened families in "),
+                                    selectInput(NS(id, "selected_county"), 
+                                                label = NULL,
+                                                choices = county_keys,
+                                                width = "230px")),
+              plot_content = plotlyOutput(NS(id, "overview_pie_plot")))
 }
 
 overview_pie_server <- function(id, geo_long){
@@ -40,7 +40,7 @@ overview_pie_server <- function(id, geo_long){
         output$pie_main_text <- renderText({
             paste0("However, only ", round(de_summary_percent_str[["Receiving Voucher"]], 1),
                    "% of the Delaware families needing a voucher are receiving it")
-            })
+        })
         
         output$overview_pie_plot <- renderPlotly({
             # If the county is not selected, show the Delaware overall
