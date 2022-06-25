@@ -3,20 +3,20 @@ source("R/plot_prop_census.R")
 rank_plot_UI <- function(id) {
     tagList(
         div(class = "explore-description-container",
-                 textOutput(NS(id, "rank_text")),
-                 span(class = "explore-select-input",
-                      selectInput(NS(id, "selection"), 
-                                  label = NULL,
-                                  choices = c("rent-burdened" = "30",
-                                              "severely rent-burdened" = "50",
-                                              "receiving voucher" = "receiving_voucher"),
-                                  selected = "30",
-                                  width = 250)
-                 )),
+            textOutput(NS(id, "rank_text")),
+            span(class = "explore-select-input",
+                 selectInput(NS(id, "selection"), 
+                             label = NULL,
+                             choices = c("rent-burdened" = "30",
+                                         "severely rent-burdened" = "50",
+                                         "receiving voucher" = "receiving_voucher"),
+                             selected = "30",
+                             width = 250)
+            )),
         div(class = "bar-graph",
             plotlyOutput(NS(id, "plot")))
     )
- 
+    
 }
 
 rank_plot_server <- function(id, selected_GEOIDs, .data) {
@@ -24,9 +24,9 @@ rank_plot_server <- function(id, selected_GEOIDs, .data) {
         
         observe({
             # Calculate the plot 
-            plot_list <- plot_prop_census(.data, 
-                                          threshold = input$selection,
-                                          selected_GEOIDs =  selected_GEOIDs())
+            plot_list <- plot_rank_plot(.data, 
+                                        threshold = input$selection,
+                                        selected_GEOIDs =  selected_GEOIDs())
             # Render Plotly
             output$plot <- renderPlotly({
                 plot_list$plot
