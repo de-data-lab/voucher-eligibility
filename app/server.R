@@ -6,39 +6,23 @@ library(censusxy)
 
 source("R/plotly_settings.R")
 source("R/plot_prop_counties.R")
-source("R/plot_prop_census.R")
+source("R/plot_rank_plot.R")
 source("R/plot_counts_counties.R")
-source("R/plot_table_desc.R")
+source("R/rank_plot.R")
 
 # Load Data
-acs_hud_de_geojoined <- read_rds("acs_hud_de_geojoined.rds")
-geo_data <- acs_hud_de_geojoined
-geo_data_nogeometry <- geo_data %>% 
+acs_hud_de_geojoined <- read_rds("data/acs_hud_de_geojoined.rds") %>%
+    st_transform('+proj=longlat +datum=WGS84')
+geo_data_nogeometry <- acs_hud_de_geojoined %>% 
     st_drop_geometry()
 
 ## Count long data
 acs_hud_de_geojoined_count_long <- read_rds("data/acs_hud_de_geojoined_count_long.rds")
+acs_hud_de_count_long <- acs_hud_de_geojoined_count_long %>%
+    st_drop_geometry()
 
-# Dictionary of counties and keys
-county_list <- c(
-    "all" = "Delaware",
-    "001" = "Kent County",
-    "003" = "New Castle County",
-    "005" = "Sussex County")
-
-# Update the county names
-geo_data_nogeometry <- geo_data_nogeometry %>%
-    mutate(county_name = str_remove(recode(COUNTYFP, !!!county_list),
-                                    " County"))
-
-# Summary table for 30 and 50 
-DE_pct <- advoc_table %>% 
-    group_by() %>%
-    summarise(across(c(receiving_assistance = `% Receiving assisstance`,
-                       rent_30 = `% Spending 30%+ of income on rent`,
-                       rent_50 = `% Spending 50%+ of income on rent`),
-                     ~round(mean(.), 1))) %>% 
-    as.list()
+# Load summary table
+DE_summary <- read_rds("data/acs_hud_de_geojoined_summary.rds")
 
 # function to go to the lookup tool
 goto_explore_tab <- function(session){
@@ -54,7 +38,7 @@ shinyServer(function(input, output, session) {
     # Reactive value for the message for the address lookup
     address_message <- reactiveVal("Example: \"411 Legislative Ave, Dover, DE\"")
     output$address_message <- renderText({ address_message() })
-
+    
     # Observe the URL parameter and route the page to an appropriate tab
     observe({
         query <- parseQueryString(session$clientData$url_search)
@@ -69,139 +53,74 @@ shinyServer(function(input, output, session) {
     # Server function for the families count plot 
     families_count_plot_server("familiesCountPlot", geo_data_nogeometry)
     # Server function for the families prop plot
-    familiesPropPlotServer("familiesPropPlot", geo_data_nogeometry)
+    familiesPropPlotServer("familiesPropPlot", acs_hud_de_count_long)
     
     # Server function for the explore map
-    map_server("explore", selected_GEOIDs, geo_data)
-
+    map_server("explore", selected_GEOIDs, acs_hud_de_geojoined)
+    
+    # Address lookup
+    # TODO: Server function
     output$GEOID_selector <- renderUI({
         multiInput("GEOID_selector", "Choose Census Tract",
                    choices = advoc_table$NAMELSAD)
     })
+    
+    # Server function for the rank plot
+    rank_plot_server("rank_plot", selected_GEOIDs, acs_hud_de_geojoined)
+    
+    # Server function for the compare-to-DE plot
+    compare_to_de_plot_server("compare_to_de", selected_GEOIDs, geo_data_nogeometry)
+    
+    # Render the tale
+    output$advoc_table <- renderTable({
+        geo_data_nogeometry %>% 
+            filter(GEOID %in% selected_GEOIDs()) %>%  
+            select(tract, GEOID, prop_serviced, prop_above30, prop_above50) %>%
+            # Mutate for rendering 
+            mutate(across(c(prop_serviced, prop_above30, prop_above50),
+                          ~sprintf("%.1f%%", .))) %>% 
+            # Rename for rendering
+            rename("Census Tract" = tract,
+                   "Receiving assisstance" = prop_serviced,
+                   "Spending 30%+ income on rent" = prop_above30,
+                   "Spending 50%+ income on rent" = prop_above50)
+    }, align = "c")
 
+    # Download data
     output$downloadData <- downloadHandler(
         filename = function() {
             paste("voucher_data.csv")
         },
         content = function(file) {
-            write.csv(advoc_table %>% filter(GEOID %in% clicked_ids$Clicks) %>%  
-                          dplyr::rename('Census Tract' = tract) %>% 
-                          select('Census Tract', GEOID, '% Receiving assisstance',
-                                 '% Spending 30%+ of income on rent',
-                                 '% Spending 50%+ of income on rent',
-                                 '# Receiving assisstance',
-                                 '# Spending 30%+ of income on rent',
-                                 '# Spending 50%+ of income on rent'),
+            write.csv(advoc_table %>% filter(GEOID %in% selected_GEOIDs()) %>%  
+                          dplyr::rename("Census Tract" = tract) %>% 
+                          select("Census Tract", GEOID, "% Receiving assisstance",
+                                 "% Spending 30%+ of income on rent",
+                                 "% Spending 50%+ of income on rent",
+                                 "# Receiving assisstance",
+                                 "# Spending 30%+ of income on rent",
+                                 "# Spending 50%+ of income on rent"),
                       file, row.names = FALSE, col.names=T)
         }
     )
     
+    # Download all data
     output$downloadAll <- downloadHandler(
         filename = function() {
             paste("voucher_data_All.csv")
         },
         content = function(file) {
             write.csv(advoc_table %>%
-                          dplyr::rename('Census Tract' = tract) %>% 
-                          select('Census Tract', GEOID, '% Receiving assisstance',
-                                 '% Spending 30%+ of income on rent',
-                                 '% Spending 50%+ of income on rent',
-                                 '# Receiving assisstance',
-                                 '# Spending 30%+ of income on rent',
-                                 '# Spending 50%+ of income on rent') ,
+                          dplyr::rename("Census Tract" = tract) %>% 
+                          select("Census Tract", GEOID, "% Receiving assisstance",
+                                 "% Spending 30%+ of income on rent",
+                                 "% Spending 50%+ of income on rent",
+                                 "# Receiving assisstance",
+                                 "# Spending 30%+ of income on rent",
+                                 "# Spending 50%+ of income on rent") ,
                       file, row.names = FALSE, col.names=T)
         }
     )
-    
-    
-    # Observe the selected census tracts
-    observe({
-        if (length(clicked_ids$Clicks)>0){
-            agg_selected <- advoc_table %>% 
-                filter(GEOID %in% clicked_ids$Clicks)
-            agg_notselected <- advoc_table %>% 
-                filter(!(GEOID %in% clicked_ids$Clicks))
-            #print(length(agg_selected$GEOID))
-            #print(length(agg_notselected$GEOID))
-            agg_receiving <- round((sum(agg_selected$`# Receiving assisstance`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
-            agg_30 <- round((sum(agg_selected$`# Spending 30%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
-            agg_50 <- round((sum(agg_selected$`# Spending 50%+ of income on rent`) / sum(agg_selected$tot_hh)) * 100, digits = 2)
-            n_above_receving<- agg_notselected %>% filter(`# Receiving assisstance`>agg_receiving) %>% nrow
-            n_above_30<- agg_notselected %>% filter(`# Spending 30%+ of income on rent`>agg_30) %>% nrow
-            n_above_50<- agg_notselected %>% filter(`# Spending 50%+ of income on rent`>agg_50) %>% nrow
-            n_below_receving<- agg_notselected %>% filter(`# Receiving assisstance`<agg_receiving) %>% nrow
-            n_below_30<- agg_notselected %>% filter(`# Spending 30%+ of income on rent`<agg_30) %>% nrow
-            n_below_50<- agg_notselected %>% filter(`# Spending 50%+ of income on rent`<agg_50) %>% nrow
-            output$table_desc <- renderText({paste("Currently selected census tracts has in total: <br><br><b>",agg_30,"% </b>
-                             of households spending above 30% of income on rent <br><font color=\"#43a2ca\"><i>(<b>",n_above_30," 
-                             </b>census tracts are spending above 30% of income on rent and <br><b>",n_below_30,
-                                                   " </b>census tracts are spending above 30% of income on rent)</i></font>, <br><br><b>",agg_50,"% </b> 
-                                   of households spending above 50% of income on rent <br><font color=\"#43a2ca\"><i>(<b>",n_above_50," 
-                             </b>census tracts are spending above 50% of income on rent and <br><b>",n_below_50,
-                                                   " </b>census tracts are spending above 50% of income on rent)</i></font>,<br><br>",agg_receiving,"% </b> of
-                             households receiving Housing Choice Voucher <br><font color=\"#43a2ca\"><i>(<b>",n_above_receving," 
-                             </b>census tracts are receving higher number of vouchers and <br><b>",n_below_receving,
-                                                   " </b>census tracts are receving lower number of vouchers)</i></font><br><b>",  sep = " ")})
-            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,TRUE)})
-            
-            # Update descriptions
-            n_selected <- clicked_ids$Clicks %>% length()
-            output$h_bar_region <- renderText({str_glue("the selected {n_selected} tracts")})
-            
-            # Show percent for the selected tracts
-            if(input$selectedCensusProp == "30"){
-                h_bar_pct <- DE_pct$rent_30
-                target_var <- sym("% Spending 30%+ of income on rent")
-            } 
-            if(input$selectedCensusProp == "50"){
-                h_bar_pct <- DE_pct$rent_50
-                target_var <- sym("% Spending 50%+ of income on rent")
-            }
-            if(input$selectedCensusProp == "receiving_voucher"){
-                h_bar_pct <- DE_pct$receiving_assistance
-                target_var <- sym("% Receiving assisstance")
-            }
-            
-            h_bar_region <- str_glue("the selected communities")
-            selected_pct_avg <- agg_selected %>%
-                group_by() %>%
-                summarise(avg = mean(!!target_var)) %>%
-                unlist()
-            h_bar_pct <- selected_pct_avg
-            
-            # Calculate the percentile from the ECDF
-            selected_percentile <- ecdf(advoc_table$`% Spending 30%+ of income on rent`)(selected_pct_avg)
-            rendered_percentile <- (selected_percentile * 100) %>% round(1)
-            output$h_bar_last_sentence <- renderText({
-                str_glue("That is more than {rendered_percentile}% of
-                         communities in Delaware.")
-                })
-        }
-        # If no census tracts are selected, show information about all Delaware
-        else { 
-            if(input$selectedCensusProp == "30"){
-                h_bar_pct <- DE_pct$rent_30
-            } 
-            if(input$selectedCensusProp == "50"){
-                h_bar_pct <- DE_pct$rent_50
-            }
-            if(input$selectedCensusProp == "receiving_voucher"){
-                h_bar_pct <- DE_pct$receiving_assistance
-            } 
-            # Set the label for the region
-            h_bar_region <- "Delaware"
-            output$h_bar_last_sentence <- renderText({""})
-            output$table_desc_plot <- renderPlotly({plot_table_desc(agg_selected,FALSE)})
-            output$table_desc <- renderText({"Select census tracts"})
-        }
-        # Round the percentage
-        h_bar_pct_rounded <- h_bar_pct %>% round(1)
-        # Render the description text 
-        output$h_bar_description <- renderText({
-            str_glue("{h_bar_pct_rounded}% of families in {h_bar_region} are ")
-        })
-    })
-    
     
     # Observe the click to the explore page
     observeEvent(input$to_explore_page, {
@@ -211,16 +130,16 @@ shinyServer(function(input, output, session) {
         goto_explore_tab(session)
     })
     
-    # Geocode a given address via python when the search is initiated
-    found_GEOID <- reactiveValues(ids=vector())
+    # Geocode a given address
+    found_GEOID <- reactiveValues(ids = vector())
     observeEvent(input$address_search, {
         # Try getting the GEOID based on a string, when fails, show an error
         tryCatch(
             {
                 # Use censusxy to geocode one address 
                 matched_address <- cxy_oneline(input$address,
-                                               return = 'geographies',
-                                               vintage = 'ACS2018_Current')
+                                               return = "geographies",
+                                               vintage = "ACS2018_Current")
                 # Get the matched GEOID
                 matched_GEOID <- matched_address$geographies.Census.Tracts.GEOID
                 # Add the matched GEOID to the reactive value
@@ -233,17 +152,6 @@ shinyServer(function(input, output, session) {
                 clicked_ids$Clicks <- c(clicked_ids$Clicks, found_GEOID$ids)
                 
                 clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-                
-                geo <- advoc_table %>%
-                    filter(GEOID %in% (found_GEOID$ids))
-                
-                new_data <- geo_data %>% 
-                    filter(GEOID %in% (clicked_ids$Clicks))
-  
-                update_map(new_data, to_state = "select",
-                           addr = TRUE,
-                           latt = geo$latt,
-                           long = geo$long)
             },
             # Show the error message
             error = function(cond){
@@ -253,45 +161,9 @@ shinyServer(function(input, output, session) {
     }
     )
     
-    output$prop_census <- renderPlotly({
-        if(input$selectedCensusProp == "30"){
-            plot_prop_census(30, clicked_ids$Clicks)
-            
-        } 
-        else if(input$selectedCensusProp == "50") {
-            plot_prop_census(50, clicked_ids$Clicks)
-        } else if(input$selectedCensusProp == "receiving_voucher"){
-            plot_prop_census("receiving_voucher", clicked_ids$Clicks)
-        }
-    })
-    
-    output$advoc_table <- renderTable({
-        output_table <- advoc_table %>% 
-            filter(GEOID %in% clicked_ids$Clicks) %>%  
-            dplyr::rename('Census Tract' = tract) %>% 
-            select('Census Tract', GEOID, '% Receiving assisstance',
-                   '% Spending 30%+ of income on rent',
-                   '% Spending 50%+ of income on rent') 
-        return(output_table)
-    }, align='ccccc')
-    
-    output$table_desc_plot <- renderPlotly({plot_table_desc("", FALSE)})
-    
     # Observe for the clicking the "Clear All" button
     observeEvent(input$clear, {
-      removePoly <- clicked_ids$Clicks
-      clicked_ids$Clicks<-vector()
-      print(removePoly)
-      remove <- FALSE
-      if(length(removePoly) > 0){
-        remove <- TRUE
-      }
-      if(remove == TRUE){
-        new_data <- geo_data %>% 
-          filter(GEOID %in% (removePoly))
-        update_map(new_data, to_state = "deselect",addr=FALSE,latt=NA,long=NA)
+        selected_GEOIDs(NULL)
         output$table_desc <- renderText({"Select census tracts"})
-        output$table_desc_plot <- renderPlotly({plot_table_desc("",FALSE)})
-      }
     })
 })
