@@ -1,9 +1,11 @@
 # Explore Tab Panel
 library(shinyWidgets)
+source("R/map.R")
+source("R/rank_plot.R")
 
 explore_panel <- tabPanel(
     title = "Explore Your Neighborhood",
-    tags$div(
+    fluidRow(
         class = "explore-page-container",
         tags$div(class = "map-container",
                  tags$div(
@@ -12,9 +14,7 @@ explore_panel <- tabPanel(
                          class = "clear-all-button", 
                          actionButton("clear", "Clear All"))
                  ),
-                 leafletOutput("advocmap",
-                               height = "100vh"
-                 ),
+                 map_UI("explore"),
                  tags$script("
                     $(document).ready(function() {    
                       setTimeout(function() {
@@ -68,20 +68,7 @@ explore_panel <- tabPanel(
                                               If they are spending more than 50%, they are considered
                                               \"severely rent-burdened\"."))
                  ),
-                 tags$div(class = "explore-description-container",
-                          tags$div(class = "hbar-description-container",
-                                   textOutput("h_bar_description"),
-                                   tags$span(class = "explore-select-input",
-                                             selectInput("selectedCensusProp", 
-                                                         label = NULL,
-                                                         choices = c("rent-burdened" = "30",
-                                                                     "severely rent-burdened" = "50",
-                                                                     "receiving voucher" = "receiving_voucher"),
-                                                         selected = "30",
-                                                         width = 250))
-                          ),
-                          textOutput("h_bar_last_sentence"),
-                          ),
+                 rank_plot_UI("rank_plot"),
                  tags$div(class = "bar-graph",
                           plotlyOutput("prop_census")
                  ),
