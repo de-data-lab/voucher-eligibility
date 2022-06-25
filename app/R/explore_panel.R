@@ -3,6 +3,7 @@ library(shinyWidgets)
 source("R/map.R")
 source("R/rank_plot.R")
 source("R/compare_to_de_plot.R")
+source("R/address_search.R")
 
 explore_panel <- tabPanel(
     title = "Explore Your Neighborhood",
@@ -33,21 +34,7 @@ explore_panel <- tabPanel(
             div(class = "explore-title-container",
                 div(class = "main-point bold",
                     "How is your neighborhood doing?"),
-                div(class = "explore-subtitle",
-                    icon("mouse-pointer"),
-                    "Select census tracts on the map",
-                    br(),
-                    "or",
-                    br(),
-                    icon("edit"),
-                    "Look up a census tract using your address"),
-                div(class = "address-input-container",
-                    searchInput("address", label = NULL, placeholder = "Street Address",
-                                btnSearch = icon("search")),
-                    div(class = "address-message",
-                        textOutput("address_message")
-                    )
-                )
+                address_search_UI("address_search"),
             ),
             compare_to_de_plot_UI("compare_to_de"),
             div(class = "bar-footnote-container",

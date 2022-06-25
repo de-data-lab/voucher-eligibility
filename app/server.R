@@ -35,9 +35,6 @@ shinyServer(function(input, output, session) {
     # Vector of selected GEOIDs
     selected_GEOIDs <- reactiveVal()
     
-    # Reactive value for the message for the address lookup
-    address_message <- reactiveVal("Example: \"411 Legislative Ave, Dover, DE\"")
-    output$address_message <- renderText({ address_message() })
     
     # Observe the URL parameter and route the page to an appropriate tab
     observe({
@@ -57,13 +54,6 @@ shinyServer(function(input, output, session) {
     
     # Server function for the explore map
     map_server("explore", selected_GEOIDs, acs_hud_de_geojoined)
-    
-    # Address lookup
-    # TODO: Server function
-    output$GEOID_selector <- renderUI({
-        multiInput("GEOID_selector", "Choose Census Tract",
-                   choices = advoc_table$NAMELSAD)
-    })
     
     # Server function for the rank plot
     rank_plot_server("rank_plot", selected_GEOIDs, acs_hud_de_geojoined)
@@ -131,35 +121,7 @@ shinyServer(function(input, output, session) {
     })
     
     # Geocode a given address
-    found_GEOID <- reactiveValues(ids = vector())
-    observeEvent(input$address_search, {
-        # Try getting the GEOID based on a string, when fails, show an error
-        tryCatch(
-            {
-                # Use censusxy to geocode one address 
-                matched_address <- cxy_oneline(input$address,
-                                               return = "geographies",
-                                               vintage = "ACS2018_Current")
-                # Get the matched GEOID
-                matched_GEOID <- matched_address$geographies.Census.Tracts.GEOID
-                # Add the matched GEOID to the reactive value
-                found_GEOID$ids <- matched_GEOID
-                
-                # Get the census tract name and show it
-                matched_tract_name <- matched_address$geographies.Census.Tracts.BASENAME
-                address_message(paste0("Your census tract is: ", matched_tract_name))
-                
-                clicked_ids$Clicks <- c(clicked_ids$Clicks, found_GEOID$ids)
-                
-                clicked_ids$Clicks <- unique(clicked_ids$Clicks)
-            },
-            # Show the error message
-            error = function(cond){
-                address_message("No place found. Try formatting your address as: \"411 Legislative Ave, Dover, DE\"")
-            }
-        )
-    }
-    )
+    address_search_server("address_search", selected_GEOIDs)
     
     # Observe for the clicking the "Clear All" button
     observeEvent(input$clear, {
