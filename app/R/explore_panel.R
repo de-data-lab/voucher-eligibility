@@ -2,6 +2,7 @@
 library(shinyWidgets)
 source("R/map.R")
 source("R/rank_plot.R")
+source("R/compare_to_de_plot.R")
 
 explore_panel <- tabPanel(
     title = "Explore Your Neighborhood",
@@ -51,14 +52,7 @@ explore_panel <- tabPanel(
                                    )
                           )
                  ),
-                 tags$div(class = "explore-bar-container",
-                          tags$div(class = "bar-graph",
-                                   tags$div(class = "explore-bar-title",
-                                            "Percent of families that are:"),
-                                   plotlyOutput("table_desc_plot")
-                          )
-
-                 ),
+                 compare_to_de_plot_UI("compare_to_de"),
                  tags$div(class = "bar-footnote-container",
                           tags$span(class = "tooltip-span",
                                     icon(name = "question-circle"), "What do \"rent-burdnened\" and \"severely rent-burdened\" mean?",
@@ -69,9 +63,6 @@ explore_panel <- tabPanel(
                                               \"severely rent-burdened\"."))
                  ),
                  rank_plot_UI("rank_plot"),
-                 tags$div(class = "bar-graph",
-                          plotlyOutput("prop_census")
-                 ),
                  tags$div(class = "hbar-description-container",
                           htmlOutput("table_desc")
                  ),
