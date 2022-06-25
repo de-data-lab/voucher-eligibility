@@ -9,12 +9,9 @@ explore_panel <- tabPanel(
     fluidRow(
         class = "explore-page-container",
         div(class = "map-container",
-            div(
-                class = "map-header-container",
-                div(
-                    class = "clear-all-button", 
-                    actionButton("clear", "Clear All"))
-            ),
+            div(class = "map-header-container",
+                div(class = "clear-all-button", 
+                    actionButton("clear", "Clear All"))),
             map_UI("explore"),
             tags$script("
                     $(document).ready(function() {    
@@ -39,9 +36,9 @@ explore_panel <- tabPanel(
                 div(class = "explore-subtitle",
                     icon("mouse-pointer"),
                     "Select census tracts on the map",
-                    tags$br(),
+                    br(),
                     "or",
-                    tags$br(),
+                    br(),
                     icon("edit"),
                     "Look up a census tract using your address"),
                 div(class = "address-input-container",
@@ -73,7 +70,7 @@ explore_panel <- tabPanel(
                 div(class = "table-footnote",
                     "The number of households appears as 10 when there are 10 or less 
              households in a given cell.",
-                    tags$br(),
+                    br(),
                     downloadLink("downloadAll", "Download All Data"))
             ),
             includeHTML("CTA.html")
