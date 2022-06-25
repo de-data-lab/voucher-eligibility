@@ -12,7 +12,10 @@ rank_plot_UI <- function(id) {
                                          "receiving voucher" = "receiving_voucher"),
                              selected = "30",
                              width = 250)
-            )),
+            ),
+            # Output the text showing the percentile rank
+            textOutput(NS(id, "rank_text_comparison"))
+            ),
         div(class = "bar-graph",
             plotlyOutput(NS(id, "plot")))
     )
@@ -45,6 +48,21 @@ rank_plot_server <- function(id, selected_GEOIDs, .data) {
             # Render the text
             output$rank_text <- renderText({
                 str_glue("{rank_text_pct}% of families in {rank_text_region} are ")
+            })
+            
+            output$rank_text_comparison <- renderText({
+                # Infer the selected column 
+                selected_column <- case_when(input$selection == "30" ~ "pct_prop_above30",
+                                             input$selection == "50" ~ "pct_prop_above50",
+                                             input$selection == "receiving_voucher" ~ "pct_prop_reported_HUD")
+                 
+                # Calculate the percentile from the ECDF
+                selected_percentile <- ecdf(.data[[selected_column]])(plot_list$selected_mean)
+                rendered_percentile <- (selected_percentile * 100) %>% round(1)
+                
+                # Render the text
+                str_glue("That is more than {rendered_percentile}% of
+                         communities in Delaware.")
             })
         })
     })
