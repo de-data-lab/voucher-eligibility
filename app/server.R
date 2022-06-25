@@ -164,6 +164,5 @@ shinyServer(function(input, output, session) {
     # Observe for the clicking the "Clear All" button
     observeEvent(input$clear, {
         selected_GEOIDs(NULL)
-        output$table_desc <- renderText({"Select census tracts"})
     })
 })

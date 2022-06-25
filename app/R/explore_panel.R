@@ -63,9 +63,6 @@ explore_panel <- tabPanel(
                                               \"severely rent-burdened\"."))
                  ),
                  rank_plot_UI("rank_plot"),
-                 tags$div(class = "hbar-description-container",
-                          htmlOutput("table_desc")
-                 ),
                  tags$div(class = "advoc-table-container",
                           tags$div(class = "advoc-table",
                                    tableOutput("advoc_table")
