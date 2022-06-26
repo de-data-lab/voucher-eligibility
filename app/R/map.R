@@ -8,7 +8,6 @@ library(leaflet.extras)
 source("R/map_utils.R")
 
 
-
 map_UI <- function(id) {
     leafletOutput(NS(id, "explore_map"), height = "100vh")
 }
@@ -45,31 +44,44 @@ map_server <- function(id, selected_GEOIDs, geo_data) {
             # Get current GEOIDs
             cur_selected_GEOIDs <- selected_GEOIDs()
             
+            # Clicked tract and selected GEOIDs can both be null
+            # and can't be passed to the if clause
+            
             # If the clicked tract is not in the selected tracts, 
             # highlight it
-            if(!(clicked_tract %in% selected_GEOIDs())) {
+            if(!(clicked_tract %in% cur_selected_GEOIDs)) {
                 # Update the reactive value 
                 selected_GEOIDs(union(cur_selected_GEOIDs, clicked_tract))
-                # Highlight the clicked tract
-                map_highlight(id = NS(id, "explore_map"), 
-                              GEOIDs = clicked_tract,
-                              geo_data)
             }
             
             # If the clicked tract is in the selected tracts,
-            # remove the hilight
+            # remove the highlight
             if(clicked_tract %in% cur_selected_GEOIDs){
                 # Update the reactive value, `setdiff` to remove the clicked tract
                 selected_GEOIDs(setdiff(cur_selected_GEOIDs, clicked_tract))
-                # Remove the highlight from the map
-                map_remove_highlight(id = NS(id, "explore_map"), 
-                                     GEOIDs = clicked_tract,
-                                     geo_data)
             }
             
         }) %>%
             # Only observe with a click event (to avoid getting NULL on click)
             bindEvent(input[[paste0(id, "_map_shape_click")]]$id)
-
+        
+        # Update the map according to the updated GEOID
+        observe({
+            # Redraw map with the new GEOIDs
+            if(length(selected_GEOIDs()) > 0){
+                map_highlight(id = NS(id, "explore_map"),
+                              GEOIDs = selected_GEOIDs(),
+                              geo_data)
+            }
+            
+            # Get a list of GOIDs to remove highlight
+            unselected_GEOIDs <- geo_data$GEOID[!geo_data$GEOID %in% selected_GEOIDs()]
+            map_remove_highlight(id = NS(id, "explore_map"),
+                                 GEOIDs = unselected_GEOIDs,
+                                 geo_data)
+            
+        }) %>%
+            bindEvent(selected_GEOIDs(), ignoreNULL = FALSE)
+        
     })
 }
