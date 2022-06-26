@@ -14,7 +14,7 @@ create_long_count_table <- function(.data){
 }
 
 create_DE_summary_table <- function(.data){
-    geo_long %>% 
+    .data %>% 
         group_by(labels) %>%
         summarise(counts = sum(value, na.rm = T)) %>%
         mutate(percent = 100 * counts / sum(counts))
