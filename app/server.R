@@ -122,7 +122,8 @@ shinyServer(function(input, output, session) {
     
     
     # Observe for the clicking the "Clear All" button
-    observeEvent(input$clear, {
+    observe({ 
         selected_GEOIDs(NULL)
-    })
+    }) %>%
+        bindEvent(input$clear)
 })
