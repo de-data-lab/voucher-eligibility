@@ -58,6 +58,9 @@ shinyServer(function(input, output, session) {
     # Server function for the compare-to-DE plot
     compare_to_de_plot_server("compare_to_de", selected_GEOIDs, geo_data_nogeometry)
     
+    # Server function for the address search
+    address_search_server("address_search", selected_GEOIDs)
+    
     # Render the tale
     output$advoc_table <- renderTable({
         geo_data_nogeometry %>% 
@@ -117,8 +120,6 @@ shinyServer(function(input, output, session) {
         goto_explore_tab(session)
     })
     
-    # Geocode a given address
-    address_search_server("address_search", selected_GEOIDs)
     
     # Observe for the clicking the "Clear All" button
     observeEvent(input$clear, {
