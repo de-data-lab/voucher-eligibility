@@ -51,13 +51,10 @@ shinyServer(function(input, output, session) {
     
     # Server function for the explore map
     map_server("explore", selected_GEOIDs, acs_hud_de_geojoined)
-    
     # Server function for the rank plot
     rank_plot_server("rank_plot", selected_GEOIDs, acs_hud_de_geojoined)
-    
     # Server function for the compare-to-DE plot
     compare_to_de_plot_server("compare_to_de", selected_GEOIDs, geo_data_nogeometry)
-    
     # Server function for the address search
     address_search_server("address_search", selected_GEOIDs)
     
@@ -119,7 +116,6 @@ shinyServer(function(input, output, session) {
     observeEvent(input$to_explore_page_bottom, {
         goto_explore_tab(session)
     })
-    
     
     # Observe for the clicking the "Clear All" button
     observe({ 
