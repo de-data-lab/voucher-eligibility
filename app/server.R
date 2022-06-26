@@ -32,7 +32,6 @@ shinyServer(function(input, output, session) {
     # Vector of selected GEOIDs
     selected_GEOIDs <- reactiveVal()
     
-    
     # Observe the URL parameter and route the page to an appropriate tab
     observe({
         query <- parseQueryString(session$clientData$url_search)
@@ -57,57 +56,8 @@ shinyServer(function(input, output, session) {
     compare_to_de_plot_server("compare_to_de", selected_GEOIDs, geo_data_nogeometry)
     # Server function for the address search
     address_search_server("address_search", selected_GEOIDs)
-    
-    # Render the tale
-    output$advoc_table <- renderTable({
-        geo_data_nogeometry %>% 
-            filter(GEOID %in% selected_GEOIDs()) %>%  
-            select(tract, GEOID, prop_serviced, prop_above30, prop_above50) %>%
-            # Mutate for rendering 
-            mutate(across(c(prop_serviced, prop_above30, prop_above50),
-                          ~sprintf("%.1f%%", .))) %>% 
-            # Rename for rendering
-            rename("Census Tract" = tract,
-                   "Receiving assisstance" = prop_serviced,
-                   "Spending 30%+ income on rent" = prop_above30,
-                   "Spending 50%+ income on rent" = prop_above50)
-    }, align = "c")
-
-    # Download data
-    output$downloadData <- downloadHandler(
-        filename = function() {
-            paste("voucher_data.csv")
-        },
-        content = function(file) {
-            write.csv(advoc_table %>% filter(GEOID %in% selected_GEOIDs()) %>%  
-                          dplyr::rename("Census Tract" = tract) %>% 
-                          select("Census Tract", GEOID, "% Receiving assisstance",
-                                 "% Spending 30%+ of income on rent",
-                                 "% Spending 50%+ of income on rent",
-                                 "# Receiving assisstance",
-                                 "# Spending 30%+ of income on rent",
-                                 "# Spending 50%+ of income on rent"),
-                      file, row.names = FALSE, col.names=T)
-        }
-    )
-    
-    # Download all data
-    output$downloadAll <- downloadHandler(
-        filename = function() {
-            paste("voucher_data_All.csv")
-        },
-        content = function(file) {
-            write.csv(advoc_table %>%
-                          dplyr::rename("Census Tract" = tract) %>% 
-                          select("Census Tract", GEOID, "% Receiving assisstance",
-                                 "% Spending 30%+ of income on rent",
-                                 "% Spending 50%+ of income on rent",
-                                 "# Receiving assisstance",
-                                 "# Spending 30%+ of income on rent",
-                                 "# Spending 50%+ of income on rent") ,
-                      file, row.names = FALSE, col.names=T)
-        }
-    )
+    # Server functions for the explore tables
+    explore_table_server("explore_table", selected_GEOIDs, geo_data_nogeometry)
     
     # Observe the click to the explore page
     observeEvent(input$to_explore_page, {

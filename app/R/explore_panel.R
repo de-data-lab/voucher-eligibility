@@ -4,6 +4,7 @@ source("R/map.R")
 source("R/rank_plot.R")
 source("R/compare_to_de_plot.R")
 source("R/address_search.R")
+source("R/explore_table.R")
 
 explore_panel <- tabPanel(
     title = "Explore Your Neighborhood",
@@ -48,17 +49,8 @@ explore_panel <- tabPanel(
             ),
             rank_plot_UI("rank_plot"),
             div(class = "advoc-table-container",
-                div(class = "advoc-table",
-                    tableOutput("advoc_table")
-                ),
-                div(class = "table-footnote",
-                    downloadButton("downloadData", "Download")),
-                div(class = "down-footnote","(Dowloads data from above table)"),
-                div(class = "table-footnote",
-                    "The number of households appears as 10 when there are 10 or less 
-             households in a given cell.",
-                    br(),
-                    downloadLink("downloadAll", "Download All Data"))
+                # Explore table UI module 
+                explore_table_UI("explore_table")
             ),
             includeHTML("CTA.html")
         )
