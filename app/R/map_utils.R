@@ -33,8 +33,18 @@ map_highlight <- function(id, GEOIDs, geo_data){
     # Get census tracts to be highlighted
     new_data <- geo_data %>%
         filter(GEOID %in% GEOIDs)
+
+    # Calculate the coordinate to fly to with highlight
+    fly_to_centroid <- new_data %>% 
+        summarise(lon = mean(lon, na.rm = TRUE),
+                  lat = mean(lat, na.rm = TRUE))
+
     # Update the map
-    map_update(id, new_data, to = "highlight")
+    map_update(id, new_data, to = "highlight") %>%
+        # Fly to the centroid of the selection
+        flyTo(lng = fly_to_centroid$lon,
+              lat = fly_to_centroid$lat,
+              zoom = 11)
 }
 
 # Remove highlights of the GEOIDs in the map
