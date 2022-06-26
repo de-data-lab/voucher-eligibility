@@ -40,6 +40,11 @@ address_search_server <- function(id, selected_GEOIDs) {
                   matched_tract_name <- matched_address$geographies.Census.Tracts.BASENAME
                   address_message(paste0("Your census tract is: ", matched_tract_name))
                   
+                  if(is.null(matched_address)){
+                      address_message("No place found. Try formatting your address as: \"411 Legislative Ave, Dover, DE\"")
+                      
+                  }
+                  
                   # Update the selected GEOIDs 
                   current_selected_GEOIDs <- selected_GEOIDs()
                   selected_GEOIDs(unique(matched_GEOID, current_selected_GEOIDs))
