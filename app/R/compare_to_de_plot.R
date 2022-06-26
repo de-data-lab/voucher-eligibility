@@ -36,20 +36,18 @@ compare_to_de_plot_server <- function(id, selected_GEOIDs, .data) {
                 "In all Delaware, {pct_rounded}% of the families
                 are {str_to_lower(info_type_label)} "))
         
-        
+        # Insert line breaks to the plotly label
+        table_plot_data <- table_plot_data %>% 
+            rowwise() %>%
+            mutate(plotly_label = str_wrap_br(plotly_label, width = 50)) %>%
+            ungroup()
+
         output$plot <- renderPlotly({
             # Track if a census tract is selected
             is_selected <- length(selected_GEOIDs()) > 0
-            
-            
-            # Insert line breaks to the plotly label
-            table_plot_data <- table_plot_data %>% 
-                rowwise() %>%
-                mutate(plotly_label = str_wrap_br(plotly_label, width = 50)) %>%
-                ungroup()
-            
+
             # Calculate the maximum value of x axis, used for calculating x range
-            xmax <- max(table_plot_data$pct) * 1.50
+            xmax <- max(table_plot_data$pct) * 1.5
             
             # For both conditions, we need All Delaware bars
             comparison_plot <- plot_ly() %>% 
@@ -104,6 +102,8 @@ compare_to_de_plot_server <- function(id, selected_GEOIDs, .data) {
                     table_plot_data <- table_plot_data %>% 
                         bind_rows(selected_data)
                     
+                    # Update the x max
+                    xmax <- max(table_plot_data$pct) * 1.5
                     
                     # Render plot 
                     p %>%
@@ -117,7 +117,9 @@ compare_to_de_plot_server <- function(id, selected_GEOIDs, .data) {
                                  textposition = "outside",
                                  textangle = 0,
                                  hovertext = ~plotly_label,
-                                 hoverinfo = "text")
+                                 hoverinfo = "text") %>%
+                        # Update the x scale with x max 
+                        layout(xaxis = list(range = c(0, xmax)))
                 } else {
                     # If no tract is selected, renturn the original plot
                     p
