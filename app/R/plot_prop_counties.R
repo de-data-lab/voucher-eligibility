@@ -11,10 +11,18 @@ plot_prop_counties <- function(.data, threshold = "30"){
     
     if(threshold == "30"){
         family_text <- "rent-burdened famillies"
+        # Get 30% rows 
+        .data <- .data %>%
+            get_voucher_summary("number_not_using_30",
+                                by_county = TRUE)
     }
     
     if(threshold == "50"){
         family_text <- "severely rent-burdened famillies"
+        # Get 50% rows
+        .data <- .data %>%
+            get_voucher_summary("number_not_using_50",
+                                by_county = TRUE)
     }
     
     txt_receiving <- str_wrap_br(
@@ -29,13 +37,15 @@ plot_prop_counties <- function(.data, threshold = "30"){
                " are not receiving a voucher <extra></extra>"),
         width = 30)
     
-    prop_counties_data <- .data %>%
-        group_by(county_name, labels) %>%
-        summarise(count = sum(value, na.rm = TRUE)) %>%
-        mutate(prop = count / sum(count))
+    # Get the proportions within
+    .data <- .data %>%
+        group_by(county_name) %>%
+        mutate(prop = counts / sum(counts),
+               percent = prop * 100)
     
-    prop_counties_plot <- plot_ly() %>% 
-        add_bars(data = prop_counties_data %>% filter(labels == "Receiving Voucher"),
+    
+    plot_ly() %>% 
+        add_bars(data = .data %>% filter(labels == "Receiving Voucher"),
                  x = ~prop, y = ~county_name,
                  marker = list(color = "#66C2A5"),
                  name = "Receiving Voucher",
@@ -46,7 +56,7 @@ plot_prop_counties <- function(.data, threshold = "30"){
                  textangle = 0,
                  hovertemplate = txt_receiving
         ) %>%
-        add_bars(data = prop_counties_data %>% filter(labels == "Not Receiving Voucher"),
+        add_bars(data = .data %>% filter(labels == "Not Receiving Voucher"),
                  x = ~prop, y = ~county_name,
                  marker = list(color = "#FC8D62"),
                  name = "Not Receiving Voucher",
@@ -73,10 +83,6 @@ plot_prop_counties <- function(.data, threshold = "30"){
                margin = list(pad = 15),
                paper_bgcolor = "transparent") %>% 
         format_plotly()
-    
-    out_plot <- prop_counties_plot 
-    
-    return(out_plot)
 }
 
 
