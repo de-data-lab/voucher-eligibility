@@ -21,9 +21,6 @@ acs_hud_de_geojoined_count_long <- read_rds("data/acs_hud_de_geojoined_count_lon
 acs_hud_de_count_long <- acs_hud_de_geojoined_count_long %>%
     st_drop_geometry()
 
-# Load summary table
-DE_summary <- read_rds("data/acs_hud_de_geojoined_summary.rds")
-
 # function to go to the lookup tool
 goto_explore_tab <- function(session){
     updateNavbarPage(session, inputId = "main_page", selected = "Explore Your Neighborhood")
