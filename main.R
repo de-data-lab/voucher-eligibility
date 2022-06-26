@@ -8,15 +8,18 @@ source(here("src/add_geometry_to_ACS_HUD.R"))
 source(here("src/add_columns.R"))
 source(here("src/create_summary_tables.R"))
 
-
+# Get the geojoined file
 acs_hud_de_geojoined <- read_rds(here("data/processed/acs_hud_de_geojoined.rds"))
-DE_summary_receiving_voucher <- acs_hud_de_geojoined %>% 
-    st_drop_geometry() %>%
-    create_DE_summary_table() 
 
+# Calculate centroids for each census tract
+acs_hud_de_geojoined <- acs_hud_de_geojoined %>%
+    mutate(centroid = st_centroid(geometry)) %>%
+    # Set long and lat
+    mutate(lon = map_dbl(centroid, ~.[[1]]),
+           lat = map_dbl(centroid, ~.[[2]]))
 
-write_rds(DE_summary_receiving_voucher, 
-          here("app/data/acs_hud_de_geojoined_summary.rds"))
+write_rds(acs_hud_de_geojoined, here("data/processed/acs_hud_de_geojoined.rds"))
+write_rds(acs_hud_de_geojoined, here("app/data/acs_hud_de_geojoined.rds"))
 
 
 acs_hud_de_geojoined_voucher_count_long <- acs_hud_de_geojoined %>%
