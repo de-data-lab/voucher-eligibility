@@ -1,5 +1,4 @@
 # A Shiny module for the rank plot
-source("R/plot_rank_plot.R")
 rank_plot_UI <- function(id) {
     tagList(
         div(class = "explore-description-container",

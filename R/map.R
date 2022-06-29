@@ -1,31 +1,41 @@
 # Map module
-library(shiny)
-library(tidyverse)
-library(plotly)
-library(sf)
-library(leaflet)
-library(leaflet.extras)
-source("R/map_utils.R")
-
-
+#' Map Shiny UI module 
+#'
+#' @param id 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 map_UI <- function(id) {
-    leafletOutput(NS(id, "explore_map"), height = "100vh")
+    leaflet::leafletOutput(NS(id, "explore_map"), height = "100vh")
 }
 
+
+#' Map Shiny Server module
+#'
+#' @param id 
+#' @param selected_GEOIDs 
+#' @param geo_data 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 map_server <- function(id, selected_GEOIDs, geo_data) {
     moduleServer(id, function(input, output, session) {
         
         # Output a leaflet map
         explore_map <- geo_data %>%
-            leaflet(options = leafletOptions(zoomControl = FALSE,
+            leaflet::leaflet(options = leaflet::leafletOptions(zoomControl = FALSE,
                                              attributionControl = FALSE,
                                              scrollWheelZoom = FALSE,
                                              gestureHandling = TRUE)) %>%
-            addTiles() %>%
-            addPolygons(fillColor = "#bdc9e1",
+            leaflet::addTiles() %>%
+            leaflet::addPolygons(fillColor = "#bdc9e1",
                         stroke = TRUE, fillOpacity = 0.5, smoothFactor = 0.5,
                         color = "#66C2A5", opacity = 1, weight=2,
-                        highlight = highlightOptions(fillOpacity = 0.8,
+                        highlight = leaflet::highlightOptions(fillOpacity = 0.8,
                                                      color = "#FC8D62",
                                                      weight = 2,
                                                      bringToFront=TRUE),
@@ -35,7 +45,7 @@ map_server <- function(id, selected_GEOIDs, geo_data) {
         L.control.zoom({ position: 'topright' }).addTo(this) }")
         
         # Render the explore map
-        output$explore_map <- renderLeaflet({ explore_map })
+        output$explore_map <- leaflet::renderLeaflet({ explore_map })
         
         # If the map is clicked, update the reactive value
         observe({

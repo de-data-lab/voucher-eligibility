@@ -1,6 +1,5 @@
 # A Shiny module for showing the number of rent-burdened & voucher-participating 
 # families across counties
-source("R/select_rent_burden.R")
 
 families_count_plot_UI <- function(id) {
     plot_card(main_text = "New Castle County has the largest number of potentially-eligible families", 

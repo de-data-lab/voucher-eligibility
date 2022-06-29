@@ -9,9 +9,9 @@ map_update <- function(id, data, to = "highlight"){
         fillOpacity <- 0.5
     }
     # Update the map
-    leafletProxy(id) %>%
-        addTiles() %>%
-        addPolygons(data = data,
+    leaflet::leafletProxy(id) %>%
+        leaflet::addTiles() %>%
+        leaflet::addPolygons(data = data,
                     fillColor = fill_color,
                     color = "#66C2A5",
                     weight = 2,
@@ -19,7 +19,7 @@ map_update <- function(id, data, to = "highlight"){
                     fillOpacity = 0.5,
                     smoothFactor = 0.5,
                     stroke = TRUE,
-                    highlight = highlightOptions(fillOpacity = fillOpacity,
+                    highlight = leaflet::highlightOptions(fillOpacity = fillOpacity,
                                                  color = "#FC8D62",
                                                  weight = 2,
                                                  bringToFront=TRUE),
@@ -33,18 +33,8 @@ map_highlight <- function(id, GEOIDs, geo_data){
     # Get census tracts to be highlighted
     new_data <- geo_data %>%
         filter(GEOID %in% GEOIDs)
-
-    # Calculate the coordinate to fly to with highlight
-    fly_to_centroid <- new_data %>% 
-        summarise(lon = mean(lon, na.rm = TRUE),
-                  lat = mean(lat, na.rm = TRUE))
-
     # Update the map
-    map_update(id, new_data, to = "highlight") %>%
-        # Fly to the centroid of the selection
-        flyTo(lng = fly_to_centroid$lon,
-              lat = fly_to_centroid$lat,
-              zoom = 11)
+    map_update(id, new_data, to = "highlight")
 }
 
 # Remove highlights of the GEOIDs in the map

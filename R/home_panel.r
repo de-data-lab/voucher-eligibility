@@ -1,11 +1,4 @@
 # Home Panel
-library(shinyWidgets)
-source("R/main_point.R")
-source("R/plot_card.R")
-source("R/overview_pie.R")
-source("R/families_count_plot.R")
-source("R/families_prop_plot.R")
-
 home_panel <- function(){
     tabPanel(
         id = "home",

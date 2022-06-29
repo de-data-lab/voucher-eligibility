@@ -1,6 +1,5 @@
 # A Shiny module for the pie chart showing an overview of the 
 # proportion of voucher participants among eligible families
-source("R/get_voucher_summary.R")
 
 # County List 
 county_list <- c("all" = "Delaware",

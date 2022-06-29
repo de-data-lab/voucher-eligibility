@@ -3,6 +3,14 @@
 # The resulting output will be a summary table where
 # one row represents a category
 
+#' Get a summary table of rent-burdened, severely rent-burdened, and voucher participant groups.
+#'
+#' @param .data 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 get_pct_table <- function(.data){
     # Summarize across variables
     .data <- .data %>% 

@@ -1,5 +1,4 @@
 # Shiny module for the table output on the explore page
-source("R/format_table.R")
 
 explore_table_UI <- function(id) {
     tagList(

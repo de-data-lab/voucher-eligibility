@@ -1,6 +1,5 @@
 # Compare to Delaware plot, showing the rent-burdened, severely-rent burdened, 
 # and people receiving vouchers against Delaware
-source("R/get_pct_table.R")
 
 compare_to_de_plot_UI <- function(id) {
     div(class = "explore-bar-container",
