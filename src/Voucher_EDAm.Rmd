@@ -89,10 +89,10 @@ cols <- colorNumeric(
 lat <- 39.1824#39.5393
 lng <- -75.2
 map<-la %>%
-  leaflet() %>%
-  addTiles(providers$CartoDB.Positron) %>%   #not including one, sets the general maps version
+  leaflet::leaflet() %>%
+  leaflet::addTiles(providers$CartoDB.Positron) %>%   #not including one, sets the general maps version
   setView(lng, lat, zoom = 8.0) %>%
-  addPolygons( fillColor = ~cols(la$med_rent_percE),
+  leaflet::addPolygons( fillColor = ~cols(la$med_rent_percE),
                color = "#B2AEAE",
                fillOpacity = 1,
                weight = 1,
@@ -126,10 +126,10 @@ cols <- colorNumeric(
 lat <- 39.1824#39.5393
 lng <- -75.2
 map<-la %>%
-  leaflet() %>%
-  addTiles(providers$CartoDB.Positron) %>%   #not including one, sets the general maps version
+  leaflet::leaflet() %>%
+  leaflet::addTiles(providers$CartoDB.Positron) %>%   #not including one, sets the general maps version
   setView(lng, lat, zoom = 8.0) %>%
-  addPolygons( fillColor = ~cols(la$med_rent_percE),
+  leaflet::addPolygons( fillColor = ~cols(la$med_rent_percE),
                color = "#B2AEAE",
                fillOpacity = 1,
                weight = 1,
