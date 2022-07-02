@@ -42,7 +42,7 @@ map_highlight <- function(id, GEOIDs, geo_data){
     # Update the map
     map_update(id, new_data, to = "highlight") %>%
         # Fly to the centroid of the selection
-        flyTo(lng = fly_to_centroid$lon,
+        leaflet::flyTo(lng = fly_to_centroid$lon,
               lat = fly_to_centroid$lat,
               zoom = 11)
 }
